@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accueil | Juste Doué</title>
+
+  <!-- logo onglet navigateur -->
+
+
+  <link rel="icon" href="images/logo.png" type="image/png">
+
+
+  <!-- Style global -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Pré-chargement des images du slider -->
+  <link rel="preload" as="image" href="images/slide_services.jpg">
+  <link rel="preload" as="image" href="images/slide_formations.jpg">
+  <link rel="preload" as="image" href="images/slide_realisations.jpg">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <link rel="stylesheet" href="devis_pop.css" />
+    <link rel="stylesheet" href="youtube_video_popup.css" />
+    <link rel="stylesheet" href="tiktok_video_popup.css" />
+
+
+</head>
+<body>
+  <!-- ================ NAVIGATION ================= -->
+  <nav>
+  <div class="container nav-wrapper">
+    <a href="index.html" class="logo">
+      <img id="logo" src="images/logo_black.png" alt="Juste Doué" />
+    </a>
+
+    <!-- Burger -->
+    <button class="burger" aria-label="Menu principal" aria-expanded="false">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <div class="nav-links">
+      <a href="index.html" class="nav-link" data-page="accueil">Accueil</a>
+
+       <!-- Menu déroulant A propos -->
+      <div class="nav-link dropdown">
+        <a>À propos <i class="fas fa-chevron-down"></i></a>
+        <div class="dropdown-menu">
+          <a href="apropos.html">Qui sommes nous ?</a>
+          <a href="apropos.html">Notre mission</a>
+          <a href="#contact">Contact</a>
+          <!-- Ajoute plus si besoin -->
+        </div>
+      </div>
+
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="formations.html" class="nav-link">Formations</a>
+      <a href="#design" class="nav-link">Réalisations</a>
+      
+
+     
+    </div>
+
+    <button class="toggle-theme" aria-label="Basculer le thème">☀️</button>
+  </div>
+</nav>
+
+  <!-- ================ HERO (carrousel) ================= -->
+  <section id="hero">
+    <div class="carousel">
+      <img src="images/slide_services.jpg"     class="carousel-image active" alt="Services"/>
+      <img src="images/slide_formations.jpg"   class="carousel-image"        alt="Formations"/>
+      <img src="images/slide_realisations.jpg" class="carousel-image"        alt="Réalisations"/>
+      <img src="images/slide_servie.jpg" class="carousel-image"        alt="A Propos"/>
+
+    </div>
+
+    <div class="hero-content">
+      <h1 id="heroTitle" class="fade-in">
+        Nous permettons à vos idées de <span style="color: var(--primary)">briller</span>
+      </h1>
+      <p id="heroSubtitle" class="fade-in">
+        Services créatifs, développement sur-mesure et formations pratiques pour devenir
+        <em>juste doué</em>.
+      </p>
+      <a id="heroButton" href="services.html" class="hero-button fade-in">
+        Découvrir nos services
+      </a>
+    </div>
+
+    <div class="carousel-controls">
+      <button class="prev-slide">‹</button>
+      <button class="next-slide">›</button>
+    </div>
+
+  </section>
+  
+
+  <!-- ================ SECTIONS ACCUEIL (extraits) ================= -->
+  <section id="design" class="fade-in">
+    
+  <div class="container">
+    <h2 style="text-align:center;margin-bottom:2.5rem">Réalisations Visuels et Marketings</h2>
+    <div class="services-grid">
+
+      
+      <div class="service-card">
+        <span class="tag">Affiches & Visuels</span>
+        <a href="https://www.youtube.com/embed/ldlBhg1c1Gw" class="youtube-popup">
+        <img src="https://img.youtube.com/vi/ldlBhg1c1Gw/0.jpg" alt="Voir la vidéo" style="width: 100%; max-width: 300px;">
+        </a>
+        <h3>Affiches et visuels pour réseaux</h3>
+        <p>Créations graphiques percutantes pour événements, pubs et médias sociaux.</p>
+      </div>
+
+
+
+<!-- TikTok Video Card -->
+<div class="service-card">
+  <span class="tag">Communication digital</span>
+  <a href="https://www.tiktok.com/@joe.betyna/video/7470912562834525495" class="tiktok-popup">
+    <img src="images/min_tiktok1.png" alt="Voir la vidéo TikTok" style="width: 100%; max-width: 300px;">
+  </a>
+  <h3>Video Marketing Digital(tnsarl.com)</h3>
+  <p>Créations graphiques percutantes des contenue marketing, pubs et médias sociaux de Transnumerica sarl.</p>
+</div>
+
+
+
+
+
+      <div class="service-card">
+        <span class="tag">Motion Design</span>
+        <iframe width="100%" height="200" src="https://www.youtube.com/embed/F96q9CiOtq8" frameborder="0" allowfullscreen></iframe>
+        <h3>Animation explicative</h3>
+        <p>Animation de présentation pour une start-up, avec transitions modernes et narration.</p>
+      </div>
+      
+      <div class="service-card">
+        <span class="tag">Formations</span>
+        <iframe width="100%" height="200" src="https://www.youtube.com/embed/SZUHZ1HPMRg" frameborder="0" allowfullscreen></iframe>
+        <h3>Master Class Edition 2025</h3>
+        <p>Venez apprendre des truc interressant et devenez juste doué avec l'Ingerieur Joseph M. BETYNA.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="developpement" class="fade-in">
+  <div class="container">
+    <h2 style="text-align:center;margin-bottom:2.5rem">Développement Web & Mobile</h2>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <span class="tag">Web</span>
+        <iframe width="100%" height="200" src="https://www.youtube.com/embed/oKSirY5WBPE&pp=ygURZGV2ZW5pciBjaHLDqXRpZW4%3D" frameborder="0" allowfullscreen></iframe>
+        <h3>Site vitrine pour entreprise</h3>
+        <p>Un site web responsive réalisé en HTML/CSS/JS avec optimisation SEO.</p>
+      </div>
+
+      <div class="service-card">
+        <span class="tag">Mobile</span>
+        <iframe width="100%" height="200" src="https://www.youtube.com/embed/7s0gbcgBt50&pp=ygURZGV2ZW5pciBjaHLDqXRpZW4%3D" frameborder="0" allowfullscreen></iframe>
+        <h3>Application Flutter</h3>
+        <p>Application mobile de gestion de tâches multiplateforme développée sous Flutter.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+  <!-- ================ CONTACT ================= -->
+  <section id="contact" class="fade-in">
+    <div class="container">
+      <h2 style="text-align:center;margin-bottom:1.5rem">Contactez-nous</h2>
+      <form id="contactForm" class="contact-form">
+        <input type="text" placeholder="Nom complet" required />
+        <input type="email" placeholder="Email" required />
+        
+        <input type="tel" placeholder="Téléphone" required />
+        <textarea rows="5" placeholder="Votre message" required></textarea>
+        <button class="btn" type="submit">Envoyer</button>
+      </form>
+    </div>
+  </section>
+
+
+  <!-- ================ FOOTER ================= -->
+ <footer>
+  <div class="social-links">
+    <a href="https://wa.me/243843325605" target="_blank" title="WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="https://www.facebook.com/profile.php?id=100071184765230" target="_blank" title="Facebook">
+      <i class="fab fa-facebook"></i>
+    </a>
+    <a href="https://youtube.com/tonchaine" target="_blank" title="YouTube">
+      <i class="fab fa-youtube"></i>
+    </a>
+    <a href="https://instagram.com/tonprofil" target="_blank" title="Instagram">
+      <i class="fab fa-instagram"></i>
+    </a>
+  </div>
+
+  <p class="footer-text">
+    © 2025 · Juste Doué · Conçu par Joseph M. Betyna.<br>
+    <a href="#">Mentions légales</a> · <a href="#">Politique de confidentialité</a>
+  </p>
+</footer>
+
+
+
+  <!-- Popup vidéo -->
+
+<div id="videoPopup" class="popup">
+  <div class="popup-content">
+    <span class="close-btn">&times;</span>
+    <iframe id="popupIframe" src="" frameborder="0" allowfullscreen></iframe>
+  </div>
+</div>
+
+
+<!-- POPUP DEVIS -->
+  <div id="popupDevis">
+    <div class="modal">
+      <button class="close-btn" id="closePopupDevis" aria-label="Fermer la demande de devis">&times;</button>
+      <h1>Besoins d'un devis?</h1>
+      <h2>Parlez-nous de votre projet, on s’occupe du reste !</h2>
+      
+
+
+      <form id="formDevis">
+    <label for="nom">Nom :</label>
+    <input type="text" id="nom" name="nom" required />
+
+    <label for="emailDevis">Email :</label>
+    <input type="email" id="emailDevis" name="email" />
+
+    <label for="service">Service :</label>
+    <select id="service" name="service">
+      <option value="Site web">Site web</option>
+      <option value="Application mobile">Application mobile</option>
+      <option value="Graphisme">Graphisme</option>
+    </select>
+
+    <label for="details">Détails :</label>
+    <textarea id="details" name="details" required></textarea>
+
+    <button type="submit" >Envoyer la demande</button>
+  </form>
+
+
+    </div>
+  </div>
+
+
+<!-- ================ SCRIPTS ================= -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script src="script.js"></script>
+
+  <script src="youtube_video_popup.js"></script>
+  <script src="tiktok_video_popup.js"></script>
+
+ 
+
+
+  
+</body>
+</html>

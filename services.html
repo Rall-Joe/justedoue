@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nos Services | Juste Doué</title>
+
+   <!-- Style global -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Pré-chargement des images du slider -->
+  <link rel="preload" as="image" href="images/slide_services.jpg">
+  <link rel="preload" as="image" href="images/slide_formations.jpg">
+  <link rel="preload" as="image" href="images/slide_realisations.jpg">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+
+ 
+
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+<nav>
+  <div class="container nav-wrapper">
+    <a href="index.html" class="logo">
+      <img id="logo" src="images/logo_black.png" alt="Juste Doué" />
+    </a>
+
+    <!-- Burger -->
+    <button class="burger" aria-label="Menu principal" aria-expanded="false">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Accueil</a>
+
+       <!-- Menu déroulant A propos -->
+      <!-- Menu déroulant A propos -->
+<div class="nav-link dropdown">
+  <a class="nav-link">À propos <i class="fas fa-chevron-down"></i></a>
+  <div class="dropdown-menu">
+    <a href="apropos.html">Qui sommes nous ?</a>
+    <a href="apropos.html">Notre mission</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</div>
+
+
+      <a href="services.html" class="nav-link" data-page="services">Services</a>
+      <a href="formations.html" class="nav-link">Formations</a>
+      <a href="index.html#design" class="nav-link">Réalisations</a>
+      
+
+     
+    </div>
+
+    <button class="toggle-theme" aria-label="Basculer le thème">☀️</button>
+  </div>
+</nav>
+
+  <!-- En-tête avec titre -->
+<header class="hero-banner">
+  <div class="hero-content">
+    <h1 class="fade-in">Nos&nbsp;Services</h1>
+    <p class="fade-in" style="max-width:700px;margin:auto">
+      Découvrez l’ensemble des prestations créatives et techniques que nous proposons pour booster
+      votre marque et vos projets numériques.
+    </p>
+    </div>
+</header>
+
+
+  <!-- Section Services modernisée -->
+  <main class="container">
+
+  <!-- Service 1 -->
+  <section class="service-row fade-in">
+    <div class="service-text">
+      <h3>Développement Web, Logiciels et Apps Mobiles</h3>
+      <p>
+        Nous mettons à votre disposition des développeurs fullstack pour créer vos projets :
+        présentation de produits, systèmes de gestion ou vente, applications mobiles...
+      </p>
+      <a href="contact.html" class="btn">Demander un devis</a>
+    </div>
+    <div class="service-image">
+      <img src="images/dev_service.jpg" alt="Développement web et mobile">
+    </div>
+  </section>
+
+  <!-- Service 2 -->
+  <section class="service-row fade-in">
+    <div class="service-text">
+      <h3>Motion Design & Vidéo</h3>
+      <p>
+        Création d’animations dynamiques, génériques vidéos, teasers promotionnels,
+        et montages vidéos professionnels pour vos projets.
+      </p>
+      <a href="contact.html" class="btn">Demander un devis</a>
+    </div>
+    <div class="service-image">
+      <img src="images/video_service.jpg" alt="Motion Design et Vidéo">
+    </div>
+  </section>
+
+  <!-- Service 3 -->
+  <section class="service-row fade-in">
+    <div class="service-text">
+      <h3>Design Graphique</h3>
+      <p>
+        Création de logos professionnels, chartes graphiques, visuels publicitaires et maquettes UI/UX modernes.
+      </p>
+      <a href="contact.html" class="btn">Demander un devis</a>
+    </div>
+    <div class="service-image">
+      <img src="images/design_service.jpg" alt="Design graphique">
+    </div>
+  </section>
+
+</main>
+
+
+  <footer>
+    © 2025 · Juste Doué
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

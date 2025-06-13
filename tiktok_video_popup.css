@@ -1,0 +1,57 @@
+.tiktok-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.tiktok-popup-content {
+  position: relative;
+  background: #fff;
+  max-width: 100%;
+  width: 100%;
+  max-width: 600px;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.tiktok-popup-content iframe,
+.tiktok-popup-content blockquote {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 9 / 16; /* Format vertical TikTok */
+}
+
+.tiktok-popup-close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  color: #333;
+  z-index: 10000;
+}
+
+@media (max-width: 480px) {
+  .tiktok-popup-content {
+    max-width: 90%;
+    padding: 0.5rem;
+  }
+
+  .tiktok-popup-close {
+    top: 4px;
+    right: 8px;
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>À propos | Juste Doué</title>
+
+
+  <!-- Style global -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+
+
+
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+<nav>
+  <div class="container nav-wrapper">
+    <a href="index.html" class="logo">
+      <img id="logo" src="images/logo_black.png" alt="Juste Doué" />
+    </a>
+
+    <!-- Burger -->
+    <button class="burger" aria-label="Menu principal" aria-expanded="false">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Accueil</a>
+
+       <!-- Menu déroulant A propos -->
+      <!-- Menu déroulant A propos -->
+<div class="nav-link dropdown">
+  <a class="nav-link">À propos <i class="fas fa-chevron-down" data-page="apropos"></i></a>
+  <div class="dropdown-menu">
+    <a href="apropos.html">Qui sommes nous ?</a>
+    <a href="apropos.html">Notre mission</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</div>
+
+
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="formations.html" class="nav-link">Formations</a>
+      <a href="index.html#design" class="nav-link">Réalisations</a>
+      
+
+     
+    </div>
+
+    <button class="toggle-theme" aria-label="Basculer le thème">☀️</button>
+  </div>
+</nav>
+
+  <!-- HERO -->
+  <header class="hero-banner" style="background:url('images/hero_apropos.jpg') center/cover no-repeat">
+    <div class="hero-content">
+      <h1 class="fade-in">À propos de Juste Doué</h1>
+      <p class="fade-in" style="max-width:700px;margin:auto">
+        Notre mission : révéler la créativité numérique de chacun grâce à la formation et à la production de contenus d’exception.
+      </p>
+    </div>
+  </header>
+
+  <!-- CONTENU A PROPOS -->
+  <main class="container">
+    <section id="nous" class="fade-in">
+      <h2>Qui sommes nous ?</h2>
+      <p>Mettre la création digitale à la portée de tous et contribuer au rayonnement du talent africain.</p>
+    </section>
+
+    <section id="vision" class="fade-in">
+      <h2>Notre Mission</h2>
+      <p>Des passionnés de design, de développement et de pédagogie unis par la même envie&nbsp;: partager et innover.</p>
+    </section>
+  </main>
+
+  <footer>© 2025 · Juste Doué</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nos Formations | Juste Doué</title>
+
+   <!-- Style global -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Pré-chargement des images du slider -->
+  <link rel="preload" as="image" href="images/slide_services.jpg">
+  <link rel="preload" as="image" href="images/slide_formations.jpg">
+  <link rel="preload" as="image" href="images/slide_realisations.jpg">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+
+
+
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+<nav>
+  <div class="container nav-wrapper">
+    <a href="index.html" class="logo">
+      <img id="logo" src="images/logo_black.png" alt="Juste Doué" />
+    </a>
+
+    <!-- Burger -->
+    <button class="burger" aria-label="Menu principal" aria-expanded="false">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Accueil</a>
+
+       <!-- Menu déroulant A propos -->
+      <!-- Menu déroulant A propos -->
+<div class="nav-link dropdown">
+  <a class="nav-link">À propos <i class="fas fa-chevron-down"></i></a>
+  <div class="dropdown-menu">
+    <a href="apropos.html">Qui sommes nous ?</a>
+    <a href="apropos.html">Notre mission</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</div>
+
+
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="formations.html" class="nav-link" data-page="formations">Formations</a>
+      <a href="index.html#design" class="nav-link">Réalisations</a>
+      
+
+     
+    </div>
+
+    <button class="toggle-theme" aria-label="Basculer le thème">☀️</button>
+  </div>
+</nav>
+
+  <!-- HERO BANNER -->
+  <header class="hero-banner" style="background:url('images/hero_formations.jpg') center/cover no-repeat">
+    <div class="hero-content">
+      <h1 class="fade-in">Dans quel domaine souhaitez-vous vous former ?</h1>
+      <p class="fade-in" style="max-width:700px;margin:auto">
+        Passez de passionné·e à <strong>juste doué·e</strong> grâce à nos cursus courts, orientés projets
+        et encadrés par des pros du métier. Apprenez des compétences d’aujourd’hui et un métier qui a de 
+        l’avenir avec nos formations.
+      </p>
+    </div>
+  </header>
+
+  <!-- FILTRE -->
+  <div class="container" style="text-align:center; margin: 40px 0;">
+    <button onclick="filterFormations('all')" class="btn">Toutes</button>
+    <button onclick="filterFormations('dev')" class="btn">Développement</button>
+    <button onclick="filterFormations('design')" class="btn">Design</button>
+  </div>
+
+  <!-- FORMATIONS -->
+  <main class="container">
+    <!-- Formation 1 -->
+    <section class="service-row fade-in" data-categorie="dev">
+      <div class="service-text">
+        <h3>Développement&nbsp;Web</h3>
+        <p>HTML, CSS, JavaScript ; React / Next.js ; déploiement et SEO pour créer des sites modernes, responsifs et performants.</p>
+        <a href="contact.html" class="btn">S'inscrire à la formation</a>
+      </div>
+      <div class="service-image">
+        <img src="images/formation_web.jpg" alt="Formation développement web">
+      </div>
+    </section>
+
+    <!-- Formation 2 -->
+    <section class="service-row fade-in" data-categorie="dev">
+      <div class="service-text">
+        <h3>Applications&nbsp;Mobiles</h3>
+        <p>Flutter &nbsp;/&nbsp; React Native : design d’interface, logique métier, publication sur les stores.</p>
+        <a href="contact.html" class="btn">S'inscrire à la formation</a>
+      </div>
+      <div class="service-image">
+        <img src="images/formation_mobile.jpg" alt="Formation mobile">
+      </div>
+    </section>
+
+    <!-- Formation 3 -->
+    <section class="service-row fade-in" data-categorie="design">
+      <div class="service-text">
+        <h3>Design&nbsp;Graphique &amp; Motion</h3>
+        <p>Photoshop, Illustrator, After Effects : créez logos, affiches, animations et vidéos impactantes.</p>
+        <a href="contact.html" class="btn">S'inscrire à la formation</a>
+      </div>
+      <div class="service-image">
+        <img src="images/formation_design.jpg" alt="Formation design">
+      </div>
+    </section>
+
+    <!-- Formation 4 -->
+    <section class="service-row fade-in" data-categorie="design">
+      <div class="service-text">
+        <h3>Motion Design 3D</h3>
+        <p>Blender 3D : création des animations 3D pour vos effets spéciaux.</p>
+        <a href="contact.html" class="btn">S'inscrire à la formation</a>
+      </div>
+      <div class="service-image">
+        <img src="images/formation_mobile.jpg" alt="Formation mobile">
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2025 · Juste Doué</footer>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
