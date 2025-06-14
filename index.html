@@ -34,6 +34,7 @@
 
 </head>
 <body>
+
   <!-- ================ NAVIGATION ================= -->
 <nav>
   <div class="container nav-wrapper">
@@ -206,19 +207,21 @@
 </section>
 
   <!-- ================ CONTACT ================= -->
-  <section id="contact" class="fade-in">
-    <div class="container">
-      <h2 style="text-align:center;margin-bottom:1.5rem">Contactez-nous</h2>
-      <form id="contactForm" class="contact-form">
-        <input type="text" placeholder="Nom complet" required />
-        <input type="email" placeholder="Email" required />
-        
-        <input type="tel" placeholder="Téléphone" required />
-        <textarea rows="5" placeholder="Votre message" required></textarea>
-        <button class="btn" type="submit">Envoyer</button>
-      </form>
-    </div>
-  </section>
+<section id="contact" class="fade-in">
+  <div class="container contact-container">
+    <h2>Contactez-nous</h2>
+    <form id="contactForm" class="contact-form">
+      <input id="contactNom" type="text" placeholder="Nom complet" required />
+      <input id="contactEmail" type="email" placeholder="Email (facultatif)" />
+      <input id="contactTel" type="tel" placeholder="Téléphone (facultatif)" />
+      <textarea id="contactMessage" rows="5" placeholder="Votre message" required></textarea>
+      <button class="btn" type="submit">Envoyer</button>
+    </form>
+
+  </div>
+</section>
+
+
 
 
   <!-- ================ FOOTER ================= -->
@@ -272,6 +275,9 @@
     <label for="emailDevis">Email :</label>
     <input type="email" id="emailDevis" name="email" />
 
+    <label for="telDevis">Telephone :</label>
+    <input type="tel" id="telDevis" name="tel" />
+
     <label for="service">Service :</label>
     <select id="service" name="service">
       <option value="Site web">Site web</option>
@@ -292,6 +298,10 @@
 
 <!-- ================ SCRIPTS ================= -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+
 <script src="script.js"></script>
 
   <script src="youtube_video_popup.js"></script>
