@@ -289,7 +289,26 @@ document.querySelector('.close-btn').addEventListener('click', () => {
 
 
 
+// SCROLL VIDEO
 
-    //-------- ENVOI DEVIS WHATSAPP OU EMAIL
+// Script pour faire défiler horizontalement les vidéos au clic des boutons
+    document.addEventListener("DOMContentLoaded", () => {
+      const wrapper = document.querySelector(".carousel-wrapper");
+      const carousel = wrapper.querySelector(".carousel.video-scroll");
+      const btnLeft = wrapper.querySelector(".carousel-btn.left");
+      const btnRight = wrapper.querySelector(".carousel-btn.right");
+
+      const scrollAmount = 340; // largeur approximative d'une carte + marge
+
+      btnLeft.addEventListener("click", () => {
+        carousel.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+      });
+
+      btnRight.addEventListener("click", () => {
+        carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
+      });
+    });
+
+
 
   
