@@ -367,12 +367,118 @@ nav{
 
 
 
+/*  ABOUT US */
+
+.about-section {
+  position: relative; /* nécessaire pour le pseudo-élément */
+  color: var(--text-inverse);
+  padding: 4rem 1rem;
+  overflow: hidden; /* pour éviter que le pseudo-élément dépasse */
+
+  /* on enlève background-color */
+  /* background-color: var(--primary); */
+}
+
+/* Arrière-plan image fixe sur toute la section */
+.about-section::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url('images/fond_about2.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.6); /* assombrit un peu l'image pour mieux voir le texte */
+  z-index: -2;
+}
+
+/* Calque flouté semi-transparent pour effet vitre */
+.about-section::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: #ffffff79; /* fond blanc transparent */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: -1;
+  pointer-events: none; /* pour que ça ne gêne pas les clics */
+  border-radius: 0; /* optionnel si tu veux arrondir les bords */
+}
+
+
+
+.about-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.about-image {
+  flex: 1 1 300px;
+  min-width: 280px;
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.about-content {
+  flex: 1 1 400px;
+  min-width: 280px;
+}
+
+.about-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.about-content p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
+.btn-primary {
+  background-color: var(--text-inverse);
+  color: var(--primary);
+  border: none;
+  padding: 0.75rem 1.75rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  color: var(--text-inverse);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-section .container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .about-image, .about-content {
+    min-width: 100%;
+  }
+  .about-content h2 {
+    font-size: 2rem;
+  }
+}
 
 
 
 /* ========= HERO ========= */
 #hero{
-  position:relative;height:70vh;overflow:hidden;
+  position:relative;height:80vh;overflow:hidden;
   display:flex;align-items:center;justify-content:center;
   text-align:center;color:#fff;padding:2rem;
 }
@@ -420,6 +526,33 @@ nav{
 .hero-content{position:relative;z-index:1;max-width:800px;margin:auto;}
 .hero-banner h1{font-size:3rem;margin-bottom:1rem;}
 .hero-banner p{font-size:1.2rem;}
+
+/* Responsivité pour mobile */
+@media (max-width: 768px) {
+  #hero {
+    height: 40vh; /* 40% de la hauteur écran */
+    padding: 1rem; /* réduit un peu le padding pour mobile */
+  }
+
+  .hero-content {
+    max-width: 90%; /* contenu plus fluide */
+    margin: 0 auto;
+  }
+
+  #hero h1 {
+    font-size: clamp(1.8rem, 5vw + 0.5rem, 3rem); /* adapte la taille du titre */
+  }
+
+  #hero p {
+    font-size: clamp(1rem, 3vw + 0.2rem, 1.1rem);
+    max-width: 100%; /* évite que le texte dépasse */
+  }
+
+  .carousel-image {
+    object-fit: cover; /* pour que les images restent bien cadrées */
+  }
+}
+
 
 /* ========= GRILLE SERVICES ========= */
 .services-grid{display:grid;gap:2rem;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));}
