@@ -5,91 +5,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Accueil | Juste Doué</title>
 
-  <!-- logo onglet navigateur -->
-
-
   <link rel="icon" href="images/logo.png" type="image/png">
 
-
-  <!-- Style global -->
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Pré-chargement des images du slider -->
   <link rel="preload" as="image" href="images/slide_services.jpg">
   <link rel="preload" as="image" href="images/slide_formations.jpg">
   <link rel="preload" as="image" href="images/slide_realisations.jpg">
+  <link rel="preload" as="image" href="images/slide_servie.jpg"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-  <!-- FontAwesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-    <link rel="stylesheet" href="devis_pop.css" />
-    <link rel="stylesheet" href="youtube_video_popup.css" />
-    <link rel="stylesheet" href="tiktok_video_popup.css" />
-
-
+  <link rel="stylesheet" href="devis_pop.css" />
+  <link rel="stylesheet" href="youtube_video_popup.css" />
+  <link rel="stylesheet" href="tiktok_video_popup.css" />
 </head>
 <body>
 
-  <!-- ================ NAVIGATION ================= -->
-<nav>
-  <div class="container nav-wrapper">
-    <a href="index.html" class="logo">
-      <img id="logo" src="images/logo_black.png" alt="Juste Doué" />
-    </a>
+  <nav id="navigation">
+    <div class="container nav-wrapper">
+      <a href="#hero" class="logo">
+        <img id="logo" src="images/logo_black.png" alt="Logo Juste Doué" />
+      </a>
 
-    <!-- Burger -->
-    <button class="burger" aria-label="Menu principal" aria-expanded="false">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </button>
+      <button class="burger" aria-label="Ouvrir le menu principal" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
 
-    <!-- Liens de navigation + bouton thème -->
-    <div class="nav-links">
-      <a href="index.html" class="nav-link" data-page="accueil">Accueil</a>
+      <div class="nav-links">
+        <a href="#hero" class="nav-link" data-page="accueil">Accueil</a>
 
-      <!-- Menu déroulant À propos -->
-      <div class="nav-link dropdown">
-        <a>À propos <i class="fas fa-chevron-down"></i></a>
-        <div class="dropdown-menu">
-          <a href="#realisations">Qu'avons nous fait ?</a>
-          <a href="#about">Qui sommes nous ?</a>
-          <a href="#contact">Contact</a>
+        <div class="nav-link dropdown">
+          <button class="dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+            À propos <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="dropdown-menu">
+            <a href="#realisations">Qu'avons-nous fait ?</a>
+            <a href="#about">Qui sommes-nous ?</a>
+            <a href="#contact">Contact</a>
+          </div>
         </div>
+
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="formations.html" class="nav-link">Formations</a>
+
+        <button class="toggle-theme nav-theme-btn" aria-label="Basculer le thème (clair/sombre)">☀️</button>
       </div>
-
-      <a href="services.html" class="nav-link">Services</a>
-      <a href="formations.html" class="nav-link">Formations</a>
-
-      <!-- Bouton thème placé ici dans le menu burger -->
-      <button class="toggle-theme nav-theme-btn" aria-label="Basculer le thème">☀️</button>
-
     </div>
-  </div>
-</nav>
+  </nav>
 
-
-  <!-- ================ HERO (carrousel) ================= -->
   <section id="hero">
     <div class="carousel">
-      <img src="images/slide_services.jpg"     class="carousel-image active" alt="Services"/>
-      <img src="images/slide_formations.jpg"   class="carousel-image"        alt="Formations"/>
-      <img src="images/slide_realisations.jpg" class="carousel-image"        alt="Réalisations"/>
-      <img src="images/slide_servie.jpg" class="carousel-image"        alt="A Propos"/>
-
-    </div>
+      <img src="images/slide_services.jpg" class="carousel-image active" alt="Services" />
+      <img src="images/slide_formations.jpg" class="carousel-image" alt="Formations" />
+      <img src="images/slide_realisations.jpg" class="carousel-image" alt="Réalisations" />
+      <img src="images/slide_servie.jpg" class="carousel-image" alt="À Propos" /> </div>
 
     <div class="hero-content">
       <h1 id="heroTitle" class="fade-in">
         Nous permettons à vos idées de <span style="color: var(--primary)">briller</span>
       </h1>
       <p id="heroSubtitle" class="fade-in">
-        Services créatifs, développement sur-mesure et formations pratiques pour devenir
+        Services créatifs, développement sur mesure et formations pratiques pour devenir
         <em>juste doué</em>.
       </p>
       <a id="heroButton" href="services.html" class="hero-button fade-in">
@@ -98,193 +79,221 @@
     </div>
 
     <div class="carousel-controls">
-      <button class="prev-slide">‹</button>
-      <button class="next-slide">›</button>
+      <button class="prev-slide" aria-label="Image précédente">‹</button>
+      <button class="next-slide" aria-label="Image suivante">›</button>
     </div>
-
   </section>
-  
-  <!--  SECTION REALISATIONS -->
 
+  <section id="realisations" class="fade-in">
+    <div class="container">
+      <h2 style="text-align:center; margin-bottom: 2.5rem;">Nos réalisations</h2>
 
+      <div class="carousel-wrapper">
+        <button class="carousel-btn left" aria-label="Défiler à gauche">❮</button>
 
- <section id="realisations" class="fade-in">
-  <div class="container">
-    <h2 style="text-align:center; margin-bottom: 2.5rem;">Nous avons fait</h2>
-
-    <div class="carousel-wrapper">
-      <button class="carousel-btn left">&#10094;</button>
-
-      <div class="carousel video-scroll">
-
-        <div class="service-card">
-          <a href="https://www.youtube.com/embed/ldlBhg1c1Gw" class="youtube-popup">
-            <img src="https://img.youtube.com/vi/ldlBhg1c1Gw/0.jpg" alt="Voir la vidéo">
-          </a>
-          <h3>Affiches et visuels pour réseaux</h3>
-          <p>Créations graphiques percutantes pour événements, pubs et médias sociaux.</p>
-        </div>
-
-        <div class="service-card">
-          <a href="https://www.tiktok.com/@joe.betyna/video/7470912562834525495" class="tiktok-popup">
-            <img src="images/min_tiktok1.png" alt="Voir la vidéo TikTok">
-          </a>
-          <h3>Video Marketing Digital (tnsarl.com)</h3>
-          <p>Créations graphiques percutantes pour le marketing et les réseaux sociaux.</p>
-        </div>
-
-        <div class="service-card">
-          <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/F96q9CiOtq8" allowfullscreen></iframe>
+        <div class="carousel video-scroll">
+          <div class="carousel-video-card">
+            <a href="https://www.youtube.com/embed/ldlBhg1c1Gw" class="youtube-popup">
+              <img src="https://img.youtube.com/vi/ldlBhg1c1Gw/0.jpg" alt="Voir la vidéo : Affiches et visuels pour réseaux">
+            </a>
+            <h3>Affiches et visuels pour réseaux</h3>
+            <p>Créations graphiques percutantes pour événements, pubs et médias sociaux.</p>
           </div>
-          <h3>Animation explicative</h3>
-          <p>Animation de présentation pour une start-up, transitions modernes et narration.</p>
-        </div>
 
-        <div class="service-card">
-          <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/SZUHZ1HPMRg" allowfullscreen></iframe>
+          <div class="carousel-video-card">
+            <a href="https://www.tiktok.com/@joe.betyna/video/7470912562834525495" class="tiktok-popup">
+              <img src="images/min_tiktok1.png" alt="Voir la vidéo TikTok : Video Marketing Digital (tnsarl.com)">
+            </a>
+            <h3>Vidéo Marketing Digital (tnsarl.com)</h3>
+            <p>Créations graphiques percutantes pour le marketing et les réseaux sociaux.</p>
           </div>
-          <h3>Master Class Edition 2025</h3>
-          <p>Apprenez des trucs intéressants et devenez juste doué avec l’ingénieur Joseph M. BETYNA.</p>
+
+          <div class="carousel-video-card">
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/F96q9CiOtq8" allowfullscreen title="Animation explicative"></iframe>
+            </div>
+            <h3>Animation explicative</h3>
+            <p>Animation de présentation pour une start-up, transitions modernes et narration.</p>
+          </div>
+
+          <div class="carousel-video-card">
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/SZUHZ1HPMRg" allowfullscreen title="Master Class Edition 2025"></iframe>
+            </div>
+            <h3>Master Class Édition 2025</h3>
+            <p>Apprenez des trucs intéressants et devenez juste doué avec l’ingénieur Joseph M. BETYNA.</p>
+          </div>
+
         </div>
 
-
+        <button class="carousel-btn right" aria-label="Défiler à droite">❯</button>
       </div>
+    </div>
+  </section>
 
-      <button class="carousel-btn right">&#10095;</button>
+  <section id="about" class="about-section">
+    <div class="container">
+      <div class="about-image">
+        <img src="images/moi.jpg" alt="Photo de l'équipe Juste Doué" />
+      </div>
+      <div class="about-content">
+        <h2>Qui sommes-nous ?</h2>
+        <p>
+          Nous sommes une équipe passionnée dédiée à fournir les meilleurs services à nos clients.
+          Notre mission est de vous accompagner dans vos projets avec expertise et engagement.
+        </p>
+        <button class="btn-primary" onclick="location.href='apropos.html'">En savoir plus</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="fade-in">
+    <div class="container contact-container">
+      <h2>Contactez-nous</h2>
+      <form id="contactForm" class="contact-form">
+        <input id="contactNom" type="text" placeholder="Nom complet" required aria-label="Votre nom complet" />
+        <input id="contactEmail" type="email" placeholder="Email (facultatif)" aria-label="Votre adresse e-mail" />
+        <input id="contactTel" type="tel" placeholder="Téléphone (facultatif)" aria-label="Votre numéro de téléphone" />
+        <textarea id="contactMessage" rows="5" placeholder="Votre message" required aria-label="Votre message"></textarea>
+        <button class="btn" type="submit">Envoyer</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="social-links">
+      <a href="https://wa.me/243843325605" target="_blank" title="WhatsApp" aria-label="Nous contacter sur WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+      <a href="https://www.facebook.com/profile.php?id=100071184765230" target="_blank" title="Facebook" aria-label="Notre page Facebook">
+        <i class="fab fa-facebook"></i>
+      </a>
+      <a href="https://youtube.com/tonchaine" target="_blank" title="YouTube" aria-label="Notre chaîne YouTube">
+        <i class="fab fa-youtube"></i>
+      </a>
+      <a href="https://instagram.com/tonprofil" target="_blank" title="Instagram" aria-label="Notre profil Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </div>
+
+    <div class="contact-info">
+      <p><i class="fas fa-map-marker-alt"></i> 8e Rue, N°13/182, Q. Cité Verte, C. Selembao, Kinshasa</p>
+      <p><i class="fas fa-phone"></i> <a href="tel:+243843325605">+243 84 33 25 605</a></p>
+      <p><i class="fas fa-envelope"></i> <a href="mailto:juste.doue.contact@gmail.com">juste.doue.contact@gmail.com</a></p>
+    </div>
+
+    <p class="footer-text">
+      © 2025 · <strong>Juste Doué</strong> – Tous droits réservés<br>
+      <a href="#">Mentions légales</a> ·
+      <a href="#">Politique de confidentialité</a>
+    </p>
+  </footer>
+
+  <div id="videoPopup" class="video-popup">
+    <div class="video-popup-content">
+      <button class="close-btn" aria-label="Fermer la vidéo">×</button>
+      <iframe id="popupIframe" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
     </div>
   </div>
-</section>
 
-
-   <section id="about" class="about-section">
-  <div class="container">
-    <div class="about-image">
-      <img src="images/moi.jpg" alt="Qui sommes-nous" />
-    </div>
-    <div class="about-content">
-      <h2>Qui sommes-nous ?</h2>
-      <p>
-        Nous sommes une équipe passionnée dédiée à fournir les meilleurs services à nos clients.  
-        Notre mission est de vous accompagner dans vos projets avec expertise et engagement.
-      </p>
-      <button class="btn-primary" onclick="location.href='apropos.html'">En savoir plus</button>
-    </div>
-  </div>
-</section>
-
-  <!-- ================ CONTACT ================= -->
-<section id="contact" class="fade-in">
-  <div class="container contact-container">
-    <h2>Contactez-nous</h2>
-    <form id="contactForm" class="contact-form">
-      <input id="contactNom" type="text" placeholder="Nom complet" required />
-      <input id="contactEmail" type="email" placeholder="Email (facultatif)" />
-      <input id="contactTel" type="tel" placeholder="Téléphone (facultatif)" />
-      <textarea id="contactMessage" rows="5" placeholder="Votre message" required></textarea>
-      <button class="btn" type="submit">Envoyer</button>
-    </form>
-
-  </div>
-</section>
-
-
-
-
- <!-- ================ FOOTER ================= -->
-<footer style="background-color: var(--bg-alt); padding: 2rem; text-align: center; font-size: 0.9rem; color: var(--text);">
-  <div class="social-links" style="margin-bottom: 1rem; font-size: 1.4rem;">
-    <a href="https://wa.me/243843325605" target="_blank" title="WhatsApp" style="color: var(--text); margin: 0 0.5rem;">
-      <i class="fab fa-whatsapp"></i>
-    </a>
-    <a href="https://www.facebook.com/profile.php?id=100071184765230" target="_blank" title="Facebook" style="color: var(--text); margin: 0 0.5rem;">
-      <i class="fab fa-facebook"></i>
-    </a>
-    <a href="https://youtube.com/tonchaine" target="_blank" title="YouTube" style="color: var(--text); margin: 0 0.5rem;">
-      <i class="fab fa-youtube"></i>
-    </a>
-    <a href="https://instagram.com/tonprofil" target="_blank" title="Instagram" style="color: var(--text); margin: 0 0.5rem;">
-      <i class="fab fa-instagram"></i>
-    </a>
-  </div>
-
-  <div class="contact-info" style="margin-bottom: 1rem; line-height: 1.8;">
-    <p><i class="fas fa-map-marker-alt"></i> 8e Rue, N°13/182, Q. Cité Verte, C. Selembao, Kinshasa</p>
-    <p><i class="fas fa-phone"></i> <a href="tel:+243843325605" style="color: var(--text); text-decoration: none;">+243 84 33 25 605</a></p>
-    <p><i class="fas fa-envelope"></i> <a href="mailto:juste.doue.contact@gmail.com" style="color: var(--text); text-decoration: none;">juste.doue.contact@gmail.com</a></p>
-  </div>
-
-  <p class="footer-text" style="color: var(--text);">
-    © 2025 · <strong>Juste Doué</strong> – Tous droits réservés<br>
-    <a href="#" style="color: var(--primary); text-decoration: none;">Mentions légales</a> · 
-    <a href="#" style="color: var(--primary); text-decoration: none;">Politique de confidentialité</a>
-  </p>
-</footer>
-
-
-
-  <!-- Popup vidéo -->
-
-<div id="videoPopup" class="popup">
-  <div class="popup-content">
-    <span class="close-btn">&times;</span>
-    <iframe id="popupIframe" src="" frameborder="0" allowfullscreen></iframe>
-  </div>
-</div>
-
-
-<!-- POPUP DEVIS -->
-  <div id="popupDevis">
-    <div class="modal">
-      <button class="close-btn" id="closePopupDevis" aria-label="Fermer la demande de devis">&times;</button>
-      <h1>Besoins d'un devis?</h1>
+  <div id="popupDevis"> <div class="modal">
+      <button class="close-btn" id="closePopupDevis" aria-label="Fermer la demande de devis">×</button>
+      <h1 id="popupTitle">Besoin d'un devis ?</h1>
       <h2>Parlez-nous de votre projet, on s’occupe du reste !</h2>
-      
+
+      <form id="devisForm" enctype="multipart/form-data">
+        <label for="nom">Nom</label>
+        <input type="text" id="nom" name="nom" required aria-required="true" />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Votre adresse e-mail" />
+
+        <label for="tel">Téléphone</label>
+        <div class="phone-field">
+          <select id="countryCode" name="countryCode" aria-label="Code pays du téléphone">
+            <option value="+243">CD (+243)</option>
+            <option value="+33">FR (+33)</option>
+            </select>
+          <input type="tel" id="tel" name="tel" placeholder="Votre numéro de téléphone" />
+        </div>
 
 
-      <form id="formDevis">
-    <label for="nom">Nom :</label>
-    <input type="text" id="nom" name="nom" required />
+        <div id="selectedServiceDisplay" style="display:none; font-weight: bold; margin: 0.5rem 0;"></div>
 
-    <label for="emailDevis">Email :</label>
-    <input type="email" id="emailDevis" name="email" />
+        <div id="serviceFieldContainer">
+          <label for="service">Service souhaité</label>
+          <select id="service" name="service" required aria-required="true">
+            <option value="">-- Choisissez un service --</option>
+            <optgroup label="🎨 Design & Identité visuelle">
+              <option value="logo">Création de logo</option>
+              <option value="charte">Charte graphique</option>
+              <option value="affiche">Affiche / Flyer / Poster</option>
+              <option value="carte">Carte de visite</option>
+              <option value="autres_design">Autres supports graphiques</option>
+            </optgroup>
+            <optgroup label="🎥 Vidéo & Production audiovisuelle">
+              <option value="montage">Montage vidéo</option>
+              <option value="clip">Clip musical</option>
+              <option value="pub">Spot publicitaire</option>
+              <option value="emission">Émission / Interview</option>
+              <option value="autres_video">Autres vidéos</option>
+            </optgroup>
+            <optgroup label="🌀 Animation & Motion Design">
+              <option value="motion2d">Motion design 2D</option>
+              <option value="motion3d">Motion design 3D</option>
+            </optgroup>
+            <optgroup label="🌐 Développement Web & App">
+              <option value="siteweb">Site web</option>
+              <option value="appmobile">Application mobile</option>
+              <option value="appdesktop">Application ordinateur</option>
+            </optgroup>
+            <optgroup label="🖨️ Sous-traitance & Impression">
+              <option value="baches">Impression de bâches</option>
+              <option value="carteimpression">Cartes de visite</option>
+              <option value="tshirt">T-shirts personnalisés</option>
+              <option value="flyers">Flyers / Affiches</option>
+              <option value="autres_print">Autres impressions</option>
+            </optgroup>
+          </select>
+        </div>
 
-    <label for="telDevis">Telephone :</label>
-    <input type="tel" id="telDevis" name="tel" />
+        <label for="deadline">Date souhaitée de livraison</label>
+        <input type="date" id="deadline" name="deadline" aria-label="Date souhaitée de livraison" />
 
-    <label for="service">Service :</label>
-    <select id="service" name="service">
-      <option value="Site web">Site web</option>
-      <option value="Application mobile">Application mobile</option>
-      <option value="Graphisme">Graphisme</option>
-    </select>
+        <label for="budget">Budget estimé (optionnel)</label>
+        <input type="text" id="budget" name="budget" placeholder="Ex: 100$" aria-label="Budget estimé" />
 
-    <label for="details">Détails :</label>
-    <textarea id="details" name="details" required></textarea>
+        <label for="contactpref">Moyen de contact préféré</label>
+        <select id="contactpref" name="contactpref" aria-label="Moyen de contact préféré">
+          <option value="tel">Téléphone</option>
+          <option value="whatsapp">WhatsApp</option>
+          <option value="email">Email</option>
+        </select>
 
-    <button type="submit" >Envoyer la demande</button>
-  </form>
+        <label for="ville">Ville / Pays</label>
+        <input type="text" id="ville" name="ville" aria-label="Votre ville et pays" />
 
+        <label for="description">Décrivez votre besoin</label>
+        <textarea id="description" name="description" rows="5" required aria-required="true" aria-label="Description de votre besoin"></textarea>
 
+        <label for="fichier">Pièce jointe (facultatif)</label>
+        <input type="file" id="fichier" name="fichier" aria-label="Pièce jointe (facultatif)" />
+
+        <input type="hidden" id="sourceDemande" name="source" value="accueil" /> <p style="font-size: 0.9rem; color: #555; margin-top: 1rem;">
+          <em>Ce formulaire nous permet d’établir une première estimation de votre devis, que nous pourrons affiner ensemble par la suite.</em>
+        </p>
+
+        <button type="submit" class="btn-submit">Envoyer la demande</button>
+      </form>
     </div>
   </div>
 
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 
-<!-- ================ SCRIPTS ================= -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
-
-
-<script src="script.js"></script>
-
+  <script src="script.js"></script>
   <script src="youtube_video_popup.js"></script>
   <script src="tiktok_video_popup.js"></script>
 
- 
-
-
-  
 </body>
 </html>

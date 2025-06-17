@@ -207,6 +207,35 @@ if (hero) {
 }
 
 
+function openPopupDevis(service = "", titre = "") {
+  const popup = document.getElementById("popupDevis");
+  if (!popup) return;
+
+  // Affiche le popup
+  popup.style.display = "block";
+
+  // S’il y a un titre à surcharger
+  if (titre) {
+    const popupTitle = document.getElementById("popupTitle");
+    if (popupTitle) popupTitle.textContent = titre;
+  }
+
+  // Si un service est défini (tu peux adapter ce comportement)
+  const selectedServiceDisplay = document.getElementById("selectedServiceDisplay");
+  const serviceSelect = document.getElementById("service");
+  const serviceFieldContainer = document.getElementById("serviceFieldContainer");
+
+  if (service) {
+    selectedServiceDisplay.textContent = `Service demandé : ${service}`;
+    selectedServiceDisplay.style.display = "block";
+    serviceFieldContainer.style.display = "none";
+    document.getElementById("sourceDemande").value = service;
+  } else {
+    selectedServiceDisplay.style.display = "none";
+    serviceFieldContainer.style.display = "block";
+  }
+}
+
 
 
 // ================== SMOOTH SCROLL ==================
@@ -244,39 +273,7 @@ if (closeBtn) {
   });
 }
 
-// =============== POPUP DEVIS ===========================
 
-// Affiche le popup devis 5 secondes après le chargement
-window.addEventListener('load', () => {
-  const popupDevis = document.getElementById('popupDevis');
-  if (popupDevis) {
-    setTimeout(() => {
-      popupDevis.style.display = 'flex';
-    }, 5000);
-  }
-});
-
-// Fermer popup au clic sur la croix
-const closePopupDevis = document.getElementById('closePopupDevis');
-if (closePopupDevis) {
-  closePopupDevis.addEventListener('click', () => {
-    const popupDevis = document.getElementById('popupDevis');
-    if (popupDevis) popupDevis.style.display = 'none';
-  });
-}
-
-// ============== POUR AFFICHER SEULEMENT LES FORMATION DANS LA CATEGORIE CHOISIE ==========
-function filterFormations(categorie) {
-  const sections = document.querySelectorAll('.service-row');
-  sections.forEach(section => {
-    const cat = section.getAttribute('data-categorie');
-    if (categorie === 'all' || cat === categorie) {
-      section.style.display = 'flex';
-    } else {
-      section.style.display = 'none';
-    }
-  });
-}
 
 // SCROLL VIDEO
 document.addEventListener("DOMContentLoaded", () => {
@@ -302,20 +299,147 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+
+// Ta configuration Firebase (remplace par la tienne)
+const firebaseConfig = {
+  apiKey: "AIzaSyAH1qXpnLYr92FWoPzrcCwz1o9TXt1L-78",
+  authDomain: "juste-doue-98c22.firebaseapp.com",
+  projectId: "juste-doue-98c22",
+  storageBucket: "juste-doue-98c22.firebasestorage.app",
+  messagingSenderId: "133873422629",
+  appId: "1:133873422629:web:4f80a8578309d989c50acc",
+  measurementId: "G-G7BXMXF26L"
+};
+
+// Initialisation Firebase
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
+// ============= POPUP SERVICES ========================
+
+  function submitServiceForm() {
+    const form = document.getElementById("devisServiceForm");
+
+    const nom = document.getElementById("nom").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const tel = document.getElementById("tel").value.trim();
+    const contact = document.getElementById("contact").value;
+    const service = document.getElementById("serviceLocked").value.trim();
+    const deadline = document.getElementById("deadline").value;
+    const description = document.getElementById("description").value.trim();
+    const chargement = document.getElementById("chargementService");
+
+    // Vérification des champs requis
+    if (!nom) {
+      alert("Veuillez entrer votre nom.");
+      return;
+    }
+
+    if (!email && !tel) {
+      alert("Veuillez fournir au moins un email ou un téléphone.");
+      return;
+    }
+
+    if (!contact) {
+      alert("Veuillez sélectionner un moyen de communication préféré.");
+      return;
+    }
+
+    if (!service) {
+      alert("Le service concerné est manquant.");
+      return;
+    }
+
+    // Affiche le spinner
+    chargement.style.display = "inline-block";
+
+    // Formatage de la clé Firebase
+    const now = new Date();
+    const dateKey = now.toISOString().replace(/[:.]/g, '-');
+
+    // Construction de l'objet à envoyer
+    const demandeService = {
+      nom: nom,
+      email: email || null,
+      tel: tel || null,
+      contactPrefere: contact,
+      service: service,
+      deadline: deadline || null,
+      description: description || null,
+      status: "non lu",
+      dateSoumission: now.toISOString()
+    };
+
+    // Envoi vers Firebase
+    firebase.database().ref("DemandeDevis/" + dateKey).set(demandeService)
+      .then(() => {
+        alert("Votre demande a été envoyée avec succès !");
+        form.reset();
+        document.getElementById("popupServiceDevis").style.display = "none";
+      })
+      .catch((error) => {
+        console.error("Erreur lors de l'envoi :", error);
+        alert("Une erreur est survenue lors de l'envoi.");
+      })
+      .finally(() => {
+        chargement.style.display = "none";
+      });
+  }
+
+
+// =============== POPUP DEVIS ===========================
+
+// Fonction pour ouvrir le popup avec un titre et une source spécifique
+function openPopupDevis(source = "Accueil", titreForm = "Besoin d’un devis ?") {
+  const popupDevis = document.getElementById("popupDevis");
+  const titre = popupDevis.querySelector("h1");
+  const champSource = document.getElementById("sourceDemande");
+
+  if (titre) titre.textContent = titreForm;
+  if (champSource) champSource.value = source;
+
+  popupDevis.style.display = "flex";
+}
+
+// Ouverture automatique 5 sec après le chargement
+window.addEventListener('load', () => {
+  const popupDevis = document.getElementById('popupDevis');
+  if (popupDevis) {
+    setTimeout(() => {
+      openPopupDevis(); // Appel avec valeurs par défaut
+    }, 5000);
+  }
+});
+
+// Fermer popup au clic sur la croix
+const closePopupDevis = document.getElementById('closePopupDevis');
+if (closePopupDevis) {
+  closePopupDevis.addEventListener('click', () => {
+    const popupDevis = document.getElementById('popupDevis');
+    if (popupDevis) popupDevis.style.display = 'none';
+  });
+}
+
 // ENVOI DU DEVIS FIREBASE
-const formDevis = document.getElementById("formDevis");
+const formDevis = document.getElementById("devisForm");
+
 if (formDevis) {
-  formDevis.addEventListener("submit", function(e) {
+  formDevis.addEventListener("submit", function (e) {
     e.preventDefault();
 
     const nom = document.getElementById("nom").value.trim();
-    const email = document.getElementById("emailDevis").value.trim();
-    const tel = document.getElementById("telDevis").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const tel = document.getElementById("tel").value.trim();
     const service = document.getElementById("service").value.trim();
-    const details = document.getElementById("details").value.trim();
+    const description = document.getElementById("description").value.trim();
+    const fichierInput = document.getElementById("fichier");
+    const fichier = fichierInput && fichierInput.files.length > 0
+      ? fichierInput.files[0].name
+      : "Aucun fichier";
 
-    if (!nom || !details) {
-      alert("Veuillez remplir le nom et les détails du projet.");
+    // Vérifier les champs requis
+    if (!nom || !description) {
+      alert("Veuillez remplir le nom et la description du projet.");
       return;
     }
 
@@ -324,18 +448,28 @@ if (formDevis) {
       return;
     }
 
+    if (!service) {
+      alert("Veuillez choisir un service.");
+      return;
+    }
+
+    // Formatage de la clé Firebase
     const now = new Date();
     const dateKey = now.toISOString().replace(/[:.]/g, '-');
 
+    // Objet à envoyer
     const nouvelleDemande = {
       nom: nom,
       email: email || null,
       tel: tel || null,
       service: service,
-      description: details,
-      status: "non lu"
+      description: description,
+      fichier: fichier,
+      status: "non lu",
+      dateSoumission: now.toISOString()
     };
 
+    // Envoi à Firebase
     firebase.database().ref("DemandeDevis/" + dateKey).set(nouvelleDemande)
       .then(() => {
         alert("Demande envoyée avec succès !");
@@ -350,8 +484,7 @@ if (formDevis) {
   });
 }
 
-//ENVOI MESSAGE DE CONTACT
-
+// ENVOI MESSAGE DE CONTACT (resté inchangé)
 const contactForm = document.getElementById("contactForm");
 
 if (contactForm) {
@@ -396,19 +529,5 @@ if (contactForm) {
   });
 }
 
+//POPUP SERVICE ET FORMATIONS
 
-
-// Ta configuration Firebase (remplace par la tienne)
-const firebaseConfig = {
-  apiKey: "AIzaSyAH1qXpnLYr92FWoPzrcCwz1o9TXt1L-78",
-  authDomain: "juste-doue-98c22.firebaseapp.com",
-  projectId: "juste-doue-98c22",
-  storageBucket: "juste-doue-98c22.firebasestorage.app",
-  messagingSenderId: "133873422629",
-  appId: "1:133873422629:web:4f80a8578309d989c50acc",
-  measurementId: "G-G7BXMXF26L"
-};
-
-// Initialisation Firebase
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();

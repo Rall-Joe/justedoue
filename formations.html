@@ -139,6 +139,43 @@
 
   <footer>© 2025 · Juste Doué</footer>
 
+  <!-- POPUP INSCRIPTION FORMATION -->
+<div id="popupInscriptionFormation" style="display: none;">
+  <div class="modal">
+    <button class="close-btn" onclick="closePopup('popupInscriptionFormation')">&times;</button>
+    <h1>Inscription à la formation</h1>
+    <h2 id="titreFormationChoisie">Formation sélectionnée</h2>
+
+    <form id="formInscriptionFormation">
+      <label>Nom complet</label>
+      <input type="text" name="nom" required>
+
+      <label>Email</label>
+      <input type="email" name="email">
+
+      <label>Téléphone</label>
+      <input type="tel" name="tel">
+
+      <label>Formation</label>
+      <input type="text" name="formation" id="inputFormationVerrouille" readonly style="background: #eee; font-weight: bold;">
+
+      <label>Mode de paiement</label>
+      <select name="paiement" required>
+        <option value="">-- Choisissez --</option>
+        <option value="Mobile Money">Mobile Money</option>
+        <option value="Carte bancaire">Carte bancaire</option>
+        <option value="Espèce à l’agence">Espèce à l’agence</option>
+      </select>
+
+      <label>Ville / Pays</label>
+      <input type="text" name="ville">
+
+      <button type="submit" id="btnEnvoyerInscription">Valider l’inscription</button>
+      <div id="chargementInscription" style="display:none;" class="spinner"></div>
+    </form>
+  </div>
+</div>
+
 
   <script src="script.js"></script>
 </body>
