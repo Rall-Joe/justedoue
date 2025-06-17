@@ -21,6 +21,8 @@
   <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
+  <link rel="stylesheet" href="youtube_video_popup.css" />
+  <link rel="stylesheet" href="tiktok_video_popup.css" />
   
 
 
@@ -81,6 +83,8 @@
   <!-- Section Services modernisée -->
   <main class="container">
 
+    
+
 <section class="service-row fade-in">
   <div class="service-text">
     <h3>Création de logo</h3>
@@ -88,7 +92,9 @@
     <a href="#" class="btn" onclick="openDevisPopup('Création de logo'); return false;">Demander un devis</a>
   </div>
   <div class="service-image">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/gza5-1e0IY4" frameborder="0" allowfullscreen></iframe>
+    <a href="https://www.youtube.com/embed/gza5-1e0IY4" class="youtube-popup">
+      <img src="https://img.youtube.com/vi/gza5-1e0IY4/0.jpg" alt="Voir la vidéo : Création de logo">
+    </a>
   </div>
 </section>
 
@@ -194,42 +200,57 @@
   <footer>
     © 2025 · Juste Doué
   </footer>
-<!-- ✅ POPUP DEVIS SERVICE -->
-<div id="popupServiceDevis" style="display: none;">
+
+  <div id="videoPopup" class="video-popup">
+    <div class="video-popup-content">
+      <button class="close-btn" aria-label="Fermer la vidéo">×</button>
+      <iframe id="popupIframe" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    </div>
+  </div>
+
+
+<div id="popupServiceDevis" class="modal-overlay" style="display: none;">
   <div class="modal">
-    <button class="close-btn" onclick="closeDevisPopup()">&times;</button>
+    <button class="close-btn" onclick="closePopup('popupServiceDevis')">&times;</button>
     <h1 id="popupServiceTitle">Demande de devis</h1>
     <h2>Parlez-nous de votre projet</h2>
 
     <form id="devisServiceForm">
-      <label for="nom">Nom</label>
-      <input type="text" id="nom" name="nom" required>
+      <label for="nomService">Nom</label>
+      <input type="text" id="nomService" name="nom" required>
 
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" placeholder="Ex : nom@example.com">
+      <label for="emailService">Email</label>
+      <input type="email" id="emailService" name="email" placeholder="Ex : nom@example.com">
 
-      <label for="tel">Téléphone</label>
-      <input type="tel" id="tel" name="tel" placeholder="Ex : +243 89 123 4567">
+      <label for="telService">Téléphone</label>
+        <div class="phone-field">
+          <select id="countryCodeService" name="countryCode" aria-label="Code pays du téléphone">
+            <option value="+243">CD (+243)</option>
+            <option value="+33">FR (+33)</option>
+            </select>
+          <input type="tel" id="telService" name="tel" placeholder="Votre numéro de téléphone" />
+        </div>
 
-      <label for="contact">Moyen de communication préféré</label>
-      <select id="contact" name="contact" required>
+      <label for="contactService">Moyen de communication préféré</label>
+      <select id="contactService" name="contact" required>
         <option value="" disabled selected>Choisissez un moyen</option>
         <option value="email">Email</option>
         <option value="tel">Téléphone</option>
         <option value="whatsapp">WhatsApp</option>
       </select>
 
+      <label for="villeService">Ville / Pays</label>
+      <input type="text" id="villeService" name="ville" aria-label="Votre ville et pays" />
+
       <label for="serviceLocked">Service concerné</label>
-      <input type="text" id="serviceLocked" name="service" readonly style="background:#eee;">
+      <input type="text" id="serviceLocked" name="serviceLocked" readonly style="background:#eee;"> <label for="deadlineService">Date de livraison souhaitée</label>
+      <input type="date" id="deadlineService" name="deadline">
 
-      <label for="deadline">Date de livraison souhaitée</label>
-      <input type="date" id="deadline" name="deadline">
-
-      <label for="description">Détails</label>
-      <textarea id="description" name="description" rows="4" placeholder="(Facultatif)"></textarea>
+      <label for="descriptionService">Détails</label>
+      <textarea id="descriptionService" name="description" rows="4" placeholder="(Facultatif)"></textarea>
 
       <div style="display: flex; align-items: center; gap: 10px;">
-        <a href="#" class="btn" onclick="submitServiceForm()">Envoyer</a>
+        <button type="submit" id="btnEnvoyerService" class="btn">Envoyer</button>
         <div id="chargementService" style="display: none;">
           <div class="spinner"></div>
         </div>
@@ -238,45 +259,12 @@
   </div>
 </div>
 
-
-
-<script>
-function openDevisPopup(serviceName) {
-  document.getElementById("popupServiceDevis").style.display = "flex";
-  document.getElementById("popupServiceTitle").textContent = "Demande de devis pour : " + serviceName;
-  document.getElementById("serviceLocked").value = serviceName;
-}
-
-function closeDevisPopup() {
-  document.getElementById("popupServiceDevis").style.display = "none";
-}
-
-// Envoi avec effet de chargement
-document.getElementById("devisServiceForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  const loader = document.getElementById("chargementService");
-  const btn = document.getElementById("btnEnvoyerService");
-
-  loader.style.display = "block";
-  btn.disabled = true;
-
-  setTimeout(() => {
-    alert("Devis envoyé avec succès !");
-    loader.style.display = "none";
-    btn.disabled = false;
-    document.getElementById("devisServiceForm").reset();
-    closeDevisPopup();
-  }, 2000); // Simule un envoi, à remplacer par ton Firebase
-});
-</script>
-
 <!-- Firebase App -->
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-
-<!-- Firebase Realtime Database -->
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 
   <script src="script.js"></script>
+  <script src="youtube_video_popup.js"></script>
+  <script src="tiktok_video_popup.js"></script>
 </body>
 </html>

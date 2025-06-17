@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nos Formations | Juste Doué</title>
 
-   <!-- Style global -->
+  <!-- Style global -->
   <link rel="stylesheet" href="style.css" />
 
   <!-- Google Fonts -->
@@ -22,153 +22,196 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
 
-
+  
+  <link rel="stylesheet" href="youtube_video_popup.css" />
+  <link rel="stylesheet" href="tiktok_video_popup.css" />
+  
 
 </head>
 <body>
 
- <!-- ================ NAVIGATION ================= -->
+<!-- ================ NAVIGATION ================= -->
 <nav>
   <div class="container nav-wrapper">
     <a href="index.html" class="logo">
       <img id="logo" src="images/logo_black.png" alt="Juste Doué" />
     </a>
-
-    <!-- Burger -->
     <button class="burger" aria-label="Menu principal" aria-expanded="false">
       <span class="bar"></span>
       <span class="bar"></span>
       <span class="bar"></span>
     </button>
-
-    <!-- Liens de navigation + bouton thème -->
     <div class="nav-links">
       <a href="index.html" class="nav-link">Accueil</a>
-
-      <!-- Menu déroulant À propos -->
-         <!-- Menu déroulant A propos -->
-<div class="nav-link dropdown">
-  <a class="nav-link">À propos <i class="fas fa-chevron-down"></i></a>
-  <div class="dropdown-menu">
+      <div class="nav-link dropdown">
+        <a class="nav-link">À propos <i class="fas fa-chevron-down"></i></a>
+        <div class="dropdown-menu">
           <a href="index.html#realisations">Qu'avons nous fait ?</a>
           <a href="index.html#about">Qui sommes nous ?</a>
           <a href="index.html#contact">Contact</a>
-  </div>
-</div>
-
+        </div>
+      </div>
       <a href="services.html" class="nav-link">Services</a>
       <a href="formations.html" class="nav-link" data-page="formations">Formations</a>
-
-      <!-- Bouton thème placé ici dans le menu burger -->
       <button class="toggle-theme" aria-label="Basculer le thème">☀️</button>
     </div>
   </div>
 </nav>
 
- <!-- En-tête avec titre -->
+<!-- En-tête avec titre -->
 <header class="hero-banner" style="background:url('images/hero_formations.jpg') center/cover no-repeat">
   <div class="hero-content">
     <h1 class="fade-in">Nos&nbsp;Formations</h1>
     <p class="fade-in" style="max-width:700px;margin:auto">
       Passez de passionné·e à <strong>juste doué·e</strong> grâce à nos cursus courts, orientés projets
-        et encadrés par des pros du métier. Apprenez des compétences d’aujourd’hui et un métier qui a de 
-        l’avenir avec nos formations.
+      et encadrés par des pros du métier. Apprenez des compétences d’aujourd’hui et un métier qui a de 
+      l’avenir avec nos formations.
     </p>
-    </div>
+  </div>
 </header>
 
+<!-- FILTRE -->
+<div class="container" style="text-align:center; margin: 40px 0;">
+  <button onclick="filterFormations('all')" class="btn">Toutes</button>
+  <button onclick="filterFormations('dev')" class="btn">Développement</button>
+  <button onclick="filterFormations('design')" class="btn">Design</button>
+</div>
 
-  <!-- FILTRE -->
-  <div class="container" style="text-align:center; margin: 40px 0;">
-    <button onclick="filterFormations('all')" class="btn">Toutes</button>
-    <button onclick="filterFormations('dev')" class="btn">Développement</button>
-    <button onclick="filterFormations('design')" class="btn">Design</button>
+<!-- FORMATIONS -->
+<!-- FORMATIONS -->
+<main class="container">
+
+
+  <section class="service-row fade-in">
+  <div class="service-text">
+    <h3>Initiation à l’informatique</h3>
+    <p>Apprenez les bases : clavier, souris, fichiers, dossiers, logiciels, systèmes d’exploitation…</p>
+    <a href="#" class="btn" onclick="openFormationPopup('Initiation à l’informatique'); return false;">Demander un devis</a>
   </div>
+  <div class="service-image">
+    <a href="https://www.youtube.com/embed/bGMiZ8JXy_8" class="youtube-popup" target="_blank">
+      <img src="https://img.youtube.com/vi/bGMiZ8JXy_8/0.jpg" alt="Voir la vidéo : Initiation à l’informatique">
+    </a>
+  </div>
+</section>
 
-  <!-- FORMATIONS -->
-  <main class="container">
-    <!-- Formation 1 -->
-    <section class="service-row fade-in" data-categorie="dev">
-      <div class="service-image">
-        <img src="images/formation_web.jpg" alt="Formation développement web">
-      </div>
-      <div class="service-text">
-        <h3>Développement&nbsp;Web</h3>
-        <p>HTML, CSS, JavaScript ; React / Next.js ; déploiement et SEO pour créer des sites modernes, responsifs et performants.</p>
-        <a href="contact.html" class="btn">S'inscrire à la formation</a>
-      </div>
-    </section>
+<section class="service-row fade-in">
+  <div class="service-text">
+    <h3>Bureautique</h3>
+    <p>Word, Excel, PowerPoint : maîtrisez les outils bureautiques indispensables pour travailler efficacement.</p>
+    <a href="#" class="btn" onclick="openFormationPopup('Bureautique'); return false;">Demander un devis</a>
+  </div>
+  <div class="service-image">
+    <a href="https://www.youtube.com/embed/uK_7HSTaF38" class="youtube-popup" target="_blank">
+      <img src="https://img.youtube.com/vi/uK_7HSTaF38/0.jpg" alt="Voir la vidéo : Bureautique">
+    </a>
+  </div>
+</section>
 
-    <!-- Formation 2 -->
-    <section class="service-row fade-in" data-categorie="dev">
-      <div class="service-image">
-        <img src="images/formation_mobile.jpg" alt="Formation mobile">
-      </div>
-      <div class="service-text">
-        <h3>Applications&nbsp;Mobiles</h3>
-        <p>Flutter &nbsp;/&nbsp; React Native : design d’interface, logique métier, publication sur les stores.</p>
-        <a href="contact.html" class="btn">S'inscrire à la formation</a>
-      </div>
-    </section>
+<section class="service-row fade-in">
+  <div class="service-text">
+    <h3>Design Graphique</h3>
+    <p>Créez des visuels professionnels avec Photoshop, Illustrator, Canva…</p>
+    <a href="#" class="btn" onclick="openFormationPopup('Design Graphique'); return false;">Demander un devis</a>
+  </div>
+  <div class="service-image">
+    <a href="https://www.youtube.com/embed/Z2QKj9iS6oI" class="youtube-popup" target="_blank">
+      <img src="https://img.youtube.com/vi/Z2QKj9iS6oI/0.jpg" alt="Voir la vidéo : Design Graphique">
+    </a>
+  </div>
+</section>
 
-    <!-- Formation 3 -->
-    <section class="service-row fade-in" data-categorie="design">
-      <div class="service-image">
-        <img src="images/formation_design.jpg" alt="Formation design">
-      </div>
-      <div class="service-text">
-        <h3>Design&nbsp;Graphique &amp; Motion</h3>
-        <p>Photoshop, Illustrator, After Effects : créez logos, affiches, animations et vidéos impactantes.</p>
-        <a href="contact.html" class="btn">S'inscrire à la formation</a>
-      </div>
-      
-    </section>
 
-    <!-- Formation 4 -->
-    <section class="service-row fade-in" data-categorie="design">
-      <div class="service-text">
-        <h3>Motion Design 3D</h3>
-        <p>Blender 3D : création des animations 3D pour vos effets spéciaux.</p>
-        <a href="contact.html" class="btn">S'inscrire à la formation</a>
-      </div>
-      <div class="service-image">
-        <img src="images/formation_mobile.jpg" alt="Formation mobile">
-      </div>
-    </section>
-  </main>
 
-  <footer>© 2025 · Juste Doué</footer>
+<!-- Formation : Design Graphique & Motion -->
+<section class="service-row fade-in" data-categorie="design">
+  <div class="service-image">
+    <img src="images/formation_design.jpg" alt="Design Graphique & Motion">
+  </div>
+  <div class="service-text">
+    <h3>Design Graphique & Motion</h3>
+    <p>Apprenez à créer des visuels professionnels et des animations 2D avec Photoshop, Illustrator, After Effects.</p>
+    <a href="https://www.youtube.com/watch?v=DESIGN1" class="btn" target="_blank">Voir la vidéo</a>
+    <a href="#" class="btn" onclick="openFormationPopup('Design Graphique & Motion')">S'inscrire à la formation</a>
+  </div>
+</section>
 
-  <!-- POPUP INSCRIPTION FORMATION -->
-<div id="popupInscriptionFormation" style="display: none;">
+<!-- Formation : Motion Design 3D -->
+<section class="service-row fade-in" data-categorie="design">
+  <div class="service-text">
+    <h3>Motion Design 3D</h3>
+    <p>Maîtrisez Blender pour créer des animations 3D, effets visuels, et présentations immersives.</p>
+    <a href="https://www.youtube.com/watch?v=MOTION3D1" class="btn" target="_blank">Voir la vidéo</a>
+    <a href="#" class="btn" onclick="openFormationPopup('Motion Design 3D')">S'inscrire à la formation</a>
+  </div>
+  <div class="service-image">
+    <img src="images/formation_mobile.jpg" alt="Motion Design 3D">
+  </div>
+</section>
+
+
+<!-- Formation : Développement Web -->
+<section class="service-row fade-in" data-categorie="dev">
+  <div class="service-image">
+    <img src="images/formation_web.jpg" alt="Développement Web">
+  </div>
+  <div class="service-text">
+    <h3>Développement Web</h3>
+    <p>HTML, CSS, JavaScript, React / Next.js, déploiement, SEO… créez des sites modernes et performants.</p>
+    <a href="https://www.youtube.com/watch?v=DEVWEB1" class="btn" target="_blank">Voir la vidéo</a>
+    <a href="#" class="btn" onclick="openFormationPopup('Développement Web')">S'inscrire à la formation</a>
+  </div>
+</section>
+
+<!-- Formation : Développement Mobile & Desktop -->
+<section class="service-row fade-in" data-categorie="dev">
+  <div class="service-image">
+    <img src="images/formation_mobile.jpg" alt="Développement Mobile & Desktop">
+  </div>
+  <div class="service-text">
+    <h3>Applications Mobiles & Desktop</h3>
+    <p>Flutter, React Native, Electron : créez des applis mobiles et desktop performantes et compatibles.</p>
+    <a href="https://www.youtube.com/watch?v=DEVMOB1" class="btn" target="_blank">Voir la vidéo</a>
+    <a href="#" class="btn" onclick="openFormationPopup('Applications Mobiles & Desktop')">S'inscrire à la formation</a>
+  </div>
+</section>
+
+</main>
+
+
+<footer>© 2025 · Juste Doué</footer>
+
+<!-- POPUP INSCRIPTION FORMATION -->
+ 
+<div id="popupInscriptionFormation" class="modal-overlay" style="display: none;">
   <div class="modal">
     <button class="close-btn" onclick="closePopup('popupInscriptionFormation')">&times;</button>
     <h1>Inscription à la formation</h1>
     <h2 id="titreFormationChoisie">Formation sélectionnée</h2>
 
     <form id="formInscriptionFormation">
-      <label>Nom complet</label>
-      <input type="text" name="nom" required>
+      <label for="nomFormation">Nom complet</label>
+      <input type="text" id="nomFormation" name="nom" required>
 
-      <label>Email</label>
-      <input type="email" name="email">
+      <label for="emailFormation">Email</label>
+      <input type="email" id="emailFormation" name="email">
 
-      <label>Téléphone</label>
-      <input type="tel" name="tel">
+      <label for="telFormation">Téléphone</label>
+      <input type="tel" id="telFormation" name="tel">
 
-      <label>Formation</label>
+      <label for="inputFormationVerrouille">Formation</label>
       <input type="text" name="formation" id="inputFormationVerrouille" readonly style="background: #eee; font-weight: bold;">
 
-      <label>Mode de paiement</label>
-      <select name="paiement" required>
+      <label for="paiementFormation">Mode de paiement</label>
+      <select id="paiementFormation" name="paiement" required>
         <option value="">-- Choisissez --</option>
         <option value="Mobile Money">Mobile Money</option>
         <option value="Carte bancaire">Carte bancaire</option>
         <option value="Espèce à l’agence">Espèce à l’agence</option>
       </select>
 
-      <label>Ville / Pays</label>
-      <input type="text" name="ville">
+      <label for="villeFormation">Ville / Pays</label>
+      <input type="text" id="villeFormation" name="ville">
 
       <button type="submit" id="btnEnvoyerInscription">Valider l’inscription</button>
       <div id="chargementInscription" style="display:none;" class="spinner"></div>
@@ -176,7 +219,23 @@
   </div>
 </div>
 
+  <div id="videoPopup" class="video-popup">
+    <div class="video-popup-content">
+      <button class="close-btn" aria-label="Fermer la vidéo">×</button>
+      <iframe id="popupIframe" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    </div>
+  </div>
 
-  <script src="script.js"></script>
+<!-- Scripts Firebase (DOIVENT ÊTRE CHARGÉS AVANT script.js) -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+
+<!-- Votre script principal (DOIT ÊTRE APRÈS Firebase) -->
+<script src="script.js"></script>
+
+<!-- Scripts secondaires -->
+<script src="youtube_video_popup.js"></script>
+<script src="tiktok_video_popup.js"></script>
 </body>
 </html>
