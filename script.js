@@ -24,6 +24,27 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // ================== GESTION DU REDIMENSIONNEMENT DE LA FENÊTRE ==================
+    // Cette fonction ferme le menu mobile et les dropdowns si on passe en mode desktop
+    const handleResizeAndMenuClose = () => {
+        if (window.innerWidth > 768) { // Si on passe en mode desktop
+            if (navLinks && navLinks.classList.contains('open')) {
+                navLinks.classList.remove('open'); // Ferme le menu principal
+            }
+            if (burger && burger.classList.contains('open')) {
+                burger.classList.remove('open'); // Réinitialise l'icône burger
+            }
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove('open'); // Ferme tous les dropdowns
+            });
+        }
+    };
+
+    // Écouteur pour le redimensionnement de la fenêtre
+    window.addEventListener('resize', handleResizeAndMenuClose);
+    // Exécuter une fois au chargement pour s'assurer du bon état initial si la page est chargée en desktop
+    handleResizeAndMenuClose();
+
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', (e) => {
             if (window.innerWidth <= 768) {
@@ -79,13 +100,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ================== THEME TOGGLE + LOGO ==================
     const toggleBtn = document.querySelector('.toggle-theme');
-    const logo = document.getElementById('logo');
+    const logo = document.getElementById('logo'); // Assurez-vous que votre logo a l'id 'logo'
+
+    // Fonction pour mettre à jour le logo en fonction du thème et de l'état de scroll
+    function updateLogo() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const isScrolled = window.scrollY > 50; // Ou la valeur que vous utilisez pour le scroll
+        
+        if (!logo) {
+            console.error("L'élément avec l'ID 'logo' n'a pas été trouvé. Le logo ne peut pas être mis à jour.");
+            return; // Quitte la fonction si le logo n'est pas trouvé
+        }
+
+        // Ajoutez ces console.log pour le débogage
+        console.log(`updateLogo appelé: isScrolled=${isScrolled}, currentTheme=${currentTheme}`);
+
+        if (isScrolled) {
+            if (currentTheme === 'dark') {
+                logo.src = 'images/logo_white.png'; // Scrollé en mode sombre
+                console.log("-> Définition du logo: images/logo_white.png");
+            } else {
+                logo.src = 'images/logo_black.png'; // Scrollé en mode clair
+                console.log("-> Définition du logo: images/logo_black.png");
+            }
+        } else {
+            // Quand non scrollé, le logo doit toujours être 'all_white' (selon votre demande initiale)
+            logo.src = 'images/logo_all_white.png'; // Non scrollé (par défaut, blanc)
+            console.log("-> Définition du logo: images/logo_all_white.png");
+        }
+    }
 
     function setTheme(theme) {
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
         if (toggleBtn) toggleBtn.textContent = theme === 'dark' ? '🌙' : '☀️';
-        if (logo) logo.src = theme === 'dark' ? 'images/logo_white.png' : 'images/logo_black.png';
+        updateLogo(); // Mettre à jour le logo après le changement de thème
     }
 
     if (toggleBtn) {
@@ -95,7 +144,26 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Initialisation du thème au chargement
+    // Ceci appellera également updateLogo via setTheme()
     setTheme(localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+
+    // ================== GESTION DE LA NAVIGATION AU SCROLL ==================
+    const mainNav = document.getElementById('main-nav'); // Assurez-vous que votre élément <nav> a l'ID 'main-nav'
+
+    if (mainNav) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) { // Ajustez cette valeur selon la hauteur à laquelle vous voulez que la nav change
+                mainNav.classList.add('scrolled');
+            } else {
+                mainNav.classList.remove('scrolled');
+            }
+            updateLogo(); // Mettre à jour le logo à chaque scroll pour gérer le changement
+        });
+    }
+    // Appel initial à updateLogo pour s'assurer que le logo est correctement configuré dès le chargement de la page
+    updateLogo(); 
+    // ================== FIN DE LA PARTIE MODIFIÉE ==================
 
     // ================== HERO SLIDESHOW ==================
     const hero = document.getElementById('hero');
@@ -123,20 +191,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 link: '#design'
             },
             {
-                image: 'images/slide_service.jpg',
+                image: 'images/slide_servie',
                 title: 'Je suis juste doué',
-                text: 'Venez voir mes projets extraordinaires',
-                button: 'Mes projets',
-                link: 'https://www.google.fr/'
-                
+                text: 'Venez voir mes projets extra ordinaires',
+                button: 'Demandez un devis',
+                link: '#openPopupDevis' // Identifiant pour déclencher le popup de devis
             }
         ];
 
-        const heroTitleElement = hero.querySelector('h1.fade-in');
-        const heroSubtitleElement = hero.querySelector('p.fade-in');
-        const heroButtonElement = hero.querySelector('.hero-content .btn');
-
         const imgs = hero.querySelectorAll('.carousel-image');
+        const heroTitle = document.getElementById('heroTitle');
+        const heroSubtitle = document.getElementById('heroSubtitle');
+        const heroButton = document.getElementById('heroButton');
+
         const prevBtn = hero.querySelector('.prev-slide');
         const nextBtn = hero.querySelector('.next-slide');
 
@@ -146,12 +213,10 @@ document.addEventListener("DOMContentLoaded", () => {
         function showSlide(i) {
             imgs.forEach((img, idx) => img.classList.toggle('active', idx === i));
             const s = slides[i];
-            if (heroTitleElement) heroTitleElement.innerHTML = s.title;
-            if (heroSubtitleElement) heroSubtitleElement.textContent = s.text;
-            if (heroButtonElement) {
-                heroButtonElement.textContent = s.button;
-                heroButtonElement.href = s.link;
-            }
+            heroTitle.innerHTML = s.title;
+            heroSubtitle.textContent = s.text;
+            heroButton.textContent = s.button;
+            heroButton.href = s.link;
         }
 
         function startSlider() {
@@ -305,17 +370,16 @@ function filterFormations(category) {
     const formations = document.querySelectorAll('main .service-row');
     formations.forEach(formation => {
         if (category === 'all' || formation.dataset.categorie === category) {
-            formation.style.display = 'flex'; // Assurez-vous que c'est 'flex' pour votre layout
+            formation.style.display = 'flex';
         } else {
             formation.style.display = 'none';
         }
     });
 
-    // Optionnel: Gérer la classe 'active' pour les boutons de filtre
+    // Gère la classe 'active' pour les boutons de filtre (pour le style)
     document.querySelectorAll('.container button.btn').forEach(btn => {
-        btn.classList.remove('active'); // Supprime la classe 'active' de tous les boutons
+        btn.classList.remove('active');
     });
-    // Ajoute la classe 'active' au bouton cliqué
     const clickedButton = document.querySelector(`.container button.btn[onclick*="${category}"]`);
     if (clickedButton) {
         clickedButton.classList.add('active');
@@ -333,16 +397,11 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 
 // ============= FIREBASE INITIALIZATION ========================
 // Assurez-vous que les scripts Firebase sont chargés AVANT script.js dans votre HTML
-// Exemple dans votre body :
-// <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-// <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
-// <script src="script.js"></script>
-
 const firebaseConfig = {
     apiKey: "AIzaSyAH1qXpnLYr92FWoPzrcCwz1o9TXt1L-78",
     authDomain: "juste-doue-98c22.firebaseapp.com",
     projectId: "juste-doue-98c22",
-    storageBucket: "juste-doue-98c22.firebasestorage.app",
+    storageBucket: "juste-doue-98c22.firebase-storage.app",
     messagingSenderId: "133873422629",
     appId: "1:133873422629:web:4f80a8578309d989c50acc",
     measurementId: "G-G7BXMXF26L"
@@ -406,20 +465,24 @@ function openDevisPopup(serviceName) {
     popupServiceDevis.style.display = "flex";
 }
 
-function openFormationPopup(nomFormation) {
-  document.getElementById('popupInscriptionFormation').style.display = 'flex';
-  document.getElementById('titreFormationChoisie').textContent = nomFormation;
-  document.getElementById('inputFormationVerrouille').value = nomFormation;
-}
+function openFormationPopup(formationName) {
+    const popupFormation = document.getElementById("popupInscriptionFormation");
+    if (!popupFormation) {
+        console.warn("L'élément #popupInscriptionFormation n'a pas été trouvé. Le popup ne peut pas s'ouvrir.");
+        return;
+    }
+    const titreFormationChoisie = document.getElementById("titreFormationChoisie");
+    const inputFormationVerrouille = document.getElementById("inputFormationVerrouille");
 
-function closePopup(id) {
-  document.getElementById(id).style.display = 'none';
-}
+    if (titreFormationChoisie) titreFormationChoisie.textContent = `Formation: ${formationName}`;
+    if (inputFormationVerrouille) inputFormationVerrouille.value = formationName;
 
+    // Cette ligne est cruciale : elle rend le popup visible
+    popupFormation.style.display = "flex";
+}
 
 // ============= FONCTIONS DE SOUMISSION FIREBASE ========================
 
-// Ajout du paramètre `originType` pour distinguer l'origine de la demande
 async function submitDevisForm(form, dbPath, originType) {
     const loader = form.querySelector(".spinner");
     const submitBtn = form.querySelector("button[type='submit']");
@@ -434,29 +497,71 @@ async function submitDevisForm(form, dbPath, originType) {
 
         const formData = new FormData(form);
         const data = {};
+
         for (let [key, value] of formData.entries()) {
             const trimmedValue = String(value).trim();
             data[key] = trimmedValue === '' ? null : trimmedValue;
         }
 
+        // Remappage des noms de champs
+        if (form.id === "devisServiceForm") {
+            if (data.contact) {
+                data.contactPrefere = data.contact;
+                delete data.contact;
+            }
+            if (data.serviceLocked) {
+                data.service = data.serviceLocked;
+                delete data.serviceLocked;
+            }
+        } else if (form.id === "devisForm") {
+            // Supprimer 'source' si défini et égal à 'Automatique'
+            if (data.source === "Automatique") {
+                delete data.source;
+            }
+            // Uniformiser contactPrefere s'il y a un champ contact
+            if (data.contact) {
+                data.contactPrefere = data.contact;
+                delete data.contact;
+            }
+        }
+
+        // Champs par défaut si absents
+        if (!data.budget) data.budget = "Pas de budget défini";
+        if (!data.dateLivraison) data.dateLivraison = "Non définie";
+
+        const fichierInput = form.querySelector("input[type='file']");
+        data.fichier = (fichierInput && fichierInput.files.length > 0)
+            ? fichierInput.files[0].name
+            : "Aucun fichier";
+
+        // Ajout de l’origine de la demande
+        data.origineDemande = originType;
+        data.dateSoumission = new Date().toISOString();
+        data.status = "non lu";
+
+        // Validation
         let isValid = true;
         let errorMessage = "";
 
-        // Ajout de l'origine de la demande
-        data.origineDemande = originType;
-
-        // Validation pour le popup de devis principal
-        if (form.id === "devisForm") {
-            if (!data.nom || !data.description) { errorMessage = "Veuillez remplir votre nom et la description du projet."; isValid = false; }
-            if (!data.email && !data.tel) { errorMessage = "Veuillez fournir au moins un moyen de contact (email ou téléphone)."; isValid = false; }
-            if (!data.service) { errorMessage = "Veuillez choisir un service."; isValid = false; }
+        if (!data.nom) {
+            errorMessage = "Veuillez entrer votre nom.";
+            isValid = false;
         }
-        // Validation pour le popup de demande de service
-        else if (form.id === "devisServiceForm") {
-            if (!data.nom) { errorMessage = "Veuillez entrer votre nom."; isValid = false; }
-            if (!data.email && !data.tel) { errorMessage = "Veuillez fournir au moins un email ou un téléphone."; isValid = false; }
-            if (!data.contact) { errorMessage = "Veuillez sélectionner un moyen de communication préféré."; isValid = false; }
-            if (!data.serviceLocked) { errorMessage = "Le service concerné est manquant."; isValid = false; }
+        if (!data.email && !data.tel) {
+            errorMessage = "Veuillez fournir au moins un email ou un téléphone.";
+            isValid = false;
+        }
+        if (!data.service) {
+            errorMessage = "Le service concerné est manquant.";
+            isValid = false;
+        }
+        if (!data.description && form.id === "devisForm") {
+            errorMessage = "Veuillez décrire votre projet.";
+            isValid = false;
+        }
+        if (!data.contactPrefere) {
+            errorMessage = "Veuillez sélectionner un moyen de communication préféré.";
+            isValid = false;
         }
 
         if (!isValid) {
@@ -464,22 +569,13 @@ async function submitDevisForm(form, dbPath, originType) {
             return;
         }
 
-        data.dateSoumission = new Date().toISOString();
-        data.status = "non lu";
-
-        const fichierInput = form.querySelector("input[type='file']");
-        if (fichierInput && fichierInput.files.length > 0) {
-            data.fichier = fichierInput.files[0].name;
-            // TODO: Implémenter l'upload vers Firebase Storage si vous le souhaitez
-        } else {
-            data.fichier = "Aucun fichier";
-        }
-
+        // Enregistrement dans Firebase
         const dateKey = new Date().toISOString().replace(/[:.]/g, '-');
         await database.ref(dbPath + dateKey).set(data);
 
         alert("Votre demande a été envoyée avec succès !");
         form.reset();
+
         const popupToClose = form.closest('.modal-overlay') || form.closest('.modal');
         if (popupToClose) {
             closePopup(popupToClose.id);
@@ -493,6 +589,7 @@ async function submitDevisForm(form, dbPath, originType) {
         if (submitBtn) submitBtn.disabled = false;
     }
 }
+
 
 async function submitFormationForm(form, dbPath) {
     const loader = form.querySelector(".spinner");
@@ -566,7 +663,6 @@ async function submitContactForm(form, dbPath) {
         let isValid = true;
         let errorMessage = "";
 
-        // CORRECTION ICI pour utiliser les noms 'name' de votre HTML
         if (!data.nom || !data.message) {
             errorMessage = "Veuillez remplir votre nom et le message.";
             isValid = false;

@@ -31,7 +31,7 @@
 <body>
 
 <!-- ================ NAVIGATION ================= -->
-<nav>
+<nav id="main-nav">
   <div class="container nav-wrapper">
     <a href="index.html" class="logo">
       <img id="logo" src="images/logo_black.png" alt="Juste Doué" />
@@ -72,53 +72,27 @@
 
 <!-- FILTRE -->
 <div class="container" style="text-align:center; margin: 40px 0;">
-  <button onclick="filterFormations('all')" class="btn">Toutes</button>
-  <button onclick="filterFormations('dev')" class="btn">Développement</button>
-  <button onclick="filterFormations('design')" class="btn">Design</button>
+  <a onclick="filterFormations('all')" class="btn">Toutes</a>
+  <a onclick="filterFormations('dev')" class="btn">Développement</a>
+  <a onclick="filterFormations('design')" class="btn">Design</a>
 </div>
 
-<!-- FORMATIONS -->
+
 <!-- FORMATIONS -->
 <main class="container">
 
-
   <section class="service-row fade-in">
+      <div class="service-image">
+        <a href="https://www.youtube.com/embed/dpkE55wTajw" class="youtube-popup">
+      <img src="https://img.youtube.com/vi/dpkE55wTajw/0.jpg" alt="Voir la vidéo : Création de logo">
+      </a>
+  </div>
   <div class="service-text">
     <h3>Initiation à l’informatique</h3>
     <p>Apprenez les bases : clavier, souris, fichiers, dossiers, logiciels, systèmes d’exploitation…</p>
-    <a href="#" class="btn" onclick="openFormationPopup('Initiation à l’informatique'); return false;">Demander un devis</a>
+    <a href="#" class="btn" onclick="openFormationPopup('Initiation à l’informatique'); return false;">S'inscrire à la formation</a>
   </div>
-  <div class="service-image">
-    <a href="https://www.youtube.com/embed/bGMiZ8JXy_8" class="youtube-popup" target="_blank">
-      <img src="https://img.youtube.com/vi/bGMiZ8JXy_8/0.jpg" alt="Voir la vidéo : Initiation à l’informatique">
-    </a>
-  </div>
-</section>
 
-<section class="service-row fade-in">
-  <div class="service-text">
-    <h3>Bureautique</h3>
-    <p>Word, Excel, PowerPoint : maîtrisez les outils bureautiques indispensables pour travailler efficacement.</p>
-    <a href="#" class="btn" onclick="openFormationPopup('Bureautique'); return false;">Demander un devis</a>
-  </div>
-  <div class="service-image">
-    <a href="https://www.youtube.com/embed/uK_7HSTaF38" class="youtube-popup" target="_blank">
-      <img src="https://img.youtube.com/vi/uK_7HSTaF38/0.jpg" alt="Voir la vidéo : Bureautique">
-    </a>
-  </div>
-</section>
-
-<section class="service-row fade-in">
-  <div class="service-text">
-    <h3>Design Graphique</h3>
-    <p>Créez des visuels professionnels avec Photoshop, Illustrator, Canva…</p>
-    <a href="#" class="btn" onclick="openFormationPopup('Design Graphique'); return false;">Demander un devis</a>
-  </div>
-  <div class="service-image">
-    <a href="https://www.youtube.com/embed/Z2QKj9iS6oI" class="youtube-popup" target="_blank">
-      <img src="https://img.youtube.com/vi/Z2QKj9iS6oI/0.jpg" alt="Voir la vidéo : Design Graphique">
-    </a>
-  </div>
 </section>
 
 
@@ -131,22 +105,21 @@
   <div class="service-text">
     <h3>Design Graphique & Motion</h3>
     <p>Apprenez à créer des visuels professionnels et des animations 2D avec Photoshop, Illustrator, After Effects.</p>
-    <a href="https://www.youtube.com/watch?v=DESIGN1" class="btn" target="_blank">Voir la vidéo</a>
     <a href="#" class="btn" onclick="openFormationPopup('Design Graphique & Motion')">S'inscrire à la formation</a>
   </div>
 </section>
 
 <!-- Formation : Motion Design 3D -->
 <section class="service-row fade-in" data-categorie="design">
+    <div class="service-image">
+    <img src="images/formation_mobile.jpg" alt="Motion Design 3D">
+  </div>
   <div class="service-text">
     <h3>Motion Design 3D</h3>
     <p>Maîtrisez Blender pour créer des animations 3D, effets visuels, et présentations immersives.</p>
-    <a href="https://www.youtube.com/watch?v=MOTION3D1" class="btn" target="_blank">Voir la vidéo</a>
     <a href="#" class="btn" onclick="openFormationPopup('Motion Design 3D')">S'inscrire à la formation</a>
   </div>
-  <div class="service-image">
-    <img src="images/formation_mobile.jpg" alt="Motion Design 3D">
-  </div>
+
 </section>
 
 
@@ -158,7 +131,6 @@
   <div class="service-text">
     <h3>Développement Web</h3>
     <p>HTML, CSS, JavaScript, React / Next.js, déploiement, SEO… créez des sites modernes et performants.</p>
-    <a href="https://www.youtube.com/watch?v=DEVWEB1" class="btn" target="_blank">Voir la vidéo</a>
     <a href="#" class="btn" onclick="openFormationPopup('Développement Web')">S'inscrire à la formation</a>
   </div>
 </section>
@@ -171,7 +143,6 @@
   <div class="service-text">
     <h3>Applications Mobiles & Desktop</h3>
     <p>Flutter, React Native, Electron : créez des applis mobiles et desktop performantes et compatibles.</p>
-    <a href="https://www.youtube.com/watch?v=DEVMOB1" class="btn" target="_blank">Voir la vidéo</a>
     <a href="#" class="btn" onclick="openFormationPopup('Applications Mobiles & Desktop')">S'inscrire à la formation</a>
   </div>
 </section>
@@ -179,7 +150,32 @@
 </main>
 
 
-<footer>© 2025 · Juste Doué</footer>
+<footer>
+    <div class="social-links">
+      <a href="https://wa.me/243843325605" target="_blank" title="WhatsApp" aria-label="Nous contacter sur WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+      <a href="https://www.facebook.com/profile.php?id=100071184765230" target="_blank" title="Facebook" aria-label="Notre page Facebook">
+        <i class="fab fa-facebook"></i>
+      </a>
+      <a href="https://www.youtube.com/@JusteDou%C3%A9" target="_blank" title="YouTube" aria-label="Notre chaîne YouTube">
+        <i class="fab fa-youtube"></i>
+      </a>
+
+    </div>
+
+    <div class="contact-info">
+      <p><i class="fas fa-map-marker-alt"></i> 8e Rue, N°13/182, Q. Cité Verte, C. Selembao, Kinshasa</p>
+      <p><i class="fas fa-phone"></i> <a href="tel:+243843325605">+243 84 33 25 605</a></p>
+      <p><i class="fas fa-envelope"></i> <a href="mailto:juste.doue.contact@gmail.com">juste.doue.contact@gmail.com</a></p>
+    </div>
+
+    <p class="footer-text">
+      © 2025 · <strong>Juste Doué</strong> – Tous droits réservés<br>
+      <a href="#">Mentions légales</a> ·
+      <a href="#">Politique de confidentialité</a>
+    </p>
+  </footer>
 
 <!-- POPUP INSCRIPTION FORMATION -->
  
