@@ -53,17 +53,17 @@
         </div>
       </div>
       <a href="services.html" class="nav-link">Services</a>
-      <a href="formations.html" class="nav-link" data-page="formations">Formations</a>
+      <a href="#hero" class="nav-link" data-page="formations">Formations</a>
       <button class="toggle-theme" aria-label="Basculer le thème">☀️</button>
     </div>
   </div>
 </nav>
 
 <!-- En-tête avec titre -->
-<header class="hero-banner" style="background:url('images/hero_formations.jpg') center/cover no-repeat">
+<header id="hero" class="hero-banner" style="background:url('images/hero_formations.jpg') center/cover no-repeat">
   <div class="hero-content">
     <h1 class="fade-in">Nos&nbsp;Formations</h1>
-    <p class="fade-in" style="max-width:700px;margin:auto">
+    <p class="fade-in" style="max-width:500px;margin:auto">
       Passez de passionné·e à <strong>juste doué·e</strong> grâce à nos cursus courts, orientés projets
       et encadrés par des pros du métier. Apprenez des compétences d’aujourd’hui et un métier qui a de 
       l’avenir avec nos formations.
@@ -210,8 +210,9 @@
       <label for="villeFormation">Ville / Pays</label>
       <input type="text" id="villeFormation" name="ville">
 
-      <button type="submit" id="btnEnvoyerInscription">Valider l’inscription</button>
       <div id="chargementInscription" style="display:none;" class="spinner"></div>
+      <button type="submit" id="btnEnvoyerInscription" class="btn">Valider l’inscription</button>
+
     </form>
   </div>
 </div>

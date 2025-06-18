@@ -2,7 +2,7 @@
 :root {
     --primary: #007bff;
     --primary-dark: #0056b3;
-    --accent: #007bff; /* Souvent, la couleur primaire est utilisée comme accentuation, sauf si une couleur différente est souhaitée */
+    --accent: #007bff;
     --text: #1a1a1a; /* Noir pour le mode clair */
     --text-inverse: #ffffff; /* Blanc pour le mode clair */
     --bg: #ffffff;
@@ -439,37 +439,63 @@ nav.scrolled .dropdown-toggle::after {
     display: block;
 }
 
+/* NOUVEAU/MODIFIÉ : Styles pour le contenu du dropdown (non scrollé par défaut) */
 .dropdown-menu {
     display: none;
     position: absolute;
-    background-color: var(--bg); /* Utilise la couleur de fond du thème */
+    background-color: rgba(255, 255, 255, 0.1); /* Légèrement visible mais transparent */
+    backdrop-filter: blur(8px); /* Effet de flou accru pour le dropdown */
+    -webkit-backdrop-filter: blur(8px); /* Pour la compatibilité Safari */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Garde l'ombre pour la profondeur */
+
     border-radius: 0.5rem;
     padding: 1rem;
     top: 100%;
     left: 0;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 999;
+    z-index: 999; /* Assure qu'il est au-dessus du contenu */
     min-width: 200px;
-    transition: background-color 0.3s, color 0.3s;
+
+    /* Transitions pour une animation fluide */
+    transition: background-color 0.4s ease, backdrop-filter 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
 }
 
-.dropdown-menu .dropdown-title {
-    font-weight: bold;
-    color: var(--text);
-    margin-bottom: 0.5rem;
-    display: block;
-}
-
+/* NOUVEAU/MODIFIÉ : Styles pour les liens du dropdown quand la nav N'EST PAS scrollée */
 .dropdown-menu a {
     display: block;
     padding: 0.25rem 0;
-    color: var(--text);
+    color: #ffffff; /* Texte des liens blanc par défaut */
     text-decoration: none;
+    transition: color 0.4s ease;
 }
 
-.dropdown-menu a:hover {
-    color: var(--primary);
+/* NOUVEAU : Styles pour le dropdown une fois scrollé (la classe 'scrolled' est ajoutée par JS) */
+.dropdown-menu.scrolled {
+    /* Ces couleurs s'adapteront au thème */
+    background-color: var(--bg); /* Prend la couleur de fond du thème (blanc pour light, sombre pour dark) */
+    backdrop-filter: none; /* Retire le flou */
+    -webkit-backdrop-filter: none;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Garde l'ombre, ou tu peux l'ajuster */
 }
+
+/* NOUVEAU : Styles pour les liens du dropdown quand la nav EST scrollée */
+.dropdown-menu.scrolled a {
+    color: var(--text); /* Prend la couleur de texte du thème (noir pour light, blanc cassé pour dark) */
+}
+
+/* NOUVEAU/MODIFIÉ : Ajustement pour les titres dans le dropdown (si tu en as) */
+.dropdown-menu .dropdown-title {
+    font-weight: bold;
+    color: #ffffff; /* Blanc par défaut */
+    margin-bottom: 0.5rem;
+    display: block;
+    transition: color 0.4s ease;
+}
+
+/* NOUVEAU : Le titre du dropdown prend la couleur du texte du thème une fois scrollé */
+.dropdown-menu.scrolled .dropdown-title {
+    color: var(--text);
+}
+
 
 /* Pour le menu déroulant mobile */
 @media(max-width: 768px) {
@@ -477,19 +503,24 @@ nav.scrolled .dropdown-toggle::after {
         display: none; /* Masquer au survol pour mobile */
     }
 
+    /* NOUVEAU/MODIFIÉ : Adaptation du dropdown-menu sur mobile */
     .dropdown.open .dropdown-menu {
         display: block;
         position: relative; /* Le faire suivre le flux du document sur mobile */
         top: 0;
         left: 0;
         box-shadow: none;
-        background: none; /* Pas de fond distinct en mode mobile */
+        background: none; /* Pas de fond distinct en mode mobile car le nav-links.open gère ça */
         padding: 0;
+        backdrop-filter: none; /* Pas de flou sur mobile pour le dropdown lui-même */
+        -webkit-backdrop-filter: none;
     }
 
-    /* Les liens du sous-menu en mode mobile doivent suivre la couleur du texte du thème */
-    .dropdown.open .dropdown-menu a {
-        color: var(--text);
+    /* NOUVEAU/MODIFIÉ : Les liens du sous-menu en mode mobile doivent suivre la couleur du texte du thème */
+    /* Et quand le nav-links est ouvert, ils doivent tous être var(--text) */
+    .nav-links.open .dropdown-menu a {
+        color: var(--text); /* Les liens prennent la couleur du texte du thème */
+        padding: 1rem 0; /* Rétablir le padding pour chaque lien individuel */
     }
 
     /* MODIFICATION : Les liens du sous-menu actif doivent également avoir un soulignement bleu. */
@@ -954,6 +985,112 @@ nav.scrolled .dropdown-toggle::after {
     }
 }
 
+/* ========= HERO SLIDESHOW STYLÉ ========== */
+.hero-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    z-index: 0;
+}
+
+.hero-slide.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.hero-slide-content {
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 1rem;
+    backdrop-filter: blur(6px);
+    max-width: 800px;
+    margin: auto;
+    text-align: center;
+    animation: fadeInUp 0.9s ease both;
+}
+
+.hero-slide-content h1 {
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    font-weight: 800;
+    color: var(--primary-color, #00bcd4);
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+.hero-slide-content p {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: #fff;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.hero-slide-content p .old-price {
+    text-decoration: line-through;
+    opacity: 0.6;
+    margin-left: 0.5rem;
+}
+
+.hero-slide-content .hero-button {
+    font-size: 1.1rem;
+    padding: 0.8rem 1.7rem;
+    background-color: var(--primary-color, #00bcd4);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 999px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.hero-slide-content .hero-button:hover {
+    background-color: #0097a7;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Applique un overlay sombre sur la section hero */
+#hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.26); /* foncé */
+    /*backdrop-filter: blur(2px); /* optionnel, pour un effet plus "moderne" */
+    z-index: 1;
+}
+
+/* Assure que le contenu reste au-dessus de l'overlay */
+#hero .hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+
+.old-price {
+    text-decoration: line-through;
+    color: #ddd;
+    font-size: 0.95em;
+    margin-left: 0.4em;
+    opacity: 0.6;
+}
+
+
 /* ============ POPUP VIDÉO ==========*/
 .video-popup {
     display: none;
@@ -1172,6 +1309,7 @@ footer a:hover {
     }
 }
 
+
 /* ========= STYLES DES POPUPS (MODAL & OVERLAY) - SECTION CONSOLIDÉE ET UNIQUE ========= */
 
 /* Styles pour l'overlay des popups de formulaire (le fond sombre transparent) */
@@ -1180,31 +1318,31 @@ footer a:hover {
 #popupInscriptionFormation {
     display: none;
     position: fixed;
-    z-index: 10000;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10000; /* Assure que le popup est au-dessus de tout */
+    inset: 0; /* Prend toute la largeur et hauteur de l'écran */
+    background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent, toujours le même */
     align-items: center;
     justify-content: center;
-    padding: 1rem;
+    padding: 1rem; /* Padding interne pour les petits écrans */
     box-sizing: border-box;
-    overflow-y: auto;
+    overflow-y: auto; /* Permet le défilement si le contenu est trop grand */
 }
 
-/* Styles pour la boîte du modal (le conteneur blanc/sombre du formulaire) */
+/* Styles pour la boîte du modal (le conteneur blanc du formulaire) */
 #popupDevis .modal,
 #popupServiceDevis .modal,
 #popupInscriptionFormation .modal {
-    background: #ffffff;
-    color: #000000;
+    background: #ffffff; /* Fond toujours blanc */
+    color: #333333; /* Texte toujours gris foncé/noir */
     width: 100%;
-    max-width: 600px;
+    max-width: 600px; /* Largeur maximale pour le desktop */
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
     position: relative;
-    overflow-y: auto;
-    max-height: 90vh;
-    animation: fadeIn 0.3s ease-in-out;
+    overflow-y: auto; /* Permet le défilement si le contenu du modal est trop grand */
+    max-height: 90vh; /* Hauteur maximale pour le modal */
+    animation: fadeIn 0.3s ease-in-out; /* Animation d'apparition */
 }
 
 /* Styles pour les titres (h1, h2) et les étiquettes (label) à l'intérieur des modales */
@@ -1217,7 +1355,7 @@ footer a:hover {
 #popupInscriptionFormation .modal h1,
 #popupInscriptionFormation .modal h2,
 #popupInscriptionFormation .modal label {
-    color: #000;
+    color: #1a1a1a; /* Couleur du texte toujours noir */
 }
 
 /* Styles pour le bouton Fermer (le 'X') dans les modales */
@@ -1230,7 +1368,7 @@ footer a:hover {
     font-size: 1.8rem;
     background: none;
     border: none;
-    color: #000;
+    color: #888888; /* Couleur du bouton fermer toujours gris */
     cursor: pointer;
     padding: 0.2em 0.5em;
     transition: color 0.3s ease;
@@ -1239,7 +1377,7 @@ footer a:hover {
 #popupDevis .close-btn:hover,
 #popupServiceDevis .close-btn:hover,
 #popupInscriptionFormation .close-btn:hover {
-    color: var(--primary);
+    color: #007bff; /* Devient bleu au survol (couleur primaire fixe) */
 }
 
 /* Styles pour les champs de saisie (input, select, textarea) à l'intérieur des modales */
@@ -1252,133 +1390,169 @@ footer a:hover {
 #popupInscriptionFormation input,
 #popupInscriptionFormation textarea,
 #popupInscriptionFormation select {
-    width: 100%;
-    padding: 0.7rem;
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    padding: 0.8rem;
     font-size: 1rem;
-    color: #000;
-    background-color: #fff;
-    box-sizing: border-box;
-}
-
-/* Styles pour les champs de téléphone (groupés) */
-#popupDevis .phone-field,
-#popupServiceDevis .phone-field,
-#popupInscriptionFormation .phone-field {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    border: 1px solid #cccccc; /* Couleur de bordure toujours grise claire */
+    border-radius: 8px;
     width: 100%;
-}
-
-#popupDevis .phone-field select,
-#popupServiceDevis .phone-field select,
-#popupInscriptionFormation .phone-field select {
-    width: 110px;
-    flex: 0 0 auto;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
     box-sizing: border-box;
-    background-color: #fff;
-    color: #000;
+    background-color: #ffffff; /* Fond des champs toujours blanc */
+    color: #333333; /* Couleur du texte dans les champs toujours gris foncé */
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
-#popupDevis .phone-field input[type="tel"],
-#popupServiceDevis .phone-field input[type="tel"],
-#popupInscriptionFormation .phone-field input[type="tel"] {
-    flex: 1 1 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-    box-sizing: border-box;
-    background-color: #fff;
-    color: #000;
+#popupDevis input:focus,
+#popupDevis textarea:focus,
+#popupDevis select:focus,
+#popupServiceDevis input:focus,
+#popupServiceDevis textarea:focus,
+#popupServiceDevis select:focus,
+#popupInscriptionFormation input:focus,
+#popupInscriptionFormation textarea:focus,
+#popupInscriptionFormation select:focus {
+    border-color: #007bff; /* Bordure toujours bleue au focus (couleur primaire fixe) */
+    outline: none;
 }
 
-
-/* Styles pour les boutons d'envoi (type="submit") dans les modales */
-#popupDevis button[type="submit"],
-#popupServiceDevis button[type="submit"],
-#popupInscriptionFormation button[type="submit"] {
-    margin-top: 1.5rem;
-    background-color: var(--primary);
-    color: var(--text-inverse);
+/* Style pour les boutons de soumission dans les modales */
+#popupDevis .modal .btn,
+#popupServiceDevis .modal .btn,
+#popupInscriptionFormation .modal .btn {
+    padding: 0.8rem 1.5rem;
+    background-color: #007bff; /* Fond du bouton toujours bleu (couleur primaire fixe) */
+    color: #ffffff; /* Texte du bouton toujours blanc */
     border: none;
-    padding: 0.8rem 1.2rem;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    font-weight: bold;
     font-size: 1rem;
-    transition: background 0.3s;
-    width: 100%;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: auto;
+    align-self: center; /* Centrer le bouton si le formulaire est un flex column */
 }
 
-#popupDevis button[type="submit"]:hover,
-#popupServiceDevis button[type="submit"]:hover,
-#popupInscriptionFormation button[type="submit"]:hover {
-    background-color: var(--primary-dark);
+#popupDevis .modal .btn:hover,
+#popupServiceDevis .modal .btn:hover,
+#popupInscriptionFormation .modal .btn:hover {
+    background-color: #0056b3; /* Bleu plus foncé au survol (couleur primaire fixe) */
+    transform: translateY(-2px);
 }
 
-/* Styles pour le spinner de chargement */
-.spinner {
-    margin: 1rem auto 0;
-    width: 30px;
-    height: 30px;
-    border: 4px solid #ccc;
-    border-top: 4px solid var(--primary);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-/* Keyframes pour les animations CSS */
+/* Animation d'apparition du modal */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* ====== RESPONSIVE (pour les modales) ====== */
-@media screen and (max-width: 600px) {
+/* Responsive pour les modales */
+@media (max-width: 768px) {
     #popupDevis .modal,
     #popupServiceDevis .modal,
     #popupInscriptionFormation .modal {
-        padding: 1.5rem;
-        border-radius: 8px;
-        width: 95%;
-        max-width: 95%;
+        padding: 1.5rem; /* Réduire le padding sur mobile */
+        margin: 1rem; /* Ajouter une petite marge sur les côtés */
+        max-height: 95vh; /* Ajuster la hauteur max pour laisser de l'espace */
+    }
+
+    #popupDevis .modal h1,
+    #popupServiceDevis .modal h1,
+    #popupInscriptionFormation .modal h1 {
+        font-size: 1.8rem; /* Réduire la taille du titre */
+        margin-bottom: 1rem;
     }
 
     #popupDevis .close-btn,
     #popupServiceDevis .close-btn,
     #popupInscriptionFormation .close-btn {
-        font-size: 1.8rem;
-        top: 5px;
+        font-size: 1.5rem; /* Plus petit bouton de fermeture */
         right: 10px;
-    }
-
-    /* Responsive pour le champ téléphone dans les popups */
-    #popupDevis .phone-field,
-    #popupServiceDevis .phone-field,
-    #popupInscriptionFormation .phone-field {
-        flex-direction: column;
-        align-items: stretch;
+        top: 5px;
     }
 }
+
+/* CSS DE APROPOS DE NOUS*/
+
+    .section-grid {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+      margin: 4rem 0;
+    }
+
+    .section-grid.reverse {
+      flex-direction: row-reverse;
+    }
+
+    .section-background {
+      position: relative;
+      padding: 6rem 2rem;
+      color: white;
+      text-align: center;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .section-background::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(4px);
+      z-index: 1;
+    }
+
+    .section-background .overlay-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .content-text {
+      flex: 1 1 45%;
+    }
+
+    .content-text h2 {
+      color: var(--primary);
+    }
+
+    .content-image {
+      flex: 1 1 45%;
+    }
+
+    .content-image img {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 12px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .section-grid,
+      .section-grid.reverse {
+        flex-direction: column !important;
+        text-align: center;
+      }
+
+      .content-text,
+      .content-image {
+        flex: 1 1 100%;
+      }
+
+      .content-image img {
+        max-width: 100%;
+      }
+
+      .section-background {
+        padding: 4rem 1.5rem;
+      }
+
+      .section-background .overlay-content {
+        padding: 0 1rem;
+      }
+    }

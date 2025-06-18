@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const burger = document.querySelector(".burger");
     const navLinks = document.querySelector(".nav-links");
     const dropdowns = document.querySelectorAll(".dropdown");
+    const dropdownMenus = document.querySelectorAll('.dropdown-menu'); // NOUVEAU : Sélectionne tous les contenus de dropdown
 
     if (burger && navLinks) {
         burger.addEventListener("click", () => {
@@ -106,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateLogo() {
         const currentTheme = document.documentElement.getAttribute('data-theme');
         const isScrolled = window.scrollY > 50; // Ou la valeur que vous utilisez pour le scroll
-        
+
         if (!logo) {
             console.error("L'élément avec l'ID 'logo' n'a pas été trouvé. Le logo ne peut pas être mis à jour.");
             return; // Quitte la fonction si le logo n'est pas trouvé
@@ -153,103 +154,107 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (mainNav) {
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) { // Ajustez cette valeur selon la hauteur à laquelle vous voulez que la nav change
+            const isScrolled = window.scrollY > 50; // Ajustez cette valeur selon la hauteur à laquelle vous voulez que la nav change
+
+            if (isScrolled) {
                 mainNav.classList.add('scrolled');
+                // NOUVEAU : Ajoute la classe 'scrolled' à tous les dropdown-menus
+                dropdownMenus.forEach(dropdownMenu => {
+                    dropdownMenu.classList.add('scrolled');
+                });
             } else {
                 mainNav.classList.remove('scrolled');
+                // NOUVEAU : Retire la classe 'scrolled' de tous les dropdown-menus
+                dropdownMenus.forEach(dropdownMenu => {
+                    dropdownMenu.classList.remove('scrolled');
+                });
             }
             updateLogo(); // Mettre à jour le logo à chaque scroll pour gérer le changement
         });
     }
     // Appel initial à updateLogo pour s'assurer que le logo est correctement configuré dès le chargement de la page
-    updateLogo(); 
-    // ================== FIN DE LA PARTIE MODIFIÉE ==================
+    updateLogo();
+    // ================== FIN DES MODIFICATIONS LIÉES À LA NAV ==================
 
     // ================== HERO SLIDESHOW ==================
     const hero = document.getElementById('hero');
     if (hero) {
         const slides = [
             {
-                image: 'images/slide_services.jpg',
-                title: 'Boostez votre marque avec nos services créatifs',
-                text: 'Design graphique, motion design et vidéos percutantes.',
+                image: 'images/slide_design.png',
+                title: 'Offrez du style à votre image',
+                text: 'Design, motion, vidéos, pub, visuels… Commencez avec un logo percutant à partir de 50$ <span class="old-price">120$</span>',
                 button: 'Voir nos services',
                 link: 'services.html'
             },
             {
                 image: 'images/slide_formations.jpg',
-                title: 'Formations pratiques et accessibles',
-                text: 'Passez de passionné à juste doué grâce à nos cours.',
-                button: 'Découvrir les formations',
+                title: 'Formez-vous avec les meilleurs',
+                text: 'Des formations utiles, accessibles dès 30$ <span class="old-price">80$</span>',
+                button: 'Voir les formations',
                 link: 'formations.html'
             },
             {
-                image: 'images/slide_realisations.jpg',
-                title: 'Découvrez nos réalisations',
-                text: 'Des projets concrets qui parlent d’eux-mêmes.',
-                button: 'Voir nos projets',
-                link: '#design'
+                image: 'images/slide_dev.jpg',
+                title: 'Développement web & mobile sur mesure',
+                text: 'Site vitrine ou application dès 300$ <span class="old-price">500$</span>',
+                button: 'Demander un devis',
+                link: '#openPopupDevis'
             },
             {
-                image: 'images/slide_servie',
-                title: 'Je suis juste doué',
-                text: 'Venez voir mes projets extra ordinaires',
-                button: 'Demandez un devis',
-                link: '#openPopupDevis' // Identifiant pour déclencher le popup de devis
+                image: 'images/slide_com.jpg',
+                title: 'Marketing & Branding stratégique',
+                text: 'Boostez votre business dès 100$/mois <span class="old-price">180$</span>',
+                button: 'Parlons de votre projet',
+                link: '#contact'
+            },
+            {
+                image: 'images/slide_about.jpg',
+                title: 'Notre bureau',
+                text: 'Ouvert du Lundi au Samedi à partir de 12h',
+                button: 'Contactez nous',
+                link: '#contact'
             }
         ];
 
-        const imgs = hero.querySelectorAll('.carousel-image');
-        const heroTitle = document.getElementById('heroTitle');
-        const heroSubtitle = document.getElementById('heroSubtitle');
-        const heroButton = document.getElementById('heroButton');
+        const images = document.querySelectorAll('.carousel-image');
+        const title = document.getElementById('heroTitle');
+        const subtitle = document.getElementById('heroSubtitle');
+        const button = document.getElementById('heroButton');
 
-        const prevBtn = hero.querySelector('.prev-slide');
-        const nextBtn = hero.querySelector('.next-slide');
+        let currentIndex = 0;
 
-        let current = 0;
-        let intervalId;
-
-        function showSlide(i) {
-            imgs.forEach((img, idx) => img.classList.toggle('active', idx === i));
-            const s = slides[i];
-            heroTitle.innerHTML = s.title;
-            heroSubtitle.textContent = s.text;
-            heroButton.textContent = s.button;
-            heroButton.href = s.link;
-        }
-
-        function startSlider() {
-            intervalId = setInterval(() => {
-                current = (current + 1) % slides.length;
-                showSlide(current);
-            }, 7000);
-        }
-
-        function resetSlider() {
-            clearInterval(intervalId);
-            startSlider();
-        }
-
-        showSlide(current);
-        startSlider();
-
-        if (prevBtn) {
-            prevBtn.addEventListener('click', () => {
-                current = (current - 1 + slides.length) % slides.length;
-                showSlide(current);
-                resetSlider();
+        function updateSlide(index) {
+            images.forEach((img, i) => {
+                img.classList.toggle('active', i === index);
             });
+            title.innerHTML = slides[index].title;
+            subtitle.innerHTML = slides[index].text;
+            button.textContent = slides[index].button;
+            button.href = slides[index].link;
         }
 
-        if (nextBtn) {
-            nextBtn.addEventListener('click', () => {
-                current = (current + 1) % slides.length;
-                showSlide(current);
-                resetSlider();
-            });
-        }
+        // Contrôle manuel
+        document.querySelector('.prev-slide').addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            updateSlide(currentIndex);
+        });
+
+        document.querySelector('.next-slide').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % slides.length;
+            updateSlide(currentIndex);
+        });
+
+        // Rotation automatique
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % slides.length;
+            updateSlide(currentIndex);
+        }, 8000);
+
+        // Initialisation
+        updateSlide(currentIndex);
     }
+
 
     // ================== POPUP VIDEO ========================
     const videoPopup = document.getElementById('videoPopup');
