@@ -1,4 +1,3 @@
-
 /* ========= VARIABLES ========= */
 :root {
     --primary: #007bff;
@@ -142,7 +141,7 @@ nav.scrolled .logo img {
     position: relative;
     font-weight: 500;
     /* Couleur des liens en blanc au départ (pour tous les thèmes) */
-    color: #ffffff; 
+    color: #ffffff;
     transition: color 0.4s ease; /* Transition pour la couleur du texte */
 }
 
@@ -159,7 +158,7 @@ nav.scrolled .nav-links a {
     width: 0;
     height: 2px;
     /* Soulignement blanc au départ */
-    background: #ffffff; 
+    background: #ffffff;
     transition: width .3s, background 0.4s ease; /* Transition pour la couleur du soulignement */
 }
 
@@ -175,12 +174,12 @@ nav.scrolled .nav-links a::after {
 
 .nav-link.active {
     font-weight: 700;
-    color: var(--accent);
+    color: var(--primary); /* Le lien actif prend toujours la couleur primaire */
 }
 
 .nav-link.active::after {
     width: 100%;
-    background: var(--accent);
+    background: var(--primary); /* Le soulignement du lien actif est TOUJOURS bleu */
 }
 
 .toggle-theme {
@@ -277,22 +276,23 @@ nav.scrolled .burger .bar {
         overflow-y: visible;
         width: 100vw;
         left: 0;
-        background: var(--bg); /* Prend la couleur de fond du thème quand ouvert */
+        /* MODIFICATION : Le fond du menu ouvert prend toujours la couleur de fond du thème, qu'on soit scrollé ou non. */
+        background: var(--bg);
     }
 
-    /* Quand le menu burger est ouvert et qu'on est en haut de page (nav transparente) */
-    /* Les liens et le bouton thème doivent prendre la couleur du texte et primaire du thème */
-    nav:not(.scrolled) .nav-links.open a,
-    nav:not(.scrolled) .nav-links.open .dropdown-toggle {
-        color: var(--text); /* Les liens redeviennent la couleur du texte du thème */
+    /* MODIFICATION : Les liens et le bouton thème DOIVENT prendre les couleurs du thème
+    lorsque le menu est ouvert, qu'on soit scrollé ou non. */
+    .nav-links.open a,
+    .nav-links.open .dropdown-toggle {
+        color: var(--text); /* Les liens prennent la couleur du texte du thème */
     }
 
-    nav:not(.scrolled) .nav-links.open .toggle-theme {
+    .nav-links.open .toggle-theme {
         color: var(--primary); /* Le bouton thème prend la couleur primaire */
         border-color: var(--primary);
     }
 
-    nav:not(.scrolled) .nav-links.open .burger .bar {
+    .nav-links.open .burger .bar {
         background: var(--text); /* Les barres du burger prennent la couleur du texte du thème */
     }
 
@@ -307,7 +307,7 @@ nav.scrolled .burger .bar {
         margin: 1rem 0;
         padding: 0.6rem 1rem;
         width: auto;
-        border-radius: 999px;
+        border-radius: 9999px;
         font-size: 1rem;
     }
 }
@@ -323,15 +323,15 @@ nav.scrolled .burger .bar {
     content: url('images/logo_white.png');
 } */
 
-/* MODIFICATION ICI : Gardez les liens et dropdown-toggle blancs en mode sombre scrollé */
-[data-theme="dark"] nav.scrolled .nav-links a,
-[data-theme="dark"] nav.scrolled .dropdown-toggle {
-    color: #ffffff; /* Force les liens à rester blancs quand scrollés en mode sombre */
+/* MODIFICATION : Gardez les liens et dropdown-toggle dans le menu ouvert blancs en mode sombre. */
+[data-theme="dark"] .nav-links.open a,
+[data-theme="dark"] .nav-links.open .dropdown-toggle {
+    color: #ffffff; /* Force les liens à rester blancs quand le menu mobile est ouvert en mode sombre */
 }
 
-/* MODIFICATION ICI : Gardez les barres du burger blanches en mode sombre scrollé */
-[data-theme="dark"] nav.scrolled .burger .bar {
-    background: #ffffff; /* Force les barres du burger à rester blanches quand scrollées en mode sombre */
+/* MODIFICATION : Gardez les barres du burger blanches en mode sombre lorsque le menu est ouvert. */
+[data-theme="dark"] .nav-links.open .burger .bar {
+    background: #ffffff; /* Force les barres du burger à rester blanches quand le menu mobile est ouvert en mode sombre */
 }
 
 [data-theme="dark"] nav.scrolled .nav-links a::after,
@@ -346,6 +346,12 @@ nav.scrolled .burger .bar {
 
 [data-theme="dark"] .nav-links.open {
     background: var(--bg); /* Le fond du menu mobile ouvert est le fond sombre */
+}
+
+/* AJOUT IMPORTANT : Assurez-vous que le soulignement des liens DANS le menu ouvert
+reste bleu (primaire) dans TOUS les cas, qu'on soit en mode clair ou sombre. */
+.nav-links.open a::after {
+    background: var(--primary) !important; /* Le soulignement est toujours bleu (primary) */
 }
 
 
@@ -485,193 +491,168 @@ nav.scrolled .dropdown-toggle::after {
     .dropdown.open .dropdown-menu a {
         color: var(--text);
     }
+
+    /* MODIFICATION : Les liens du sous-menu actif doivent également avoir un soulignement bleu. */
+    .dropdown-menu a.active::after {
+        background: var(--primary) !important;
+        width: 100% !important;
+    }
 }
 
 /* ========= CARROUSEL VIDÉO (SCROLL) ========= */
-.carousel-wrapper {
-    position: relative;
-    max-width: 1500px;
-    min-height: 380px;
-    margin: 0 auto 4rem auto;
-    overflow: hidden;
-    background: var(--bg);
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    padding: 10px 40px;
-    transition: background 0.3s ease;
+/* ======== BONNE PRATIQUE GLOBALE (à mettre au début de votre CSS si ce n'est pas déjà fait) ======== */
+*, *::before, *::after {
+    box-sizing: border-box; /* Assure que le padding et la bordure sont inclus dans la largeur/hauteur totale */
 }
 
+
+/* ========= CARROUSEL : VERSION CORRIGÉE ========= */
+
+.carousel-wrapper {
+    position: relative;
+    min-height: 400px;
+    max-width: 1500px;
+    margin: 0 auto 4rem auto;
+    /* Retiré overflow: hidden pour que les ombres des cartes ne soient pas coupées */
+}
+
+
+
+/* Pas de changement pour les boutons sur desktop */
 .carousel-wrapper .carousel-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.4);
-    border: none;
-    color: white;
-    font-size: 28px;
-    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.8); /* Fond plus clair pour un look moderne */
+    border: 1px solid #ddd;
+    color: #333;
+    font-size: 24px;
+    width: 45px; /* Taille fixe pour un cercle parfait */
+    height: 45px;
     cursor: pointer;
     border-radius: 50%;
     z-index: 20;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .carousel-wrapper .carousel-btn:hover {
-    background: rgba(0, 0, 0, 0.7);
+    background: white;
+    transform: translateY(-50%) scale(1.1);
 }
 
-.carousel-btn.left {
-    left: 8px;
-}
-
-.carousel-btn.right {
-    right: 8px;
-}
+.carousel-btn.left { left: -22px; } /* Positionné à moitié à l'extérieur */
+.carousel-btn.right { right: -22px; }
 
 .carousel.video-scroll {
     display: flex;
-    gap: 20px;
+    gap: 16px; /* Espace entre les cartes */
     overflow-x: auto;
     scroll-behavior: smooth;
-    overflow-y: hidden;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE et Edge */
+    padding: 1rem 4px; /* Ajoute un peu d'espace pour que l'ombre portée soit visible */
+    margin: 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 .carousel.video-scroll::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
+    display: none;
 }
 
-@media (max-width: 768px) {
-    .carousel-wrapper {
-        padding: 10px 15px;
-        border-radius: 8px;
-        margin: 0 10px 2rem 10px;
-        min-height: 320px; /* Légèrement réduit */
-    }
 
-    .carousel-wrapper .carousel-btn {
-        font-size: 20px;
-        padding: 4px 10px;
-        top: auto;
-        bottom: 10px; /* Boutons en bas */
-        transform: none;
-        background: rgba(0, 0, 0, 0.5);
-    }
-
-    .carousel-btn.left {
-        left: 10px;
-    }
-
-    .carousel-btn.right {
-        right: 10px;
-    }
-
-    .carousel.video-scroll {
-        gap: 12px; /* Moins d'espace entre les vidéos */
-        padding-bottom: 10px;
-    }
-
-    .carousel.video-scroll > * {
-        min-width: 220px; /* Taille d'un élément dans le défilement */
-        flex: 0 0 auto;
-    }
-}
-
-/* ========= GRILLE SERVICES ========= */
-.services-grid {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-}
-
-.service-card {
-    background: var(--bg-alt);
-    padding: 2rem 1.5rem;
-    border-radius: 1rem;
-    text-align: center;
-    transition: transform .35s, box-shadow .35s;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.service-card:hover {
-    transform: translateY(-6px);
-}
-
-.service-card i {
-    font-size: 2.2rem;
-    margin-bottom: .75rem;
-    color: var(--primary);
-}
-
+/* ========= LA CARTE VIDÉO : CORRECTIONS CLÉS ========= */
 .carousel-video-card {
-    flex: 0 0 320px;
-    background: var(--bg-alt);
-    color: var(--text);
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+    flex: 0 0 320px; /* Largeur sur desktop */
+    background: var(--bg-alt, #fff);
+    color: var(--text, #333);
+    border-radius: 12px; /* Coins plus arrondis */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     scroll-snap-align: start;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    transition: background 0.3s ease, color 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden; /* TRÈS IMPORTANT: Empêche tout enfant de déborder */
 }
 
-.carousel-video-card .tag {
-    display: inline-block;
-    background: var(--primary);
-    color: var(--text-inverse);
-    padding: 4px 10px;
-    font-size: 12px;
-    border-radius: 20px;
-    margin-bottom: 10px;
+.carousel-video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
-.carousel-video-card img {
+/* Conteneur pour l'image ou la vidéo pour bien gérer le border-radius */
+.carousel-video-card .media-container {
     width: 100%;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-bottom: 10px;
-}
-
-.video-wrapper {
-    width: 100%;
-    position: relative;
-    padding-top: 56.25%;
+    aspect-ratio: 16 / 9; /* Format 16:9 moderne et responsive */
     margin-bottom: 12px;
+    overflow: hidden; /* Assure que l'image à l'intérieur respecte les coins arrondis */
 }
 
-.video-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
+.carousel-video-card img,
+.carousel-video-card iframe {
     width: 100%;
     height: 100%;
+    object-fit: cover; /* Assure que l'image remplit l'espace sans se déformer */
     border: none;
-    border-radius: 8px;
+}
+
+/* Conteneur pour le texte pour mieux gérer le padding */
+.card-content {
+    padding: 0 15px 15px 15px; /* Padding uniquement pour le contenu textuel */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Permet au contenu de prendre toute la hauteur restante */
+    text-align: center;
+}
+
+.carousel-video-card h3,
+.carousel-video-card p {
+    margin: 0;
+    color: var(--text, #333);
+    /* SÉCURITÉ ANTI-DÉBORDEMENT TEXTE */
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .carousel-video-card h3 {
-    margin: 0 0 8px 0;
-    font-size: 18px;
-    text-align: center;
-    color: var(--text);
+    margin-bottom: 8px;
+    font-size: 1.1rem; /* Taille de police légèrement ajustée */
 }
 
 .carousel-video-card p {
-    font-size: 14px;
-    text-align: center;
-    color: var(--text);
-    flex-grow: 1;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    flex-grow: 1; /* Fait en sorte que le paragraphe pousse le contenu et occupe l'espace */
+    color: var(--text-secondary, #666);
 }
 
+/* ========= MEDIA QUERIES : LA SOLUTION MOBILE ========= */
+
 @media (max-width: 768px) {
+    .carousel-wrapper {
+        margin: 0 auto 2rem auto;
+    }
+
+    /* On cache les boutons sur mobile, le "swipe" est plus naturel */
+    .carousel-wrapper .carousel-btn {
+        display: none;
+    }
+
+    .carousel.video-scroll {
+        /* On ajoute du padding sur les côtés du conteneur de défilement */
+        padding-left: 16px;
+        padding-right: 16px;
+        /* Fait en sorte que le défilement s'arrête proprement sur chaque carte */
+        scroll-snap-type: x mandatory;
+        gap: 12px;
+    }
+
     .carousel-video-card {
-        flex: 0 0 260px;
+        /* LA CORRECTION PRINCIPALE : On passe en largeur relative ! */
+        flex: 0 0 85%; /* La carte prend 85% de la largeur de l'écran */
+        max-width: 300px; /* On peut ajouter un max-width pour ne pas qu'elle soit trop large sur tablette */
     }
 }
 
@@ -704,7 +685,7 @@ nav.scrolled .dropdown-toggle::after {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.47);
+    background: #007bff76;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     z-index: -1;

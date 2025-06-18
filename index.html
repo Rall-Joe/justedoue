@@ -16,7 +16,10 @@
   <link rel="preload" as="image" href="images/slide_services.jpg">
   <link rel="preload" as="image" href="images/slide_formations.jpg">
   <link rel="preload" as="image" href="images/slide_realisations.jpg">
-  <link rel="preload" as="image" href="images/slide_servie.jpg"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="preload" as="image" href="images/slide_servie.jpg"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
 
   <link rel="stylesheet" href="devis_pop.css" />
   <link rel="stylesheet" href="youtube_video_popup.css" />
@@ -27,7 +30,7 @@
 <!-- ================ NAVIGATION ================= -->
 <nav id="main-nav">
   <div class="container nav-wrapper">
-<a href="/" class="logo">
+<a href="#hero" class="logo">
     <img id="logo" src="images/logo_all_white.png" alt="Votre Logo">
 </a>
     <button class="burger" aria-label="Menu principal" aria-expanded="false">
@@ -36,7 +39,7 @@
       <span class="bar"></span>
     </button>
     <div class="nav-links">
-      <a href="index.html" class="nav-link" data-page="accueil">Accueil</a>
+      <a href="#hero" class="nav-link" data-page="accueil">Accueil</a>
       <div class="nav-link dropdown">
         <a class="nav-link">À propos <i class="fas fa-chevron-down"></i></a>
         <div class="dropdown-menu">
@@ -58,6 +61,9 @@
       <img src="images/slide_formations.jpg" class="carousel-image" alt="Formations" />
       <img src="images/slide_realisations.jpg" class="carousel-image" alt="Réalisations" />
       <img src="images/slide_servie.jpg" class="carousel-image" alt="À Propos" /> </div>
+      <link rel="preload" as="image" href="images/logo_all_white.png">
+      <link rel="preload" as="image" href="images/logo_black.png">
+      <link rel="preload" as="image" href="images/logo_white.png">
 
     <div class="hero-content">
       <h1 id="heroTitle" class="fade-in">
@@ -80,56 +86,75 @@
   </section>
 
   <section id="realisations" class="fade-in">
-    <div class="container">
-      <h2 style="text-align:center; margin-bottom: 2.5rem;">Nos réalisations</h2>
+  <div class="container">
+    <h2 style="text-align:center; margin-bottom: 2.5rem;">Nos réalisations</h2>
+    <p style="text-align:center; margin-bottom: 1.5rem;">Découvrez un aperçu de notre univers créatif : 
+      des logos percutants, des designs modernes, des vidéos professionnelles, des sites web intuitifs 
+      et des applications mobiles sur mesure. Nous réalisons des projets pour nos clients comme pour 
+      nos propres marques, toujours avec passion et innovation. Entourés de partenaires engagés, nous 
+      avons un objectif clair : révéler le talent local et transformer les idées en succès concrets.</p>
 
-      <div class="carousel-wrapper">
-        <button class="carousel-btn left" aria-label="Défiler à gauche">❮</button>
 
-        <div class="carousel video-scroll">
-          <div class="carousel-video-card">
+    <div class="carousel-wrapper">
+      <button class="carousel-btn left" aria-label="Défiler à gauche">❮</button>
+
+      <div class="carousel video-scroll">
+        <div class="carousel-video-card">
+          <div class="media-container">
             <a href="https://www.youtube.com/embed/ldlBhg1c1Gw" class="youtube-popup">
               <img src="https://img.youtube.com/vi/ldlBhg1c1Gw/0.jpg" alt="Voir la vidéo : Affiches et visuels pour réseaux">
             </a>
+          </div>
+          <div class="card-content">
             <h3>Affiches et visuels pour réseaux</h3>
             <p>Créations graphiques percutantes pour événements, pubs et médias sociaux.</p>
           </div>
+        </div>
 
-          <div class="carousel-video-card">
+
+        <div class="carousel-video-card">
+          <div class="media-container">
             <a href="https://www.tiktok.com/@joe.betyna/video/7470912562834525495" class="tiktok-popup">
               <img src="images/min_tiktok1.png" alt="Voir la vidéo TikTok : Video Marketing Digital (tnsarl.com)">
             </a>
+          </div>
+          <div class="card-content">
             <h3>Vidéo Marketing Digital (tnsarl.com)</h3>
             <p>Créations graphiques percutantes pour le marketing et les réseaux sociaux.</p>
           </div>
+        </div>
 
-          <div class="carousel-video-card">
-            <div class="video-wrapper">
-              <iframe src="https://www.youtube.com/embed/F96q9CiOtq8" allowfullscreen title="Animation explicative"></iframe>
-            </div>
+        <div class="carousel-video-card">
+          <div class="media-container">
+            <iframe src="https://www.youtube.com/embed/F96q9CiOtq8" allowfullscreen title="Animation explicative"></iframe>
+          </div>
+          <div class="card-content">
             <h3>Animation explicative</h3>
             <p>Animation de présentation pour une start-up, transitions modernes et narration.</p>
           </div>
+        </div>
 
-          <div class="carousel-video-card">
-            <div class="video-wrapper">
-              <iframe src="https://www.youtube.com/embed/SZUHZ1HPMRg" allowfullscreen title="Master Class Edition 2025"></iframe>
-            </div>
+        <div class="carousel-video-card">
+          <div class="media-container">
+            <iframe src="https://www.youtube.com/embed/SZUHZ1HPMRg" allowfullscreen title="Master Class Edition 2025"></iframe>
+          </div>
+          <div class="card-content">
             <h3>Master Class Édition 2025</h3>
             <p>Apprenez des trucs intéressants et devenez juste doué avec l’ingénieur Joseph M. BETYNA.</p>
           </div>
-
         </div>
 
-        <button class="carousel-btn right" aria-label="Défiler à droite">❯</button>
       </div>
+
+      <button class="carousel-btn right" aria-label="Défiler à droite">❯</button>
     </div>
-  </section>
+  </div>
+</section>
 
   <section id="about" class="about-section">
     <div class="container">
       <div class="about-image">
-        <img src="images/moi.jpg" alt="Photo de l'équipe Juste Doué" />
+        <img src="images/moi.png" alt="Photo de l'équipe Juste Doué" />
       </div>
       <div class="about-content">
         <h2>Qui sommes-nous ?</h2>
