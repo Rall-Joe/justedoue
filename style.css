@@ -116,12 +116,6 @@ nav.scrolled {
     transition: content 0.4s ease; /* Transition pour le changement d'image du logo */
 }
 
-/* Quand la nav a la classe 'scrolled', le logo prend la version colorée (noir en mode clair, blanc en mode sombre) */
-nav.scrolled .logo img {
-    /* Le JS gérera le changement d'image ici en fonction du thème */
-    /* Ce CSS reste au cas où le JS ne le ferait pas ou pour une fallback */
-    /*content: url('images/logo.png'); /* Une image générique si le JS ne s'applique pas */
-}
 
 /* Nouveau conteneur pour aligner liens + bouton thème */
 .nav-right {
@@ -702,7 +696,7 @@ nav.scrolled .dropdown-toggle::after {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('images/fond_about2.jpg');
+    background-image: url('images/about_us_index.jpg');
     background-size: cover;
     background-position: center;
     filter: brightness(0.6);
@@ -1556,3 +1550,48 @@ footer a:hover {
         padding: 0 1rem;
       }
     }
+
+    /*-------STYLE BOUTON FILTRE-----  */
+
+/* CONTAINER GLOBAL DU CAROUSEL */
+.filter-carousel-wrapper {
+  overflow-x: auto;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  scrollbar-width: none; /* Firefox */
+}
+.filter-carousel-wrapper::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* FLEX INTERNE DU CAROUSEL */
+.filter-carousel {
+  display: flex;
+  gap: 10px;
+  flex-wrap: nowrap;
+  padding: 0 10px;
+}
+
+/* BOUTONS FILTRES */
+.filter-carousel .btn {
+  padding: 10px 18px;
+  border-radius: 30px;
+  background-color: #eee;
+  color: #333;
+  white-space: nowrap;
+  transition: background-color 0.3s;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  font-size: 15px;
+}
+
+.filter-carousel .btn:hover {
+  background-color: #ccc;
+}
+
+.filter-carousel .btn.active {
+  background-color: #007BFF;
+  color: white;
+}

@@ -199,14 +199,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 title: 'Développement web & mobile sur mesure',
                 text: 'Site vitrine ou application dès 300$ <span class="old-price">500$</span>',
                 button: 'Demander un devis',
-                link: '#openPopupDevis'
+                link: 'javascript:void(0);',
+                action: () => openPopupDevis("Carrousel", "Développement web & mobile") // ✅ Ici on précise la source et le titre
             },
             {
                 image: 'images/slide_com.jpg',
                 title: 'Marketing & Branding stratégique',
                 text: 'Boostez votre business dès 100$/mois <span class="old-price">180$</span>',
                 button: 'Parlons de votre projet',
-                link: '#contact'
+                link: 'javascript:void(0);',
+                action: () => openPopupDevis("Carrousel", "Marketing & Branding stratégique") // ✅ Ici on précise la source et le titre
             },
             {
                 image: 'images/slide_about.jpg',
@@ -232,6 +234,12 @@ document.addEventListener("DOMContentLoaded", () => {
             subtitle.innerHTML = slides[index].text;
             button.textContent = slides[index].button;
             button.href = slides[index].link;
+            if (slides[index].action) {
+            button.onclick = slides[index].action;
+            } else {
+            button.onclick = null;
+            }
+
         }
 
         // Contrôle manuel
@@ -249,7 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setInterval(() => {
             currentIndex = (currentIndex + 1) % slides.length;
             updateSlide(currentIndex);
-        }, 8000);
+        }, 12000);
 
         // Initialisation
         updateSlide(currentIndex);
@@ -704,4 +712,24 @@ async function submitContactForm(form, dbPath) {
         if (loader) loader.style.display = "none";
         if (submitBtn) submitBtn.disabled = false;
     }
+}
+
+//--------BOUTONS FILTRE CATEGORIE
+
+function filterFormations(category) {
+    const formations = document.querySelectorAll('main .service-row');
+    formations.forEach(formation => {
+        if (category === 'all' || formation.dataset.categorie === category) {
+            formation.style.display = 'flex';
+        } else {
+            formation.style.display = 'none';
+        }
+    });
+
+    // Met à jour le bouton actif
+    document.querySelectorAll('.filter-carousel .btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    const target = document.querySelector(`.filter-carousel .btn[onclick*="${category}"]`);
+    if (target) target.classList.add('active');
 }

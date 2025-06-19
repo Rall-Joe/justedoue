@@ -71,18 +71,25 @@
   </div>
 </header>
 
-<!-- FILTRE -->
-<div class="container" style="text-align:center; margin: 40px 0;">
-  <a onclick="filterFormations('all')" class="btn">Toutes</a>
-  <a onclick="filterFormations('dev')" class="btn">Développement</a>
-  <a onclick="filterFormations('design')" class="btn">Design</a>
+<!-- FILTRE RESPONSIVE CAROUSEL CENTRÉ -->
+<div class="filter-carousel-wrapper">
+  <div class="filter-carousel">
+    <a onclick="filterFormations('all')" class="btn active">Toutes</a>
+    <a onclick="filterFormations('dev')" class="btn">Développement</a>
+    <a onclick="filterFormations('design')" class="btn">Design</a>
+    <a onclick="filterFormations('motion')" class="btn">Motion</a>
+    <a onclick="filterFormations('bureautique')" class="btn">Bureautique</a>
+    <a onclick="filterFormations('digital')" class="btn">Communication Digitale</a>
+  </div>
 </div>
+
+
 
 
 <!-- FORMATIONS -->
 <main class="container">
 
-  <section class="service-row fade-in">
+  <section class="service-row fade-in" data-categorie="bureautique">
       <div class="service-image">
         <a href="https://www.youtube.com/embed/dpkE55wTajw" class="youtube-popup">
       <img src="https://img.youtube.com/vi/dpkE55wTajw/0.jpg" alt="Voir la vidéo : Création de logo">
