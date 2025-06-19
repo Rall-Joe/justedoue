@@ -314,11 +314,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const popupDevisAuto = document.getElementById('popupDevis');
     const currentPage = window.location.pathname.split('/').pop();
 
-    if (popupDevisAuto && currentPage === 'index.html') {
-        setTimeout(() => {
-            openPopupDevis();
-        }, 5000);
-    }
+function isHomePage() {
+    const path = window.location.pathname;
+    return path === '/' || path.endsWith('index.html');
+}
+
+if (popupDevisAuto && isHomePage()) {
+    setTimeout(() => {
+        openPopupDevis();
+    }, 5000);
+}
+
 
     // ================== GESTIONNAIRES DE SOUMISSION DES FORMULAIRES ==================
     const formDevis = document.getElementById("devisForm");
