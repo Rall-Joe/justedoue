@@ -733,3 +733,35 @@ function filterFormations(category) {
     const target = document.querySelector(`.filter-carousel .btn[onclick*="${category}"]`);
     if (target) target.classList.add('active');
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const carousel = document.querySelector('.filter-carousel-wrapper');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    carousel.addEventListener('mousedown', e => {
+      isDown = true;
+      carousel.classList.add('grabbing');
+      startX = e.pageX - carousel.offsetLeft;
+      scrollLeft = carousel.scrollLeft;
+    });
+
+    carousel.addEventListener('mouseleave', () => {
+      isDown = false;
+      carousel.classList.remove('grabbing');
+    });
+
+    carousel.addEventListener('mouseup', () => {
+      isDown = false;
+      carousel.classList.remove('grabbing');
+    });
+
+    carousel.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - carousel.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      carousel.scrollLeft = scrollLeft - walk;
+    });
+  });

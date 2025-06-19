@@ -5,29 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Accueil | Juste Doué</title>
 
+  <!-- ICONE DE LA BARRE DU TIRE -->
   <link rel="icon" href="images/logo.png" type="image/png">
 
+  <!-- LES DIFFRENTS STYLE UTILISÉS -->
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="devis_pop.css" />
+  <link rel="stylesheet" href="youtube_video_popup.css" />
+  <link rel="stylesheet" href="tiktok_video_popup.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
+   <!-- LES POLICES DE CARACTERES -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
+   <!-- ON PRECHARGE DES IMAGES VOULU -->
   <link rel="preload" as="image" href="images/slide_design.png">
   <link rel="preload" as="image" href="images/slide_formations.jpg">
   <link rel="preload" as="image" href="images/slide_dev.jpg">
   <link rel="preload" as="image" href="images/slide_com.jpg"> 
   <link rel="preload" as="image" href="images/slide_about.jpg"> 
-        <link rel="preload" as="image" href="images/logo_all_white.png">
-      <link rel="preload" as="image" href="images/logo_black.png">
-      <link rel="preload" as="image" href="images/logo_white.png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link rel="preload" as="image" href="images/logo_all_white.png">
+  <link rel="preload" as="image" href="images/logo_black.png">
+  <link rel="preload" as="image" href="images/logo_white.png">
 
-
-  <link rel="stylesheet" href="devis_pop.css" />
-  <link rel="stylesheet" href="youtube_video_popup.css" />
-  <link rel="stylesheet" href="tiktok_video_popup.css" />
 </head>
 <body>
 
@@ -59,6 +62,7 @@
   </div>
 </nav>
 
+<!-- ================ CAROUSEL D'IMAGES D'EN TETE (TITRE,TEXTE,BOUTON,IMAGE) ================= -->
   <section id="hero">
     <div class="carousel">
       <img src="images/slide_design.png" class="carousel-image active" alt="Services" />
@@ -68,7 +72,6 @@
       <img src="images/slide_about.jpg" class="carousel-image" alt="À Propos" /> 
     
     </div>
-
 
     <div class="hero-content">
       <h1 id="heroTitle" class="fade-in">
@@ -81,7 +84,6 @@
       <a id="heroButton" href="" class="hero-button fade-in">
         Découvrir nos services
       </a>
-
       
     </div>
 
@@ -90,6 +92,8 @@
       <button class="next-slide" aria-label="Image suivante">›</button>
     </div>
   </section>
+
+  <!-- ================ SECTION DE PRESENTATION DES REALISATIONS EN VIDEOS ================= -->
 
   <section id="realisations" class="fade-in">
   <div class="container">
@@ -159,6 +163,8 @@
 
 <section class="fade-in">
 
+  <!-- ================ SECTION PETITE PRESENTATIONS DE JUSTE DOUÉ ================= -->
+
     <section id="about" class="about-section">
     <div class="container">
       <div class="about-image">
@@ -177,6 +183,8 @@
 
 </section>
 
+<!-- ================ FORMULAIRE DE CONTACT ================= -->
+
 
 <section id="contact" class="fade-in">
   <div class="container contact-container">
@@ -191,15 +199,37 @@
   </div>
 </section>
 
+<!-- ================ BAS DE PAGES ================= -->
 
-  <div id="videoPopup" class="video-popup">
-    <div class="video-popup-content">
-      <button class="close-btn" aria-label="Fermer la vidéo">×</button>
-      <iframe id="popupIframe" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    <footer>
+    <div class="social-links">
+      <a href="https://wa.me/243843325605" target="_blank" title="WhatsApp" aria-label="Nous contacter sur WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+      <a href="https://www.facebook.com/profile.php?id=100071184765230" target="_blank" title="Facebook" aria-label="Notre page Facebook">
+        <i class="fab fa-facebook"></i>
+      </a>
+      <a href="https://www.youtube.com/@JusteDou%C3%A9" target="_blank" title="YouTube" aria-label="Notre chaîne YouTube">
+        <i class="fab fa-youtube"></i>
+      </a>
+
     </div>
-  </div>
 
-<!-- POPUP AUTOMATIQUE  -->
+    <div class="contact-info">
+      <p><i class="fas fa-map-marker-alt"></i> 8e Rue, N°13/182, Q. Cité Verte, C. Selembao, Kinshasa</p>
+      <p><i class="fas fa-phone"></i> <a href="tel:+243843325605">+243 84 33 25 605</a></p>
+      <p><i class="fas fa-envelope"></i> <a href="mailto:juste.doue.contact@gmail.com">juste.doue.contact@gmail.com</a></p>
+    </div>
+
+    <p class="footer-text">
+      © 2025 · Juste Doué – Tous droits réservés<br>
+      <a href="#">Mentions légales</a> ·
+      <a href="#">Politique de confidentialité</a>
+    </p>
+  </footer>
+
+<!-- ================ POPUP DEMANDE DE DEVIS ================= -->
+
 
   <div id="popupDevis" class="modal-overlay" style="display: none;">
   <div class="modal">
@@ -225,7 +255,7 @@
       <label for="service">Service qui vous intéresse</label>
       <select name="service" id="service" required>
         <option value="">-- Choisissez un service --</option>
-<optgroup label="🎨 Design & Identité visuelle">
+            <optgroup label="🎨 Design & Identité visuelle">
               <option value="logo">Création de logo</option>
               <option value="charte">Charte graphique</option>
               <option value="affiche">Affiche / Flyer / Poster</option>
@@ -287,32 +317,17 @@
   </div>
 </div>
 
-  <footer>
-    <div class="social-links">
-      <a href="https://wa.me/243843325605" target="_blank" title="WhatsApp" aria-label="Nous contacter sur WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-      </a>
-      <a href="https://www.facebook.com/profile.php?id=100071184765230" target="_blank" title="Facebook" aria-label="Notre page Facebook">
-        <i class="fab fa-facebook"></i>
-      </a>
-      <a href="https://www.youtube.com/@JusteDou%C3%A9" target="_blank" title="YouTube" aria-label="Notre chaîne YouTube">
-        <i class="fab fa-youtube"></i>
-      </a>
+<!-- ================ POPUP D'AFFICHAGE VIDEO ================= -->
 
+  <div id="videoPopup" class="video-popup">
+    <div class="video-popup-content">
+      <button class="close-btn" aria-label="Fermer la vidéo">×</button>
+      <iframe id="popupIframe" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
     </div>
+  </div>
 
-    <div class="contact-info">
-      <p><i class="fas fa-map-marker-alt"></i> 8e Rue, N°13/182, Q. Cité Verte, C. Selembao, Kinshasa</p>
-      <p><i class="fas fa-phone"></i> <a href="tel:+243843325605">+243 84 33 25 605</a></p>
-      <p><i class="fas fa-envelope"></i> <a href="mailto:juste.doue.contact@gmail.com">juste.doue.contact@gmail.com</a></p>
-    </div>
+  <!-- ================ LES LIENS JAVASCRIPT ================= -->
 
-    <p class="footer-text">
-      © 2025 · Juste Doué – Tous droits réservés<br>
-      <a href="#">Mentions légales</a> ·
-      <a href="#">Politique de confidentialité</a>
-    </p>
-  </footer>
 
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>

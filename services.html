@@ -67,7 +67,8 @@
   </div>
 </nav>
 
-  <!-- En-tête avec titre -->
+   <!-- ================ CAROUSEL EN TETE DE LA PAGE ================= -->
+
 <header id="hero" class="hero-banner">
   <div class="hero-content">
     <h1 class="fade-in">Nos&nbsp;Services</h1>
@@ -259,7 +260,7 @@
     <h1 id="popupServiceTitle">Demande de devis</h1>
     <h2>Parlez-nous de votre projet</h2>
 
-    <form id="devisServiceForm">
+<form id="devisServiceForm" onsubmit="submitDevisForm(this, '/ToutesDemandesDevis/', 'Service'); return false;">
       <label for="nomService">Nom</label>
       <input type="text" id="nomService" name="nom" required>
 

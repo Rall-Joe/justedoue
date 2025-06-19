@@ -193,7 +193,7 @@
     <h1>Inscription à la formation</h1>
     <h2 id="titreFormationChoisie">Formation sélectionnée</h2>
 
-    <form id="formInscriptionFormation">
+  <form id="formInscriptionFormation" onsubmit="submitFormationForm(this, '/InscriptionsFormations/'); return false;">
       <label for="nomFormation">Nom complet</label>
       <input type="text" id="nomFormation" name="nom" required>
 
