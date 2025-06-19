@@ -315,9 +315,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentPage = window.location.pathname.split('/').pop();
 
 function isHomePage() {
-    const path = window.location.pathname;
-    return path === '/' || path.endsWith('index.html');
+    const file = window.location.pathname.split('/').pop();
+    return file === '' || file === 'index.html';
 }
+
 
 if (popupDevisAuto && isHomePage()) {
     setTimeout(() => {
