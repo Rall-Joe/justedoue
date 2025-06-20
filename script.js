@@ -182,22 +182,23 @@ document.addEventListener("DOMContentLoaded", () => {
         const slides = [
             {
                 image: 'images/slide_design.png',
-                title: 'Offrez du style à votre image',
-                text: 'Design, motion, vidéos, pub, visuels… Commencez avec un logo percutant à partir de 50$ <span class="old-price">120$</span>',
-                button: 'Voir nos services',
-                link: 'services.html'
+                title: 'Commandez des visuels qui claque !',
+                text: 'Logo pro dès 50 $ <span class="old-price">120 $</span>, flyers, vidéos, visuels réseaux, branding… Des créations modernes, personnalisées et livrées rapidement, à prix accessibles.',
+                button: 'Demander un devis',
+                link: 'javascript:void(0);',
+                action: () => openPopupDevis("Carrousel", "Un visuel qui claque !") // ✅ Ici on précise la source et le titre
             },
             {
                 image: 'images/slide_formations.jpg',
-                title: 'Formez-vous avec les meilleurs',
-                text: 'Des formations utiles, accessibles dès 30$ <span class="old-price">80$</span>',
+                title: 'Apprenez un métier, devenez indépendant',
+                text: 'Formez-vous à partir de 30 $ <span class="old-price">50$</span> aux métiers de demain : graphisme, vidéo, marketing digital, création de contenu, développement mobile, UI/UX. Des formations pratiques pour devenir rapidement opérationnel, débutant ou en reconversion',
                 button: 'Voir les formations',
                 link: 'formations.html'
             },
             {
                 image: 'images/slide_dev.jpg',
-                title: 'Développement web & mobile sur mesure',
-                text: 'Site vitrine ou application dès 300$ <span class="old-price">500$</span>',
+                title: 'Devenez plus pro avec un site ou une appli sur mesure',
+                text: 'Sites web, boutiques en ligne, applications mobiles, interfaces sur mesure… Nous développons des solutions modernes, rapides et adaptées à vos besoins pour booster votre activité et votre image pro.',
                 button: 'Demander un devis',
                 link: 'javascript:void(0);',
                 action: () => openPopupDevis("Carrousel", "Développement web & mobile") // ✅ Ici on précise la source et le titre
@@ -212,8 +213,8 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             {
                 image: 'images/slide_about.jpg',
-                title: 'Notre bureau',
-                text: 'Ouvert du Lundi au Samedi à partir de 12h',
+                title: 'Où sommes nous',
+                text: '12, Av Lubao, Quartier Kinsuka, Commune de Selembao. Réf. Le Jardin & Crec 7. Ouvert du Lundi au Samedi à partir de 12h',
                 button: 'Contactez nous',
                 link: '#contact'
             }
@@ -257,7 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setInterval(() => {
             currentIndex = (currentIndex + 1) % slides.length;
             updateSlide(currentIndex);
-        }, 12000);
+        }, 30000);
 
         // Initialisation
         updateSlide(currentIndex);
@@ -331,7 +332,7 @@ function isHomePage() {
 if (popupDevisAuto && isHomePage()) {
     setTimeout(() => {
         openPopupDevis();
-    }, 5000);
+    }, 30000);
 }
 
 
