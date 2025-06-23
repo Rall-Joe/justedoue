@@ -592,6 +592,7 @@ async function submitDevisForm(form, dbPath, originType) {
 
         // Enregistrement dans Firebase
         const dateKey = new Date().toISOString().replace(/[:.]/g, '-');
+        data.id = dateKey;
         await database.ref(dbPath + dateKey).set(data);
 
         alert("Votre demande a été envoyée avec succès !");
@@ -648,6 +649,7 @@ async function submitFormationForm(form, dbPath) {
         data.status = "non lu";
 
         const dateKey = new Date().toISOString().replace(/[:.]/g, '-');
+        data.id = dateKey;
         await database.ref(dbPath + dateKey).set(data);
 
         alert("Votre inscription a été envoyée avec succès !");
@@ -702,6 +704,7 @@ async function submitContactForm(form, dbPath) {
         data.status = "non lu";
 
         const dateKey = new Date().toISOString().replace(/[:.]/g, '-');
+        data.id = dateKey;
         await database.ref(dbPath + dateKey).set(data);
 
         alert("Votre message a été envoyé avec succès !");
