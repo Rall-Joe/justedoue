@@ -12,6 +12,7 @@
     --modal-border-color: #cccccc;
     --modal-input-bg-color: #ffffff;
     --primary-rgb: 0, 123, 255; /* Version RGB de la couleur primaire pour les ombres */
+      color-scheme: light;
 }
 
 [data-theme="dark"] {
