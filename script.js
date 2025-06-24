@@ -197,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             {
                 image: 'images/slide_dev.jpg',
-                title: 'Devenez plus pro avec un site ou une appli sur mesure',
+                title: 'Devenez pro avec un site ou une appli sur mesure',
                 text: 'Sites web, boutiques en ligne, applications mobiles, interfaces sur mesure… Nous développons des solutions modernes, rapides et adaptées à vos besoins pour booster votre activité et votre image pro.',
                 button: 'Demander un devis',
                 link: 'javascript:void(0);',
@@ -258,7 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setInterval(() => {
             currentIndex = (currentIndex + 1) % slides.length;
             updateSlide(currentIndex);
-        }, 30000);
+        }, 15000);
 
         // Initialisation
         updateSlide(currentIndex);
@@ -332,7 +332,7 @@ function isHomePage() {
 if (popupDevisAuto && isHomePage()) {
     setTimeout(() => {
         openPopupDevis();
-    }, 30000);
+    }, 45000);
 }
 
 
