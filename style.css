@@ -870,6 +870,7 @@ nav.scrolled .dropdown-toggle::after {
     padding-top: 80px; /* Ajustez cette valeur si nécessaire */
 }
 
+
 #hero h1 {
   font-size: 2.2rem;          /* Taille fixe, plus petite et stable */
   font-weight: 700;

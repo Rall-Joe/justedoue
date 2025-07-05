@@ -769,3 +769,7 @@ document.addEventListener('DOMContentLoaded', function () {
       carousel.scrollLeft = scrollLeft - walk;
     });
   });
+
+
+
+  
