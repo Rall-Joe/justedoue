@@ -1,4 +1,5 @@
-/* ========= VARIABLES ========= */
+/* ======================================== VARIABLES GLOBALES ET THÈMES =============================================================== */
+/* Assurez-vous que ces variables sont définies UNE FOIS en haut de votre fichier CSS principal */
 :root {
     --primary: #007bff;
     --primary-dark: #0056b3;
@@ -12,24 +13,88 @@
     --modal-border-color: #cccccc;
     --modal-input-bg-color: #ffffff;
     --primary-rgb: 0, 123, 255; /* Version RGB de la couleur primaire pour les ombres */
-      color-scheme: light;
+    color-scheme: light;
+
+    /* --- Variables spécifiques à la section Projets (Thème Clair) --- */
+    --project-bg-top: var(--bg-alt); /* Haut prend la couleur de votre section supérieure (light) */
+    --project-bg-bottom: var(--primary); /* Bas prend la couleur primaire */
+    --project-card-bg: rgba(255, 255, 255, 0.95); /* Fond de carte blanc presque opaque */
+    --project-text-color: var(--text); /* Utilise la couleur de texte principale */
+    --project-title-color: var(--primary); /* Met le titre en couleur primaire */
+    --project-button-bg: var(--primary);
+    --project-button-hover-bg: var(--primary-dark);
+    --project-image-overlay-color: rgba(0, 0, 0, 0.5); /* Légèrement sombre pour la lisibilité */
+
+        /* Default filter for light theme (no change, or slight adjustments if needed) */
+    --icon-filter: none;
+    /* This filter is applied to icons when the button itself is active or hovered (becomes primary color) */
+    --icon-active-hover-filter: invert(1) grayscale(1) brightness(2); /* Makes dark icons white/light */
 }
 
 [data-theme="dark"] {
     --primary: #007bff;
     --primary-dark: #0056b3;
     --accent: #007bff;
-    --text: #f0f0f0; /* Blanc cassé pour le mode sombre */
-    --text-inverse: #1a1a1a; /* Noir pour le mode sombre (utilisé pour les arrière-plans clairs dans le mode sombre) */
+    --text: #f0f0f0; /* Blanc cassé pour le mode sombre (texte principal sur fonds sombres) */
+    --text-inverse: #ffffff; /* MAINTENU BLANC : Utilisé pour le texte sur fonds sombres/images assombries */
     --bg: #121212; /* Fond sombre */
     --bg-alt: #1e1e1e; /* Fond alternatif sombre */
     /* Variables additionnelles pour les popups en mode sombre */
     --modal-text-light: #cccccc;
     --modal-border-color: #555555;
     --modal-input-bg-color: #2a2a2a;
+
+    /* --- Variables spécifiques à la section Projets (Thème Sombre) --- */
+    --project-bg-top: var(--bg-alt); /* Haut prend la couleur de votre section supérieure (dark) */
+    --project-bg-bottom: var(--primary); /* Bas prend la couleur primaire */
+    --project-card-bg: rgba(30, 30, 30, 0.9); /* Fond de carte sombre légèrement transparent */
+    --project-text-color: var(--text); /* Utilise la couleur de texte principale du thème sombre */
+    --project-title-color: var(--primary); /* Le titre reste en couleur primaire (bleu) */
+    --project-button-bg: var(--primary);
+    --project-button-hover-bg: var(--primary-dark);
+    --project-image-overlay-color: rgba(0, 0, 0, 0.5); /* Plus sombre pour le mode sombre */
+
+    /* === MODIFICATION ICI : L'icône doit TOUJOURS être blanche en mode sombre === */
+    --icon-filter: invert(1) grayscale(1) brightness(2); /* Force l'icône à être blanche/claire */
 }
 
-/* ========= RESET & BASE ========= */
+
+
+/*======================================================PRECHARGEMENT DE LA PAGES ANIMATION ==========================================*/
+
+/* Preloader full-screen */
+#preloader {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Circular spinner */
+.spinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db; /* Change this color to match your brand */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+/* Spin animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+/* ======================================================================= RESET & BASE =================================================== */
 *,
 *::before,
 *::after {
@@ -61,7 +126,7 @@ section {
     padding: 4rem 1.25rem;
 }
 
-/* ========= UTILITAIRES ========= */
+/* =============================================================== UTILITAIRES =============================================================== */
 .container {
     width: 90%;
     max-width: 1200px;
@@ -83,7 +148,14 @@ section {
     transform: translateY(-3px);
 }
 
-/* ========= NAVIGATION ========= */
+
+
+
+
+
+
+
+/* ===================================================================== NAVIGATION ========================================================= */
 nav {
     position: fixed; /* Changé de sticky à fixed pour qu'elle soit toujours en haut et flottante */
     top: 0;
@@ -350,7 +422,7 @@ reste bleu (primaire) dans TOUS les cas, qu'on soit en mode clair ou sombre. */
 }
 
 
-/* ========= MENU DÉROULANT (DROPDOWN) =======*/
+/* =================================================== MENU DÉROULANT (DROPDOWN) ============================================================*/
 /* Dans la section NAVIGATION de votre CSS */
 
 /* Styles pour le bouton de bascule du menu déroulant (dropdown-toggle) */
@@ -525,20 +597,331 @@ nav.scrolled .dropdown-toggle::after {
     }
 }
 
-/* ========= CARROUSEL VIDÉO (SCROLL) ========= */
+
+/* ============================================== STYLE PRESENTATION (Mise à jour complète) ============================================= */
+
+
+.presentation-section {
+    padding: 4rem 1.25rem;
+    background: var(--bg-alt); /* Utilise la couleur de fond alternative du thème */
+    color: var(--text); /* Utilise la couleur de texte par défaut du thème */
+}
+
+.presentation-container {
+    display: flex;
+    flex-wrap: nowrap; /* Empêche le wrapping sur desktop */
+    gap: 2rem;
+    align-items: flex-start; /* Align les éléments en haut */
+    justify-content: center;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-left: 1.5rem;
+    overflow: hidden; /* Important pour les animations de glissement */
+}
+
+/* Le bloc vidéo sur desktop - RESTE CARRÉE (1:1) */
+.presentation-video {
+    flex: 1 1 400px; /* Prend de l'espace sur desktop */
+    max-width: 620px;
+    aspect-ratio: 1 / 1; /* REND LA VIDÉO CARRÉE (1:1) */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    /* Animation pour l'apparition */
+    transform: translateX(-100%); /* Commence hors de l'écran à GAUCHE */
+    opacity: 0;
+    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+}
+
+/* JavaScript class to activate video animation */
+.presentation-video.animate-in {
+    transform: translateX(0); /* Glisse vers la droite (position normale) */
+    opacity: 1;
+}
+
+.presentation-video iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Le bloc de contenu (titre, desc, boutons) sur desktop - PAS DE CHANGEMENT */
+.presentation-content {
+    flex: 1 1 280px; /* Prend de l'espace sur desktop */
+    max-width: 400px;
+    margin-right: 1rem;
+    display: flex;
+    flex-direction: column; /* Titre, desc et boutons empilés sur desktop */
+    gap: 1.5rem;
+    /* Animation pour l'apparition du texte et des boutons */
+    opacity: 0;
+    transform: translateY(20px); /* Commence légèrement en dessous */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transition-delay: 0.2s; /* Délai pour que la vidéo commence à apparaître en premier */
+}
+
+/* JavaScript class to activate content animation */
+.presentation-content.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.presentation-title {
+    margin-bottom: 0; /* Géré par le gap du conteneur parent */
+    color: var(--primary); /* Utilise la couleur primaire du thème */
+    font-size: 2.2rem;
+    line-height: 1.2;
+}
+
+.presentation-desc {
+    margin-bottom: 0; /* Géré par le gap du conteneur parent */
+    line-height: 1.5;
+    font-size: 1.1rem;
+    color: var(--text); /* Utilise la couleur de texte par défaut du thème */
+}
+
+/* Le conteneur des boutons - RESTE VERTICAL SUR DESKTOP */
+.presentation-buttons {
+    display: flex;
+    flex-direction: column; /* Boutons empilés verticalement sur desktop */
+    gap: 1rem;
+}
+
+.presentation-btn {
+    padding: 1rem;
+    border-radius: 12px; /* Coins arrondis par défaut pour desktop */
+    border: 1px solid var(--primary);
+    background: transparent;
+    color: var(--primary);
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    flex-direction: row; /* Icône et texte côte-à-côte à l'intérieur du bouton */
+    align-items: center;
+    gap: 0.75rem;
+    transition: background 0.3s, color 0.3s, border-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    text-align: left;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.presentation-btn.active {
+    background: var(--primary);
+    color: var(--text-inverse);
+    border-color: var(--primary);
+    box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.2);
+    transform: translateY(-2px);
+}
+
+.presentation-btn:hover:not(.active) {
+    background: var(--primary);
+    color: var(--text-inverse);
+    border-color: var(--primary);
+    opacity: 1;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.15);
+}
+
+/* Adjustments for dark mode for non-active buttons */
+[data-theme="dark"] .presentation-btn:not(.active) {
+    border-color: var(--modal-border-color);
+    color: var(--text);
+    background: var(--bg-alt);
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.03);
+}
+
+/* Adjustments for dark mode for non-active buttons on hover */
+[data-theme="dark"] .presentation-btn:hover:not(.active) {
+    background: var(--primary);
+    color: var(--text-inverse);
+    border-color: var(--primary);
+    box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.2);
+}
+
+/* --- MODIFICATION ICI POUR L'ICÔNE --- */
+.btn-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    /* This line applies the filter based on the --icon-filter variable */
+    filter: var(--icon-filter);
+    transition: filter 0.3s ease;
+    align-self: flex-start;
+    margin-top: 0.2rem;
+}
+
+/* When the button is active or hovered, ensure the icon color matches the text-inverse */
+.presentation-btn.active .btn-icon,
+.presentation-btn:hover:not(.active) .btn-icon {
+    /* When the button background changes to primary, the icon should typically invert/change to match text-inverse */
+    /* This filter assumes original icons are dark and need to become light for inverse text */
+    filter: invert(1) grayscale(1) brightness(2); /* Makes dark icons white/light */
+}
+
+/* Specific rule for dark theme, non-active buttons, on hover to ensure icon is primary color */
+[data-theme="dark"] .presentation-btn:hover:not(.active) .btn-icon {
+    /* If your icons are originally light, they might need to be darkened for dark theme hover */
+    /* If they are dark and you want them to be primary color, you'll need to adjust filter */
+    filter: var(--icon-light-mode-filter); /* or a specific filter to make it primary color */
+}
+/* --- FIN DE LA MODIFICATION --- */
+
+
+.btn-content-wrapper {
+    display: flex;
+    flex-direction: column; /* Titre et description empilés verticalement */
+    flex-grow: 1;
+    text-align: left;
+}
+
+.btn-title {
+    font-size: 1.25rem;
+    color: inherit;
+    line-height: 1.2;
+    margin-bottom: 0.2rem;
+}
+
+.btn-desc {
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: inherit;
+    opacity: 0.8;
+    line-height: 1.3;
+}
+
+
+/* ============ RESPONSIVE (Mise à jour complète) ============ */
+/* Keyframe pour l'animation du contenu mobile (texte et boutons) */
+@keyframes fadeInSlideUpMobile {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ============ RESPONSIVE (Mise à jour complète) ============ */
+@media (max-width: 768px) {
+    .presentation-container {
+        flex-direction: column; /* Empile les éléments verticalement sur mobile */
+        align-items: center; /* Centre les éléments */
+        padding-left: 1rem;
+        padding-right: 1rem;
+        gap: 2rem; /* Espace entre les blocs empilés */
+    }
+
+    /* Ordre des éléments sur mobile : Titre, Description, Boutons, Vidéo */
+    .presentation-content {
+        order: 0; /* Le bloc de contenu (titre, desc, boutons) vient en premier */
+        width: 100%;
+        max-width: 100%; /* Prend toute la largeur disponible */
+        margin-right: 0;
+        text-align: center; /* Centre le texte */
+        /* Applique l'animation des keyframes pour un déclenchement automatique au chargement */
+        animation: fadeInSlideUpMobile 0.6s ease-out forwards;
+        animation-delay: 0.2s; /* Même délai que pour le contenu desktop */
+        /* Assurez-vous que ces propriétés ne sont plus définies ici pour ne pas annuler l'animation */
+        /* opacity: 1; */
+        /* transform: translateY(0); */
+        /* transition: none; */
+    }
+
+    .presentation-title,
+    .presentation-desc {
+        text-align: center; /* S'assure que le texte est centré */
+    }
+
+    /* Le conteneur des boutons - MAINTENANT EN CARROUSEL HORIZONTAL SANS BARRE DE DÉFILEMENT */
+    .presentation-buttons {
+        flex-direction: row; /* Les boutons restent horizontaux */
+        flex-wrap: nowrap; /* Empêche le wrapping, force le défilement */
+        overflow-x: auto; /* Active le défilement horizontal */
+        justify-content: flex-start; /* Aligne les boutons au début du défilement */
+        gap: 1rem;
+        margin-top: 1.5rem; /* Espace entre la description et les boutons */
+        padding-bottom: 10px; /* Pour éviter que la barre de défilement ne masque le contenu (ou pour un espace visuel) */
+
+        /* Masque la barre de défilement pour Firefox */
+        scrollbar-width: none;
+        /* Masque la barre de défilement pour Edge, Chrome, Safari */
+        -ms-overflow-style: none; /* IE and Edge */
+        -webkit-overflow-scrolling: touch; /* Pour un défilement fluide sur iOS */
+    }
+
+    /* Masque la barre de défilement pour Webkit (Chrome, Safari, Edge) */
+    .presentation-buttons::-webkit-scrollbar {
+        display: none;
+    }
+
+    .presentation-btn {
+        /* REND LE BOUTON CARRÉ (1:1) ET INCLUS DANS LE CARROUSEL */
+        aspect-ratio: 1 / 1; /* Assure que les côtés sont égaux */
+        flex-shrink: 0; /* Empêche les boutons de rétrécir et assure le défilement */
+        min-width: 140px; /* Largeur minimale pour le contenu dans un bouton carré de carrousel */
+        max-width: 180px; /* Largeur maximale pour les rendre ni trop grands, ni trop petits */
+        padding: 0.75rem; /* Ajuste le padding pour le contenu */
+
+        /* Disposition interne du bouton */
+        flex-direction: column; /* L'icône et le texte s'empilent */
+        align-items: center; /* Centre le contenu du bouton */
+        justify-content: center; /* Centre verticalement le contenu du bouton */
+        gap: 0.5rem; /* Espace entre l'icône et le contenu texte */
+    }
+
+    .btn-icon {
+        width: 40px; /* Taille de l'icône */
+        height: 40px;
+        margin-top: 0;
+        align-self: center; /* CENTRE L'ICÔNE DU BOUTON EN MODE MOBILE */
+    }
+
+    .btn-content-wrapper {
+        text-align: center; /* Centre le texte à l'intérieur du bouton */
+    }
+
+    .presentation-btn .btn-title {
+        font-size: 1rem; /* Taille du titre */
+        margin-bottom: 0.2rem; /* Espace entre titre et description */
+        line-height: 1.2;
+    }
+
+    .presentation-btn .btn-desc {
+        display: block; /* AFFICHE LA DESCRIPTION */
+        font-size: 0.8rem; /* Taille de la description */
+        line-height: 1.2;
+        opacity: 0.9;
+    }
+
+    .presentation-video {
+        order: 1; /* La vidéo vient après le bloc de contenu (titre, desc, boutons) */
+        width: 100%;
+        max-width: 100%;
+        /* L'animation de la vidéo reste gérée par les règles globales et la classe .animate-in (via JS) */
+        /* transform: translateX(0); */
+        /* opacity: 1; */
+        /* transition: none; */
+        aspect-ratio: 1 / 1; /* LA VIDÉO RESTE CARRÉE SUR MOBILE */
+        margin-top: 2rem; /* Ajoute de l'espace au-dessus de la vidéo */
+    }
+
+}
+
 /* ======== BONNE PRATIQUE GLOBALE (à mettre au début de votre CSS si ce n'est pas déjà fait) ======== */
 *, *::before, *::after {
     box-sizing: border-box; /* Assure que le padding et la bordure sont inclus dans la largeur/hauteur totale */
 }
 
 
-/* ========= CARROUSEL : VERSION CORRIGÉE ========= */
+/* ============================================ CARROUSEL : VERSION CORRIGÉE ================================================================ */
 
 .carousel-wrapper {
     position: relative;
     min-height: 400px;
     max-width: 1500px;
-    margin: 0 auto 4rem auto;
+    margin: 0 auto 1rem auto;
     /* Retiré overflow: hidden pour que les ombres des cartes ne soient pas coupées */
 }
 
@@ -682,7 +1065,7 @@ nav.scrolled .dropdown-toggle::after {
     }
 }
 
-/* ========= À PROPOS DE NOUS ========= */
+/* ======================================================================= À PROPOS DE NOUS ===================================================== */
 .about-section {
     position: relative;
     color: var(--text-inverse);
@@ -793,7 +1176,7 @@ nav.scrolled .dropdown-toggle::after {
     }
 }
 
-/* ========= HÉRO (HERO) ========= */
+/* =============================================================== HÉRO (HERO) ============================================================ */
 #hero {
     position: relative;
     /* La nav est fixe maintenant, donc le héros commence bien en haut */
@@ -1120,7 +1503,7 @@ nav.scrolled .dropdown-toggle::after {
 }
 
 
-/* ============ POPUP VIDÉO ==========*/
+/* ==================================================================== POPUP VIDÉO =============================================================*/
 .video-popup {
     display: none;
     position: fixed;
@@ -1159,11 +1542,11 @@ nav.scrolled .dropdown-toggle::after {
     border: none;
 }
 
-/* ========= CONTACT ========= */
+/* =============================================================== CONTACT ======================================================================== */
 .contact-container {
     max-width: 600px;
     margin: 0 auto;
-    padding: 2rem 1rem;
+    padding: 0rem 0rem;
     text-align: center;
 }
 
@@ -1203,7 +1586,7 @@ nav.scrolled .dropdown-toggle::after {
     }
 }
 
-/* ========= PIED DE PAGE (FOOTER) ========= */
+/* ========================================================================== PIED DE PAGE (FOOTER) ===================================================== */
 footer {
     background: var(--bg-alt);
     text-align: center;
@@ -1214,15 +1597,16 @@ footer {
 }
 
 footer a {
-    color: var(--primary);
+    color: var(--text);
     font-weight: 600;
     text-decoration: none;
     transition: color 0.3s;
 }
 
 footer a:hover {
-    color: var(--primary-dark);
+    color: var(--primary);
 }
+
 
 .social-links {
     margin-bottom: 1rem;
@@ -1232,13 +1616,13 @@ footer a:hover {
     display: inline-block;
     margin: 0 12px;
     font-size: 1.4rem;
-    color: var(--primary);
+    color: var(--text);
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .social-links a:hover {
     transform: scale(1.3);
-    color: var(--primary-dark);
+    color: var(--primary);
 }
 
 /* ========= APPARAÎTRE EN DOUCEUR (FADE-IN) ========= */
@@ -1339,7 +1723,7 @@ footer a:hover {
 }
 
 
-/* ========= STYLES DES POPUPS (MODAL & OVERLAY) - SECTION CONSOLIDÉE ET UNIQUE ========= */
+/* ========================================== STYLES DES POPUPS (MODAL & OVERLAY) - SECTION CONSOLIDÉE ET UNIQUE =============================== */
 
 /* Styles pour l'overlay des popups de formulaire (le fond sombre transparent) */
 #popupDevis,
@@ -1499,7 +1883,7 @@ footer a:hover {
     }
 }
 
-/* CSS DE APROPOS DE NOUS*/
+/* ===================================================  PAGE APROPOS DE NOUS ========================================================*/
 
     .section-grid {
       display: flex;
@@ -1655,5 +2039,741 @@ footer a:hover {
 }
 
 
+/* ============ ==============================STYLES GÉNÉRIQUES POUR LES NOUVELLES SECTIONS ============================================= */
+.section-title {
+    text-align: center;
+    font-size: 2.5rem; /* Taille du h2 existant */
+    color: var(--primary); /* Couleur principale comme vos titres */
+    margin-bottom: 1.5rem;
+}
+
+.section-description {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: 3rem; /* Espace sous la description */
+    max-width: 800px;
+    margin-inline: auto;
+    line-height: 1.6;
+}
+
+.section-action {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: var(--primary);
+    color: var(--text-inverse);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s ease, transform 0.2s ease;
+    border: 2px solid var(--primary); /* Ajout d'une bordure pour la cohérence */
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark); /* Assurez-vous d'avoir une variable --primary-dark ou ajustez */
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background: var(--primary);
+    color: var(--text-inverse);
+    transform: translateY(-2px);
+}
+
+/* ======================================================= SECTION ACTUALITES / BLOG - MODIFICATIONS CARROUSEL =============================== */
+.carousel-container {
+    max-width: 1200px;
+    margin-inline: auto;
+    overflow: hidden; /* Ceci est crucial pour masquer les cartes en dehors de la vue */
+    position: relative;
+    padding: 0 1.25rem; /* Ajoute un rembourrage horizontal par défaut */
+    box-sizing: border-box; /* Inclure le rembourrage dans la largeur et la hauteur totales de l'élément */
+}
+
+.news-carousel {
+    display: flex;
+    width: fit-content;
+    /* L'animation par défaut pour desktop est ici */
+    animation: scrollNews 30s linear infinite; /* Ajustez la durée si nécessaire */
+}
+
+/* Mettre l'animation en pause au survol (desktop) */
+.news-carousel:hover {
+    animation-play-state: paused;
+}
+
+.news-card {
+    /* Largeur par défaut pour les grands écrans */
+    flex: 0 0 350px; /* Définir une largeur fixe pour chaque carte et empêcher le rétrécissement/l'agrandissement */
+    margin-right: 2rem; /* Espacement entre les cartes */
+    background: var(--bg-alt);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    scroll-snap-align: start; /* Ajout pour un éventuel défilement "snap" sur mobile */
+}
+
+.news-card:last-child {
+    margin-right: 0; /* Pas de marge sur la dernière carte */
+}
+
+/* Keyframe animation pour un défilement continu */
+@keyframes scrollNews {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%); /* Défilement de la moitié de la largeur du contenu (en supposant un contenu dupliqué) */
+    }
+}
+
+/* Les styles existants pour .news-blog-section, .news-card img, .news-card .card-content, etc., doivent rester les mêmes */
+.news-blog-section {
+    padding: 4rem 1.25rem;
+    background: var(--bg);
+    color: var(--text);
+}
+
+.news-card img {
+    width: 100%;
+    height: 220px; /* Garde la hauteur pour desktop */
+    object-fit: cover;
+    display: block;
+}
+
+.news-card .card-content {
+    padding: 1.5rem;
+}
+
+.news-card h3 {
+    font-size: 1.4rem;
+    color: var(--heading);
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+}
+
+.news-card p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.news-card .read-more-btn {
+    display: inline-flex;
+    align-items: center;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.news-card .read-more-btn:hover {
+    color: var(--primary-dark);
+}
+
+.news-card .read-more-btn .fas {
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.news-card .read-more-btn:hover .fas {
+    transform: translateX(5px);
+}
+
+/* --- Ajustements Responsifs Spécifiques pour Mobile --- */
+
+/* Pour les tablettes et les écrans plus petits (jusqu'à 992px) */
+@media (max-width: 992px) {
+    .news-card {
+        flex: 0 0 300px; /* Largeur légèrement réduite pour les tablettes */
+        margin-right: 1.5rem;
+    }
+    .news-card img {
+        height: 200px; /* Hauteur légèrement réduite de l'image */
+    }
+}
+
+/* Pour les appareils mobiles (jusqu'à 768px et moins) */
+@media (max-width: 768px) {
+    .news-blog-section {
+        padding: 2rem 0; /* Réduit le padding vertical de la section */
+    }
+
+    .carousel-container {
+        padding: 0 1rem; /* Padding des côtés pour ne pas coller les bords */
+        overflow-x: scroll; /* Permet le défilement manuel horizontal */
+        scroll-snap-type: x mandatory; /* Force le snap aux cartes */
+        -webkit-overflow-scrolling: touch; /* Améliore le défilement sur iOS */
+
+        /* --- Masquage de la barre de défilement --- */
+        -ms-overflow-style: none; /* Pour Internet Explorer et Edge */
+        scrollbar-width: none; /* Pour Firefox */
+    }
+
+    /* Pour Chrome, Safari et Opera */
+    .carousel-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .news-carousel {
+        width: 100%; /* La largeur est gérée par les flex-basis des cartes */
+        animation: none; /* Désactive l'animation de défilement automatique ! */
+        -webkit-animation: none;
+        justify-content: flex-start; /* Aligne les cartes au début */
+    }
+
+    .news-carousel:hover {
+        animation-play-state: running; /* Inutile car animation: none, mais bonne pratique */
+    }
+
+    .news-card {
+        flex: 0 0 calc(100% - 2rem); /* 100% de la largeur du conteneur - 2rem (1rem à gauche, 1rem à droite pour les margins ou padding du container) */
+        margin-right: 1rem; /* Marge pour l'espace entre les cartes visibles lors du défilement */
+    }
+
+    .news-card:last-child {
+        margin-right: 1rem; /* Ajoute aussi une marge à la dernière carte pour éviter qu'elle colle au bord du scroll */
+    }
+
+    .news-card img {
+        height: 180px; /* Hauteur de l'image ajustée pour mobile */
+    }
+    .news-card .card-content {
+        padding: 1rem; /* Réduit le padding interne de la carte */
+    }
+    .news-card h3 {
+        font-size: 1.15rem; /* Ajuste la taille du titre */
+        margin-bottom: 0.6rem;
+    }
+    .news-card p {
+        font-size: 0.9rem; /* Ajuste la taille du paragraphe */
+        margin-bottom: 1.2rem;
+    }
+    .news-card .read-more-btn {
+        font-size: 0.85rem; /* Ajuste la taille du bouton "Lire la suite" */
+    }
+}
+
+/* Pour les très petits mobiles (jusqu'à 480px) */
+@media (max-width: 480px) {
+    .carousel-container {
+        padding: 0 0.5rem; /* Padding encore plus réduit pour les très petits écrans */
+    }
+    .news-card {
+        flex: 0 0 calc(100% - 1rem); /* 100% de la largeur du conteneur - 1rem (0.5rem à gauche, 0.5rem à droite) */
+        margin-right: 0.5rem; /* Marge minimale */
+    }
+    .news-card img {
+        height: 150px; /* Hauteur d'image encore plus petite */
+    }
+    .news-card .card-content {
+        padding: 0.8rem; /* Padding interne très réduit */
+    }
+    .news-card h3 {
+        font-size: 1.05rem;
+    }
+    .news-card p {
+        font-size: 0.8rem;
+    }
+}
+/* ========================================================================== SECTION FAQ ================================================== */
+.faq-section {
+    padding: 4rem 1.25rem;
+    background: var(--bg);
+    color: var(--text);
+}
+
+.faq-list {
+    max-width: 800px;
+    margin-inline: auto;
+}
+
+.faq-item {
+    margin-bottom: 1.2rem;
+    border: 1px solid var(--border); /* Couleur de bordure pour les éléments */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 1.2rem 1.5rem;
+    background: var(--bg-alt); /* Fond pour la question */
+    color: var(--heading);
+    font-size: 1.15rem;
+    font-weight: 600;
+    text-align: left;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.faq-question:hover,
+.faq-question.active {
+    background: var(--primary-light); /* Couleur primaire plus claire au survol/actif */
+    color: var(--primary-dark); /* Texte plus foncé sur le fond clair */
+}
+
+.faq-question .fas {
+    margin-left: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.faq-question.active .fas {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    padding: 0 1.5rem;
+    background: var(--bg); /* Fond pour la réponse */
+    color: var(--text-secondary);
+    max-height: 0; /* Cache la réponse par défaut */
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+}
+
+.faq-answer p {
+    padding-bottom: 1.2rem; /* Espace sous le paragraphe de la réponse */
+    line-height: 1.6;
+}
+
+/* JavaScript pour ouvrir/fermer l'accordéon */
+.faq-answer.open {
+    max-height: 200px; /* Hauteur max arbitraire, ajustez si vos réponses sont très longues */
+    padding-top: 1.2rem;
+}
 
 
+/* ===================================================================== SECTION PARTENAIRES ============================================== */
+.partners-section {
+    padding: 4rem 1.25rem;
+    background: var(--bg-alt);
+    color: var(--text);
+}
+
+.partners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    align-items: center;
+    justify-items: center; /* Centre les logos dans leur cellule */
+    max-width: 1200px;
+    margin-inline: auto;
+}
+
+.partner-logo {
+    padding: 1rem;
+    /* Optional: background: var(--bg); */ /* Ajoutez un fond si vous voulez */
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.partner-logo:hover {
+    transform: scale(1.05);
+}
+
+.partner-logo img {
+    max-width: 100%;
+    height: auto;
+    max-height: 80px; /* Hauteur maximale pour les logos */
+    object-fit: contain;
+    /* Pour s'adapter aux thèmes sombres si les logos sont clairs */
+    filter: var(--partner-logo-filter, none);
+}
+
+:root {
+    --partner-logo-filter: none;
+}
+
+[data-theme="dark"] {
+    /* Si vos logos sont clairs et doivent être assombris en mode sombre */
+    /* --partner-logo-filter: brightness(0.8) contrast(1.2); */
+}
+
+
+/* ======================================================= SECTION APPEL A L'ACTION / SERVICE PHARE ======================================== */
+.cta-service-highlight-section {
+    padding: 4rem 1.25rem;
+    background: var(--primary); /* Fond avec votre couleur primaire pour un impact maximum */
+    color: var(--text-inverse); /* Texte blanc/noir selon le thème inverse */
+    text-align: center;
+}
+
+.cta-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    max-width: 900px;
+    margin-inline: auto;
+}
+
+.cta-icon-wrapper {
+    font-size: 4rem; /* Grande taille pour l'icône */
+    color: var(--text-inverse); /* Couleur de l'icône */
+    margin-bottom: 1rem;
+}
+
+.cta-icon-wrapper .cta-icon { /* Si vous utilisez une image PNG pour l'icône */
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    filter: invert(1); /* Pour les icônes blanches sur fond coloré */
+}
+
+.cta-title {
+    font-size: 2.2rem;
+    color: var(--text-inverse);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.cta-description {
+    font-size: 1.1rem;
+    color: var(--text-inverse);
+    opacity: 0.9;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.cta-button {
+    background: var(--text-inverse); /* Bouton inversé pour se démarquer */
+    color: var(--primary);
+    border: 2px solid var(--text-inverse);
+    padding: 1rem 2.5rem;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.cta-button:hover {
+    background: var(--primary-dark); /* Effet au survol du bouton */
+    color: var(--text-inverse);
+    transform: translateY(-3px);
+}
+
+/* ============ RESPONSIVE AJOUTÉES ============ */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .section-description {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    /* Actualités */
+    .news-grid {
+        grid-template-columns: 1fr; /* Une seule colonne sur mobile */
+    }
+
+    /* Projets en cours */
+    .projets-grid {
+        grid-template-columns: 1fr; /* Une seule colonne sur mobile */
+    }
+
+    /* FAQ */
+    .faq-question {
+        font-size: 1rem;
+        padding: 1rem;
+    }
+
+    .faq-answer p {
+        font-size: 0.9rem;
+        padding-bottom: 1rem;
+    }
+
+    /* Partenaires */
+    .partners-grid {
+        grid-template-columns: repeat(2, 1fr); /* Deux colonnes sur mobile */
+    }
+
+    /* CTA */
+    .cta-title {
+        font-size: 1.8rem;
+    }
+
+    .cta-description {
+        font-size: 1rem;
+    }
+
+    .cta-button {
+        font-size: 1rem;
+        padding: 0.8rem 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Partenaires */
+    .partners-grid {
+        grid-template-columns: 1fr; /* Une seule colonne sur très petits écrans */
+    }
+}
+
+
+/* ============================================================ SECTION PROJETS EN COURS ================================================= */
+.current-project-section {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column; /* Permet le placement du titre au-dessus de la carte */
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding-bottom: 4rem; /* Ajout d'un padding au bas de la section pour l'espace */
+    
+    /* Marge supérieure réduite et styles d'animation */
+    padding-top: 4rem; /* Marge supérieure réduite pour rapprocher la section */
+    opacity: 0; /* Commence invisible pour l'animation */
+    transform: translateY(30px); /* Commence légèrement décalé vers le bas */
+    transition: opacity 1s ease-out, transform 1s ease-out; /* Douceur de l'animation */
+}
+
+/* Classe ajoutée par JavaScript lorsque la section est visible */
+.current-project-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.project-bg-split {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--project-bg-top) 50%, var(--project-bg-bottom) 50%);
+    z-index: 1;
+}
+
+/* --- Style du nouveau titre de section --- */
+.section-heading {
+    text-align: center;
+    font-size: 2.8rem;
+    margin-bottom: 3rem; /* Espace sous le titre */
+    color: var(--text); /* S'adapte au thème */
+    z-index: 2; /* S'assure qu'il est au-dessus du fond */
+    position: relative; /* Nécessaire pour z-index */
+    padding-top: 0; /* Supprimé le padding ici, il est géré par la section parente */
+    width: 100%; /* S'assure qu'il prend toute la largeur pour le centrage */
+    max-width: 1200px; /* Aligne avec la largeur max de la carte si désiré */
+}
+
+/* Ajustements pour le thème sombre si le texte du titre doit être différent */
+[data-theme="dark"] .section-heading {
+    color: var(--text); /* Si --text s'adapte déjà, c'est bon */
+    /* Alternative si vous voulez une couleur contrastante sur le primary du bas: */
+    /* color: var(--text-inverse); */
+}
+/* --- Fin du style du nouveau titre --- */
+
+
+.project-content-wrapper {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1200px; /* Largeur de la carte */
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+.project-card {
+    background: var(--project-card-bg);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    color: var(--project-text-color);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.project-card.fade-out {
+    opacity: 0;
+    transform: translateY(20px);
+}
+.project-card.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.project-image-overlay {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    display: block;
+    min-height: 500px; /* Hauteur de la carte */
+
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.05);
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--project-image-overlay-color);
+        z-index: 1;
+    }
+}
+
+.project-image-blurred {
+    display: none;
+}
+
+.project-details {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 2;
+    color: var(--text-inverse); /* Ce texte restera blanc grâce à la modification ci-dessus */
+}
+
+.project-logo {
+    max-width: 80px;
+    height: auto;
+    margin-bottom: 1.5rem;
+}
+
+.project-title {
+    font-size: 2.2rem;
+    color: var(--text-inverse); /* Ce titre restera blanc */
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.project-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.8rem;
+    color: var(--text-inverse); /* Cette description restera blanche */
+}
+
+.project-learn-more {
+    display: inline-block;
+    padding: 0.8rem 1.8rem;
+    background-color: var(--project-button-bg);
+    color: var(--text-inverse); /* Ce bouton texte restera blanc */
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.project-learn-more:hover {
+    background-color: var(--project-button-hover-bg);
+}
+
+
+/* --- Ajustements Responsifs --- */
+@media (max-width: 768px) {
+    .current-project-section {
+        min-height: 100vh;
+        padding: 3rem 0 2rem 0; /* Haut, Droite, Bas, Gauche */
+    }
+
+    .section-heading {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        padding-top: 0;
+    }
+
+    .project-card {
+        display: block;
+        height: 60vh;
+    }
+
+    .project-image-overlay {
+        height: 100%;
+        width: 100%;
+        min-height: unset;
+    }
+
+    .project-details {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 1.5rem;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        color: var(--text-inverse);
+    }
+
+    .project-logo {
+        max-width: 60px;
+        margin-bottom: 1rem;
+    }
+
+    .project-title {
+        font-size: 1.8rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .project-description {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .project-learn-more {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-heading {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        padding-top: 0;
+    }
+    .project-card {
+        margin: 0 1rem;
+        height: 70vh;
+    }
+    .project-details {
+        padding: 1rem;
+    }
+    .project-title {
+        font-size: 1.5rem;
+    }
+    .project-description {
+        font-size: 0.9rem;
+    }
+}

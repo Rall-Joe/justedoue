@@ -30,6 +30,12 @@
 </head>
 <body>
 
+  <!-- Preloader -->
+<div id="preloader">
+  <div class="spinner"></div>
+</div>
+
+
    <!-- ================ NAVIGATION ================= -->
 <nav id="main-nav">
   <div class="container nav-wrapper">
@@ -50,12 +56,16 @@
 
       <!-- Menu déroulant À propos -->
       <div class="nav-link dropdown">
-        <a>À propos <i class="fas fa-chevron-down"></i></a>
-        <div class="dropdown-menu">
-          <a href="index.html#realisations">Qu'avons nous fait ?</a>
-          <a href="index.html#about">Qui sommes nous ?</a>
-          <a href="index.html#contact">Contact</a>
-        </div>
+        <a class="nav-link">Navigation <i class="fas fa-chevron-down"></i></a>
+                <div class="dropdown-menu">
+                    <a href="index.html#presentation">Presentation</a>
+                    <a href="index.html#realisations">Réalisations</a>
+                    <a href="index.html#projets-en-cours">Projet en Cours</a>
+                    <a href="index.html#actualites">Actualités</a>
+                    <a href="index.html#about">Juste Doué</a>
+                    <a href="index.html#faq-section">F.A.Q</a>
+                    <a href="index.html#contact">Contact</a>
+                </div>
       </div>
 
       <a href="#hero" class="nav-link" data-page="services">Services</a>
@@ -85,7 +95,7 @@
 
     
 
-<section class="service-row fade-in">
+<section class="service-row fade-in" id="service_logo">
 
   <div class="service-image">
     <a href="https://www.youtube.com/embed/gza5-1e0IY4" class="youtube-popup">
@@ -101,7 +111,7 @@
 
 
 
-<section class="service-row fade-in">
+<section class="service-row fade-in" id="service_charte_graphique">
     <div class="service-image">
       <a href="https://www.youtube.com/embed/2RO44hoGdlE" class="youtube-popup">
       <img src="https://img.youtube.com/vi/2RO44hoGdlE/0.jpg" alt="Voir la vidéo : Création de logo">

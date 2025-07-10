@@ -1,3 +1,19 @@
+
+// ================== PRECHARGEGEMENT DES ELEMENT DES PAGES ==================
+
+  // Attendre que tout soit chargé
+  window.addEventListener('load', function() {
+    const preloader = document.getElementById('preloader');
+    preloader.style.opacity = '0';
+    preloader.style.transition = 'opacity 0.5s ease';
+
+    // Retirer le preloader après la transition
+    setTimeout(function() {
+      preloader.style.display = 'none';
+    }, 500);
+  })
+
+
 // ================== INITIALISATION GÉNÉRALE DU DOM ==================
 document.addEventListener("DOMContentLoaded", () => {
     // ================== BURGER MENU ET NAVIGATION ==================
@@ -418,6 +434,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 
 // ============= FIREBASE INITIALIZATION ========================
 // Assurez-vous que les scripts Firebase sont chargés AVANT script.js dans votre HTML
+
 const firebaseConfig = {
     apiKey: "AIzaSyAH1qXpnLYr92FWoPzrcCwz1o9TXt1L-78",
     authDomain: "juste-doue-98c22.firebaseapp.com",
@@ -772,4 +789,274 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-  
+  //PRESENTATION
+
+// Existing JavaScript for buttons
+const btns = document.querySelectorAll('.presentation-btn');
+const iframe = document.getElementById('video-player');
+
+btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Retirer la classe active de tous les boutons
+        btns.forEach(b => {
+            b.classList.remove('active');
+            // Ces styles sont maintenant gérés par CSS en fonction de .active et du thème
+            // b.style.background = 'transparent';
+            // b.style.color = 'var(--primary)';
+            // b.querySelector('small').style.color = 'var(--primary)';
+            // b.style.borderColor = 'var(--primary)';
+        });
+
+        // Ajouter la classe active au bouton cliqué
+        btn.classList.add('active');
+        // Les styles correspondants sont gérés par CSS
+
+        // Changer la vidéo dans l'iframe
+        const videoId = btn.getAttribute('data-video');
+        // Assurez-vous que l'URL YouTube est correcte, il manquait un '/' après youtube.com
+        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&rel=0`;
+    });
+});
+
+// --- NEW JAVASCRIPT FOR ANIMATIONS ---
+const presentationSection = document.getElementById('presentation');
+const presentationVideo = document.querySelector('.presentation-video');
+const presentationContent = document.querySelector('.presentation-content');
+
+const observerOptions = {
+    root: null, // viewport as the root
+    rootMargin: '0px',
+    threshold: 0.3 // Trigger when 30% of the section is visible
+};
+
+const presentationObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            presentationVideo.classList.add('animate-in');
+            presentationContent.classList.add('animate-in');
+            observer.unobserve(entry.target); // Stop observing once animated
+        }
+    });
+}, observerOptions);
+
+if (presentationSection) {
+    presentationObserver.observe(presentationSection);
+}
+
+// Initial active button setup (to ensure the first button is active on load)
+document.addEventListener('DOMContentLoaded', () => {
+    const initialActiveBtn = document.querySelector('.presentation-btn.active');
+    if (initialActiveBtn) {
+        // Simulate a click or manually apply styles if needed
+        // For now, the CSS handles initial .active state
+        // If you want the first video to load on page load:
+        const initialVideoId = initialActiveBtn.getAttribute('data-video');
+        iframe.src = `https://www.youtube.com/embed/${initialVideoId}?autoplay=1&mute=1&rel=0`;
+    }
+});
+
+
+//F.A.Q
+
+document.addEventListener('DOMContentLoaded', () => {
+    // ... votre code JS existant ...
+
+    // --- Fonctionnalité FAQ ---
+    const faqQuestions = document.querySelectorAll('.faq-question');
+
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+            const answer = question.nextElementSibling; // L'élément div.faq-answer
+            
+            // Ferme toutes les autres réponses ouvertes
+            faqQuestions.forEach(otherQuestion => {
+                if (otherQuestion !== question && otherQuestion.classList.contains('active')) {
+                    otherQuestion.classList.remove('active');
+                    otherQuestion.nextElementSibling.classList.remove('open');
+                    otherQuestion.nextElementSibling.style.maxHeight = '0';
+                    otherQuestion.nextElementSibling.style.paddingTop = '0';
+                    otherQuestion.nextElementSibling.style.paddingBottom = '0';
+                }
+            });
+
+            // Bascule la réponse cliquée
+            question.classList.toggle('active');
+            if (answer.classList.contains('open')) {
+                answer.classList.remove('open');
+                answer.style.maxHeight = '0';
+                answer.style.paddingTop = '0';
+                answer.style.paddingBottom = '0';
+            } else {
+                answer.classList.add('open');
+                // Définit la hauteur maximale de manière dynamique ou une valeur suffisante
+                answer.style.maxHeight = answer.scrollHeight + 'px'; // S'adapte au contenu
+                answer.style.paddingTop = '1.2rem';
+                answer.style.paddingBottom = '1.2rem';
+            }
+        });
+    });
+});
+
+
+//=========ACTUALITES=============
+document.addEventListener('DOMContentLoaded', function() {
+        const carousel = document.querySelector('.news-carousel');
+        const carouselContainer = document.querySelector('.carousel-container');
+        const newsCards = document.querySelectorAll('.news-card');
+
+        if (!carousel || newsCards.length === 0) return;
+
+        // Duplicate cards for seamless looping
+        const originalContent = carousel.innerHTML;
+        carousel.innerHTML += originalContent; // Duplicate once
+
+        let scrollAmount = 0;
+        const cardWidth = newsCards[0].offsetWidth + (parseFloat(getComputedStyle(newsCards[0]).marginRight)); // Card width + margin
+
+        // Function to scroll the carousel
+        function autoScroll() {
+            scrollAmount += 1; // Adjust scroll speed here
+            carousel.style.transform = `translateX(-${scrollAmount}px)`;
+
+            // If we've scrolled past the original content, reset
+            if (scrollAmount >= carousel.scrollWidth / 2) {
+                scrollAmount = 0;
+            }
+        }
+
+        // Set interval for continuous scrolling
+        let scrollInterval = setInterval(autoScroll, 20); // Adjust interval for smoother or faster scroll
+
+        // Pause on hover
+        carouselContainer.addEventListener('mouseenter', () => {
+            clearInterval(scrollInterval);
+        });
+
+        carouselContainer.addEventListener('mouseleave', () => {
+            scrollInterval = setInterval(autoScroll, 20);
+        });
+    });
+
+    //============PROJET EN COURS
+
+        document.addEventListener('DOMContentLoaded', function() {
+        const projectImageOverlay = document.querySelector('.project-image-overlay'); // Cible l'overlay
+        const projectImageBlurred = document.querySelector('.project-image-blurred'); // Garde pour le src
+        const projectLogo = document.querySelector('.project-logo');
+        const projectTitle = document.querySelector('.project-title');
+        const projectDescription = document.querySelector('.project-description');
+        const projectLearnMoreBtn = document.querySelector('.project-learn-more');
+        const projectCard = document.querySelector('.project-card');
+
+        // Votre liste de projets
+        const projects = [
+            {
+                image: 'images/projet/garnison/fond.png',
+                logo: 'images/projet/garnison/logo.png',
+                title: 'Garnison des prophètes Web',
+                description: 'Site vitrine des l\'asbl Garnison de prophètes avec le prophète DjoGRACE.',
+                link: '#project-alpha'
+            },
+            {
+                image: 'images/projet/tekasoft/fond.png',
+                logo: 'images/projet/tekasoft/logo.png',
+                title: 'TekaSoft',
+                description: 'Application  de gestion total de restaurant avec services. Avec connexion Administrateur, Guichetier, Caissier, Gestionnaire de stock, Cuisine et Ventes de services',
+                link: '#project-beta'
+            },
+            {
+                image: 'images/projet/transnumerica/fond.png',
+                logo: 'images/projet/transnumerica/logo.png',
+                title: 'Transnulerica Sarl',
+                description: 'une plateforme numérique, specialisée dans la prestation des services en ligne en matière de réservations, achats et paiements securisés par mobile money et autres dans les secteurs du transports, du tourisme et de l\'hôtellerie en RDC et dans les pays partenaires.',
+                link: '#project-gamma'
+            }
+            // Ajoutez autant de projets que vous le souhaitez ici
+        ];
+
+        let currentProjectIndex = 0;
+        const displayDuration = 15000; // 10 secondes
+
+        function updateProjectContent() {
+            const project = projects[currentProjectIndex];
+
+            projectCard.classList.add('fade-out');
+            projectCard.classList.remove('fade-in');
+
+            setTimeout(() => {
+                // Changer l'image en tant que background-image de l'overlay
+                projectImageOverlay.style.backgroundImage = `url('${project.image}')`;
+                // Mettre à jour l'alt de l'image <img> pour l'accessibilité si elle était visible, ou pour référence
+                projectImageBlurred.alt = project.title + " Image"; // L'élément <img> est masqué par CSS
+
+                projectLogo.src = project.logo;
+                projectLogo.alt = project.title + " Logo";
+                projectTitle.textContent = project.title;
+                projectDescription.textContent = project.description;
+                projectLearnMoreBtn.href = project.link;
+
+                projectCard.classList.remove('fade-out');
+                projectCard.classList.add('fade-in');
+            }, 500);
+
+            currentProjectIndex = (currentProjectIndex + 1) % projects.length;
+        }
+
+        // Initialiser avec le premier projet (et s'assurer qu'il a l'effet fade-in au chargement)
+        setTimeout(() => {
+            updateProjectContent();
+            projectCard.classList.add('fade-in');
+        }, 100);
+
+        setInterval(updateProjectContent, displayDuration);
+    });
+
+      //Animation apprition pendant le scroll
+
+      document.addEventListener('DOMContentLoaded', function() {
+    const projectSection = document.querySelector('.current-project-section');
+
+    // Options pour l'Intersection Observer
+    const observerOptions = {
+        root: null, // utilise le viewport comme racine
+        rootMargin: '0px', // pas de marge autour du viewport
+        threshold: 0.1 // L'élément est visible à 10%
+    };
+
+    // Callback qui s'exécute lorsque l'intersection change
+    const observerCallback = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Si la section est visible dans le viewport
+                projectSection.classList.add('is-visible');
+                // Optionnel: Arrêtez d'observer une fois que l'animation a eu lieu
+                observer.unobserve(projectSection);
+            }
+        });
+    };
+
+    // Crée l'instance de l'Intersection Observer
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // Commence à observer la section
+    observer.observe(projectSection);
+});
+
+//================================SECURITÉS MINIMALE EMPECHER CERTAINE TOUCHE ET CLIQUE DROIT =============================================
+
+// Empêche clic droit
+document.addEventListener("contextmenu", function(e){
+  e.preventDefault();
+}, false);
+
+// Empêche F12 et raccourcis classiques pour outils dev
+document.addEventListener("keydown", function(e) {
+  if (
+    e.key === "F12" || 
+    (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C")) ||
+    (e.ctrlKey && e.key === "U")
+  ) {
+    e.preventDefault();
+    alert("Action non autorisée !");
+  }
+});
