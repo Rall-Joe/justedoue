@@ -789,74 +789,107 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-  //PRESENTATION
+ // PRESENTATION
 
-// Existing JavaScript for buttons
+// JavaScript existant pour les boutons
 const btns = document.querySelectorAll('.presentation-btn');
-const iframe = document.getElementById('video-player');
+const iframe = document.getElementById('video-player'); // Assurez-vous que cet iframe existe dans votre HTML avec cet ID
 
 btns.forEach(btn => {
     btn.addEventListener('click', () => {
-        // Retirer la classe active de tous les boutons
+        // Retirer la classe 'active' de tous les boutons
         btns.forEach(b => {
             b.classList.remove('active');
-            // Ces styles sont maintenant gérés par CSS en fonction de .active et du thème
-            // b.style.background = 'transparent';
-            // b.style.color = 'var(--primary)';
-            // b.querySelector('small').style.color = 'var(--primary)';
-            // b.style.borderColor = 'var(--primary)';
         });
 
-        // Ajouter la classe active au bouton cliqué
+        // Ajouter la classe 'active' au bouton cliqué
         btn.classList.add('active');
-        // Les styles correspondants sont gérés par CSS
 
         // Changer la vidéo dans l'iframe
         const videoId = btn.getAttribute('data-video');
-        // Assurez-vous que l'URL YouTube est correcte, il manquait un '/' après youtube.com
-        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&rel=0`;
+        // Assurez-vous que l'URL YouTube est correcte.
+        // Les paramètres 'autoplay=1' et 'mute=1' sont inclus pour une meilleure expérience utilisateur et la conformité des navigateurs.
+        // 'rel=0' empêche d'afficher des vidéos liées à la fin.
+        // 'enablejsapi=1' est essentiel pour contrôler la vidéo via JavaScript (play/pause).
+        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&rel=0&enablejsapi=1`;
     });
 });
 
-// --- NEW JAVASCRIPT FOR ANIMATIONS ---
+// --- NOUVEAU JAVASCRIPT POUR LES ANIMATIONS ET LE LECTEUR VIDÉO ---
 const presentationSection = document.getElementById('presentation');
 const presentationVideo = document.querySelector('.presentation-video');
 const presentationContent = document.querySelector('.presentation-content');
 
+// Variable pour suivre l'URL de la vidéo actuellement chargée afin d'éviter les rechargements inutiles
+let currentVideoSrc = '';
+
 const observerOptions = {
-    root: null, // viewport as the root
+    root: null, // Utilise la fenêtre (viewport) comme racine
     rootMargin: '0px',
-    threshold: 0.3 // Trigger when 30% of the section is visible
+    threshold: 0.3 // Déclenche lorsque 30% de la section est visible
 };
 
 const presentationObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
+            // La section est visible
             presentationVideo.classList.add('animate-in');
             presentationContent.classList.add('animate-in');
-            observer.unobserve(entry.target); // Stop observing once animated
+
+            // Récupérer le bouton actif pour obtenir la vidéo à lire
+            const activeBtn = document.querySelector('.presentation-btn.active');
+            if (activeBtn) {
+                const videoId = activeBtn.getAttribute('data-video');
+                const newSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&rel=0&enablejsapi=1`;
+
+                // Si l'iframe n'a pas encore cette source ou si elle est vide
+                if (iframe.src !== newSrc || iframe.src === 'about:blank' || iframe.src === '') {
+                    iframe.src = newSrc; // Charge la nouvelle vidéo et la démarre
+                    currentVideoSrc = newSrc; // Met à jour la variable de suivi
+                } else {
+                    // Si la vidéo est déjà chargée, essayez de la rejouer (si elle était en pause)
+                    // Utilise l'API YouTube IFrame Player pour envoyer des commandes
+                    if (iframe.contentWindow && typeof iframe.contentWindow.postMessage === 'function') {
+                         iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                    }
+                }
+            }
+
+        } else {
+            // La section n'est PAS visible
+            // Mettre la vidéo en pause
+            if (iframe.src !== '' && iframe.src !== 'about:blank') { // Seulement si une vidéo est chargée
+                // Utilise l'API YouTube IFrame Player pour envoyer des commandes
+                if (iframe.contentWindow && typeof iframe.contentWindow.postMessage === 'function') {
+                    iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                }
+            }
         }
     });
 }, observerOptions);
 
+// Lancer l'observation de la section de présentation
 if (presentationSection) {
     presentationObserver.observe(presentationSection);
 }
 
-// Initial active button setup (to ensure the first button is active on load)
+// Configuration initiale du bouton actif (pour s'assurer qu'un bouton est actif au chargement)
 document.addEventListener('DOMContentLoaded', () => {
     const initialActiveBtn = document.querySelector('.presentation-btn.active');
     if (initialActiveBtn) {
-        // Simulate a click or manually apply styles if needed
-        // For now, the CSS handles initial .active state
-        // If you want the first video to load on page load:
-        const initialVideoId = initialActiveBtn.getAttribute('data-video');
-        iframe.src = `https://www.youtube.com/embed/${initialVideoId}?autoplay=1&mute=1&rel=0`;
+        // Le chargement et la lecture de la vidéo sont maintenant gérés par l'IntersectionObserver.
+        // Ici, nous nous assurons juste que le bouton correct est marqué comme actif.
+    } else {
+        // Si aucun bouton n'a la classe 'active' au départ, activez le premier
+        const firstBtn = document.querySelector('.presentation-btn');
+        if (firstBtn) {
+            firstBtn.classList.add('active');
+        }
     }
 });
 
 
-//F.A.Q
+// FAQ (Votre code existant pour la FAQ, non modifié)
 
 document.addEventListener('DOMContentLoaded', () => {
     // ... votre code JS existant ...
@@ -867,7 +900,7 @@ document.addEventListener('DOMContentLoaded', () => {
     faqQuestions.forEach(question => {
         question.addEventListener('click', () => {
             const answer = question.nextElementSibling; // L'élément div.faq-answer
-            
+
             // Ferme toutes les autres réponses ouvertes
             faqQuestions.forEach(otherQuestion => {
                 if (otherQuestion !== question && otherQuestion.classList.contains('active')) {
